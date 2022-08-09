@@ -1,0 +1,249 @@
+# Correlation
+
+## What is correlation?
+
+When conducting empirical research we are often interested in associations between two variables, e.g. personal income and attitudes towards migrants. In this lab we will focus on visualizing relationships among variables and how to measure them. In quantitative research, the main variable of interest in an analysis is called the _dependent_ or _response variable_, and the second is known as the _independent_ or _explanatory_. In the example here, we can think of personal income as the independent variable and attitudes as the dependent.
+
+The relationship between variables can be positive, negative or non-existent. The figure below shows these type of relationships to different extents. The association is positive when one of the variables increases and the second variable tends to go in the same direction (that is increasing as well). The first plot on the left-hand side shows a strong positive relationship. As you can see, the points are closely clustered around the straight line. The next plot also shows a positive relationship. This time the relationship is moderate. Therefore, the points are more dispersed in relation to the line compared to the previous one.
+
+The plot in the middle, shows two variables that are not correlated. The location of the points is not following any pattern and the line is flat. By contrast, the last two plots on the right hand-side show a negative relationship. When the values on the X axis increase, the values on the Y axis tend to decrease.
+
+<br>
+
+```{r fig.width=12, fig.height=3, echo = FALSE, fig.cap="\\label{fig:figs} Types of correlation"}
+#library(MASS)
+library(tidyverse)
+
+# Create fake data set
+set.seed(3)
+samples = 100
+mu = 40
+cor_fake = as.data.frame(
+  cbind(
+    # positive strong
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, .9, .9, 1), nrow=2), 
+      empirical=TRUE),
+    # positive moderate
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, .55, .55, 1), nrow=2), 
+      empirical=TRUE),
+    # no correlation
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, 0, 0, 1), nrow=2), 
+      empirical=TRUE),
+    # negative moderate
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, -.55, -.55, 1), nrow=2), 
+      empirical=TRUE),
+    # negative strong
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, -.90, -.90, 1), nrow=2), 
+      empirical=TRUE)
+    )
+  )
+# set variables df
+variables <- matrix(noquote(names(cor_fake)), ncol = 2, byrow = TRUE)
+variables <- data.frame(title = c("Strong \npositive", "Moderate \npossitive", "No \ncorrelation", "Moderate \nnegative", "Strong \nnegative"),
+            as.data.frame(variables))
+# function to plot x-y correlation
+xy_plot <- function(x_var, y_var, title){
+  ggplot(cor_fake, aes_string(x=x_var, y=y_var), inherit.aes = FALSE) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, colour="red") +
+    labs(x = "X", y = "Y") +
+    scale_y_continuous(limits = c(37, 43)) +
+    scale_x_continuous(limits = c(37, 43)) +
+    theme_classic() +
+    ggtitle(title) +
+    theme(plot.title = element_text(size=14)
+          )
+  }
+# plot grid
+xy_plots <- lapply(1:nrow(variables), function(i) xy_plot(variables[i, 2], variables[i, 3], variables[i, 1]))
+cowplot::plot_grid(plotlist = xy_plots, nrow = 1)
+```
+
+### Data and R environment
+
+We will continue working on the same R Studio Cloud project as in the previous session and using the 2012 [Northern Ireland Life and Times Survey (NILT)](https://www.ark.ac.uk/nilt/) data. To set the R environment please follow the next steps:
+
+1. Please go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/) (log in if necessary);
+2. Open your own copy of the 'NILT' project from the 'Quants lab group';
+3. Create a new Rmd file, type 'Correlation analysis' in 'Tile' section and your name in the 'Author' box. Leave the 'Default Output Format' as `HTML`.
+4. Save the Rmd document as 'Lab5_correlation'.
+5. Delete all the contents in the Rmd default example with the exception of the first bit which contains the YALM and the first chunk, which contains the default chunk options (that is all from line 12 and on).
+6. In the setup chunk, change `echo` from `TRUE` to `FALSE` in line 9 (this will hide the code for all chunks in your final document).
+7. Within the first chunk, copy and paste the following code below line 9 `knitr::opts_chunk$set(message = FALSE, warning = FALSE)`. This will hide the warnings and messages when you load the packages.
+
+In the Rmd document insert a new a chunk, copy and paste the following code. Then, run the individual chunk by clicking on the green arrow on the top-right of the chunk.
+```{r }
+## Load the packages
+library(tidyverse)
+# Load the data from the .rds file we created in lab 3
+nilt <- readRDS("data/nilt_r_object.rds")
+```
+
+This time we will use new variables from the survey. Therefore, we need to coerce them into their appropriate type first. Insert a second chunk, copy and paste the code below. Then, run the individual chunk.
+```{r}
+# Age of respondent’s spouse/partner
+nilt$spage <- as.numeric(nilt$spage)
+# Migration
+nilt <- mutate_at(nilt, vars(mil10yrs, miecono, micultur), as.numeric)
+```
+
+Also, we will create a new variable called `mig_per` by summing the respondent's opinion in relation to migration using the following variables: `mil10yrs`, `miecono` and `micultur` (see the documentation p. 14 [here](https://www.ark.ac.uk/teaching/NILT2012TeachingResources.pdf) to know more about these variables). Again, insert a new chunk, copy and paste the code below, and run the individual chunk.
+```{r}
+# overall perception towards migrants
+nilt <- rowwise(nilt) %>% 
+  # sum values
+  mutate(mig_per = sum(mil10yrs, miecono, micultur, na.rm = T )) %>% 
+  ungroup() %>% 
+  # assign NA to values that sum 0
+  mutate(mig_per =  na_if(mig_per, 0))
+```
+
+### Visualizing correlation
+
+Visualizing two or more variables can help to uncover or understand the relationship between these variables. As briefly introduced in the previous session, different types of plots are appropriate for different types of variables. Therefore, we split the following sections according to the type of data to be analysed.
+
+You do not need to run or reproduce the examples shown in the following sections in your R session with the exception of exercises that are under the _activity_ headers.
+
+#### Numeric vs numeric 
+
+To illustrate this type of correlation, let's start with a quite obvious but useful example. Suppose we are interested in how  people choose their spouse or parter. The first characteristic that we might look at is age. We might suspect that there is a correlation between the the `nilt` respondents' age and their partner's age. Since both ages are a numeric variables, a scatter plot is appropriate to visualize the correlation. To do this, let's use the functions `ggplot()` and `geom_point()`. In aesthetics `aes()` let's define the respondent's age `rage` in the X axis and the respondent's spouse/partner age `spage` in the Y axis. As a general convention in quantitative research, the response/dependent variable is visualized on the Y axis and the independent on the X axis (you do not need to copy and reproduce the example below).
+
+```{r}
+ggplot(nilt, aes(x = rage, y = spage)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Respondent's age vs respondent’s spouse/partner age", 
+       x = "Respondent's age", y = "Respondent’s spouse/partner age" )
+```
+
+Note that in this plot the function `geom_smooth()` was used. This is to plot a straight line which describes the best all the points in the graph. 
+
+From the plot above, we see that there is a positive strong correlation between the respondent's age and their partner's age. We see that for some individuals their partner's age is older, whereas others is younger. Also, there are some dots that are far away from the straight line. For example, in one case the respondent is around 60 years old and the age of the partner is around 30 years old (can you find that dot on the plot?). These extreme values are known as _outliers_.
+
+We may also suspect that gender is playing a role in this relationship. We can include this as a third variable in the plot by colouring the dots by gender. To do this, let's specify the `colour` argument in aesthetics `aes()` with a categorical variable `rsex`.
+```{r}
+ggplot(nilt, aes(x = rage, y = spage, colour = rsex)) + 
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, colour = "gray20") +
+  labs(title = "Respondent's age vs respondent’s spouse/partner age", 
+       x = "Respondent's age", y = "Respondent’s spouse/partner age" )
+```
+In the previous plot, I included a line which describes what it would look like if the partner's age were exactly the same as the respondent's age. We observe a clear pattern in which female participants are on one side of the line and males on the other. Not too surprisingly, most female respondents tend to choose/have partners who are older, whereas males younger ones.
+
+### Activity 1
+
+Using the `nilt` data object visualize the relationship of the following variables by creating a new chunk. Run the chunk individually and comment on what you observe from the result as text in the Rmd file (remember to leave an empty line between your text and the chunk).
+
+* Create a scatter plot to visualize the correlation between the respondent's overall opinion in relation to migration `mig_per` and the respondent's age `rage`. Remember that we just created the `mig_per` variable by summing three variables which were in a 0-10 scale (the higher the value, the better the person's perception is). In `aes()`, specify `rage` on the X axis and `mig_per` on the Y axis. Use `ggplot()` function and `geom_point()`. Also, include a straight line describing the points using the `geom_smooth()` function. Within this function set the `method` argument to `'lm'`.
+* What type of relationship do you observe? Comment the overall result of the plot and whether this is in line with your previous expectation.
+
+#### Numeric vs categorical
+
+As briefly introduced in the last lab, correlations often occur between categorical and numeric data. A good way to observe the relationship between these type of variables is using a box plot. Which essentially shows the distribution of the numeric values by category/group.
+
+Let's say we are interested in the relationship between education level and perception of migration. The variable `highqual` contains the respondent's highest education qualification. Using `ggplot()`, I will situate `mig_per` on the X axis and `highqual` on the Y axis, and plot it with the `gem_boxplot()` function. Note that before passing the dataset to `ggplot`, I filtered out two categories of the variable `highqual` where education level is unknown (i.e. "Other, level unknown" or "Unclassified").
+```{r}
+nilt %>% 
+  filter(highqual != "Other, level unknown" & highqual != "Unclassified") %>% 
+  ggplot(aes(x = mig_per, y = highqual )) +
+  geom_boxplot()
+```
+From the plot above, we see that respondents with higher education level (on the bottom) have more positive opinion on migration when compared to respondents with lower education level or no qualifications (on the top). Overall, the lower the education level, the worse the opinion towards migration. Since education level is an ordinal variable, we can say this is a positive relationship.
+
+### Activity 2
+
+Using the `nilt` data object, visualize the relationship of the following variables by creating a new chunk. Run the chunk individually and comment on what you can observe from the results as text in the Rmd file to introduce the plot. 
+
+* Create a boxplot to visualize the correlation between the respondent's overall opinion in relation to migration `mig_per` and the political party which the respondent identify with `uninatid`. Use `ggplot()` in combination with `geom_boxplot()`. Make sure to specify `mig_per` on the Y axis and `uninatid` on the X axis in `aes()`.
+* Do you think the opinion towards migration differs among the groups in the plot? Comment on the overall results in .Rmd document. 
+
+## Measuring correlation
+
+So far we have examined correlation by visualizing variables only. A useful practice in quantitative research is to actually measure the magnitude of the relationship between these variables. One common measure is the _Pearson_ correlation coefficient. This measure results in a number that goes from -1 to 1. A coefficient below 0 implies a negative correlation whereas a coefficient over 0 a positive one. When the coefficient is close to positive one (1) or negative (-1), it implies that the relationship is strong. By contrast, coefficients close to 0 indicate a weak relationship. This technique is appropriate to measure linear numeric relationships, that is when we have numeric variables with a normal distribution, e.g. age in our dataset. 
+
+Let's start measuring the relationship between the respondent's age and their partner's age. To do this in R, we should use the `cor()` function. In the R syntax, first we specify the variables separated by a comma. We need to be explicit by specifying the object name, the dollar sign, and the name of the variable, as shown below. Also, I set the `use` argument as `'pairwise.complete.obs'`. This is because one or both of the variables contain more than one missing value. Therefore, we are telling R to use complete observations only.
+
+```{r}
+cor(nilt$rage, nilt$spage, use = 'pairwise.complete.obs')
+```
+
+The correlation coefficient between this variables is 0.95. This is close to positive 1. Therefore, it is a strong positive correlation. The result is completely in line with the plot above, since we saw how the dots were close to the straight line.
+
+What about the relationship between `age` and `mig_per` that you plotted earlier?
+```{r}
+cor(nilt$rage, nilt$mig_per, use = 'pairwise.complete.obs')
+```
+The coefficient is very close to 0, which means that the correlation is practically non-existent. The absence of correlation is also interesting in research. For instance, one could expect that younger people would be more open to migration. However, it seems that age does not play a role on people's opinion about migration in NI.
+
+Let's say that we are interested in the correlation between `mig_per` and all other numeric variables in the dataset. Instead of continuing computing the correlation one by one, we can run a correlation matrix. The code syntax can be read as follows: from the `nilt` data select these variables, then compute the correlation coefficient using complete cases, and then round the result to 3 decimals.
+```{r}
+nilt %>% 
+  select(mig_per, rage, spage, rhourswk, persinc2) %>% 
+  cor(use = 'pairwise.complete.obs') %>% 
+  round(3)
+```
+
+From the result above, we have a correlation matrix that computes the _Person_ correlation coefficient for the selected variables. In the first row we have migration perception. You will notice that the first value is 1.00, this is because it is measuring the correlation against the same variable (i.e. itself). The next value in the first row is age, which is nearly 0. The next variables also result in low coefficients, with the exception of the personal income, where we see a moderate/low positive correlation. This can be interpreted that respondents with high income are associated with more positive opinion towards migration compared to low-income respondents.
+
+### Activity 3
+
+* Insert a new chunk in your Rmd file;
+* Using the `nilt` data object, compute a correlation matrix using the following variables: `rage`, `persinc2`, `mil10yrs`, `miecono` and `micultur`, setting the `use` argument to `'pairwise.complete.obs'` and rounding the result to 3 decimals;
+* Run the chunk individually and comment whether personal income or age is correlated with the perception of migrants in relation to the specific aspects asked in the variables measured (consult the documentation in p. 14 to get a description of these variables);
+* Finally, knit the 'Lab5_correlation' Rmd document to `.html` or `.pdf`. The output document will automatically be saved in your project.
+
+<!-- ## Critical Appraisal: Practice -->
+
+<!-- As a little exercise to prepare you for your first summative assessment of this course, we are going to spare 10 minutes in the lab session this week to talk about the **Critical Appraisal**. You're not required to use R at all for this assessment, unlike the research report, but some of the skills you've been learning in interpreting and designing quantitative analysis will be very useful. -->
+
+<!-- ### What is a critical appraisal?  -->
+
+<!-- The critical appraisal is designed to provide you with an opportunity to critically review the overall appropriateness of the research design underpinning a piece of social science research.  -->
+
+<!-- This will involve assessing the **strengths** and **weaknesses** of the particular methodological approach adopted in the research and commenting on its suitability to address the research questions. -->
+
+<!-- ### What do you have to do?  -->
+
+<!-- You have to submit a 1,000-word critical appraisal of a research article from an academic journal (uploaded on Moodle). You will be provided with a choice of articles to appraise, which will be posted on the course Moodle site and further discussed in one of the lecture Moodle books.  -->
+
+<!-- #### What should you focus it on?  -->
+<!-- Your appraisal should be specifically __methodological__ in focus.  Here are few guiding questions to help you write and focus on reviewing: -->
+
+<!-- * The research questions the author(s) set out to address. Are they concrete and appropriate?  -->
+<!-- * The combination of methods being employed. Are they appropriate and fully justified? -->
+<!-- * To what extent are the methods chosen suitable to answer the research questions? Are they coherent and well-aligned?  -->
+<!-- * Did the authors describe their methods fully? What are some gaps you identified?  -->
+<!-- * What the data and evidence is. How were they collected/recorded/retrieved, analysed and interpreted?  -->
+<!-- * The methodological and epistemological strengths/weaknesses of the research design. What ontological and epistemological assumptions are made by the author[s]? -->
+<!-- * Ethical and/or political issues concerning the research. Are they apparent and being addressed by the author[s]? -->
+
+
+<!-- ### Activity  -->
+<!-- We are going to run a little mock critical appraisal during your lab session this week. It will be a bit more like a "traditional" tutorial, which means you will have a discussion with other students and tutors based on a reading. You should have been asked and read the Pattaro et al. (2020) article this week, particularly its methods section. -->
+
+<!-- Based on this article, discuss the following point-by-point. n.b. There's no right or wrong answer here, so just share what you think or what your first impression was about this article. The main thing is get the conversation going, and help each other to appreciate and critique the strengths and weaknesses of this article. Remember, you can be critical by saying why the article is good in its approach e.g. in justifying its research question, as well as any weakness you may have identified.  -->
+
+<!-- **General points to discuss:** -->
+
+<!-- * Was there anything that striked you as particularly well argued by the authors in this article?  -->
+<!-- * Are there any other issues and confusions you spotted when you read the article?  -->
+
+<!-- **More specific aspects to discuss and review:** -->
+
+<!-- * Are the research questions set out by the authors concrete and appropriate? How well are the research questions linked to a gap in the literature they have identified?  -->
+<!-- * How well have the authors demonstrated an awareness of problems and shortcomings of the data and methods of analysis? What are the opportunities and limitations of secondary data analysis identified by the author? -->
+<!-- * How well was the methodological approach articulated by the authors? Are there any gaps in their discussion that you wish you could hear more on? (e.g. research design, ethics, or ontology/epistemology) -->
+<!-- * How reflexive (i.e. reflecting on their own position and assumptions as researchers) are the authors in their comments on the research methods? Was the ethical stance and weaknesses of the authors' approach well discussed? -->
+<!-- * To what extent was the method of data collection, analysis, and interpretation well-defined?  -->
+
+<!-- Well, that's how you do a critical appraisal. Just imagine you are the a reviwer/marker of this article, what comments and suggestions would you give to the authors or to other students if they were to study this article?  -->
+
+<!-- Take a few minutes to de-brief how you feel about writing your own critical appraisal too. Ask any questions you have to your tutor in the session, or post them on Teams in your lab group channel.  -->
+
+<!-- More details about how to address the assessment is available in the course handbook and will be uplaoded to Moodle.  -->
+

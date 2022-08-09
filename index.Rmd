@@ -1,0 +1,32 @@
+--- 
+title: |
+    | [DRAFT]
+    | UG Quantitative Methods in the Social Sciences: Lab workbook
+subtitle: "A step-by-step guide for conducting quantitative research in R"
+author: "Rafael Verudzco Torres and Mark Wong"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+output: bookdown::gitbook
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+github-repo: rstudio/bookdown-demo
+description: "This is the workbook you will use for the Quantitative Methods in the Social Sciences lab sessions."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.align="left", eval = TRUE, message=FALSE, warning=FALSE, out.width = "100%" )
+library(tidyverse)
+```
+
+# Welcome{-#Welcome}
+
+Welcome to the Quantitative Methods in the Social Sciences lab!
+
+
+
+<br>
+![cc-logo](./images/by-nc-sa.png)
+
+The online version of this book is licensed under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License](http://creativecommons.org/licenses/by-nc-sa/4.0/).
