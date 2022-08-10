@@ -4,7 +4,7 @@
 
 In our previous lab we set up an RStudio Cloud session, we got familiar with the RStudio environment and some of the purpose and contents of its panes. In this Lab we will learn about R packages, how to install them and load them. Also, we will use different types of data. You will have the chance to practice with additional `R` operators. Lastly, we will load a real-world data set and put in practice your new skills.
 
-## R Packages
+## R Packages{#learn-packages}
 
 As mentioned in our last lab, `R` [@R-base] is a collaborative project. This means that `R` users are developing, maintaining, and extending the functionalities constantly. When you set up `R` and RStudio for the first time, as we did it last week, it comes  only with the 'basic' functionalities by default. However, there are literally thousands of extensions that are developed by other users. In R, these non-default extensions are called _**packages**_.
 
@@ -52,17 +52,20 @@ Another thing to notice is that when you install a package you need to use quota
 
 ## Types of variables
 
-`R` can handle many classes of data. It is crucial that you can distinguish the main since the type of data you are using must match the type of statistical analysis or visualization you produce.
+`R` can handle many classes of data. It is crucial that you can distinguish the main. Broadly speaking there are two types of variables,
 
-Broadly speaking there are two types of variables, (1) **categorical** and (2) **numeric** (formally know as interval or ratio). The first is distinguished because it is limited in the number of categories it can take, e.g., country, name, political party, or gender. Ordinal data is a *sub-type* of the categorical, and it is used when the categories can be ranked and their order is meaningful, e.g., education level or level of satisfaction. Numerical values can be continuous (these are usually measured and can take infinite values, e.g. speed or time).^[For more details, please refer to the DataCamp module [Introduction to Data in R](https://learn.datacamp.com/courses/introduction-to-data-in-r).]
+1. **categorical** and; 
+2. **numeric** (formally know as interval or ratio). 
+
+Categorical variables distinguished because they are limited in the number of categories it can take, e.g., country, name, political party, or gender. Ordinal data is a *sub-type* of the categorical, and it is used when the categories can be ranked and their order is meaningful, e.g., education level or level of satisfaction. Numeric values can be continuous (these are usually measured and can take infinite values, e.g. speed or time).^[For more details, please refer to the DataCamp module [Introduction to Data in R](https://learn.datacamp.com/courses/introduction-to-data-in-r).]
 
 In `R`, the basic types of data are known as 'atomic vectors' and there are 6 of them (logical, integer, double, character, complex and raw). In the social sciences, we often use the following: `numeric`, `factor` and `character`. Numeric vectors are used to represent continuous numerical data.^[Notice that `numeric` vectors can be represented as `integer`or `double` in `R`, their difference is of little relevance for now.] On the other hand, factor vectors are used to represent categorical and ordinal data.
 
-In R, there are couple of functions that will help us to identify the type of objects that we are handling with. First, we have `glimpse()`. This prints some of the main characteristics of a data set, namely its overall dimension, name of each variable (column), the first values for each variable, and the type of the variable. Second we have the function `class()`, that will help us to determine the overall class(type) of on `R` object.
+In R, there are couple of functions that will help us to identify the type of data. First, we have `glimpse()`. This prints some of the main characteristics of a data set, namely its overall dimension, name of each variable (column), the first values for each variable, and the type of the variable. Second we have the function `class()`, that will help us to determine the overall class(type) of on `R` object.
 
 ### Activity:
 
-We are now going to use some datasets that are pre-loaded in your `R` session. Please go to your 'Lab_2' project in RStudio Cloud and do the following:
+We are now going to use some datasets that are pre-loaded in the `R` session by default. Please go to your 'Lab_2' project in RStudio Cloud and do the following:
 
 1. We will start with a classic dataset example in R called `iris`. This contains measurements of various flowers species (for more info type `?iris` in your console). Please go to your console and type the line below.
 ```{r eval=FALSE}
@@ -74,6 +77,8 @@ glimpse(iris)
 levels(iris$Species)
 ```
 4. As you can see, there are three categories, which are three types of flower species. In `R` the categories in factor vectors are are called _levels_.
+
+Note the syntax above. Inside the function, we used the name of the dataset followed by the dollar sign (\$) which is  is needed to access the specific column/variable `Species`.
 
 <!-- Let's move to a different data set. This time we will use another classic example called `diamonds`. This data set contains some characteristics of more than 50K pieces of diamonds (to get more information type `?diamonds` in your console). -->
 
@@ -90,7 +95,7 @@ levels(iris$Species)
 <!-- table(diamonds$cut) -->
 <!-- ``` -->
 
-Now, let's get serious and explore Star Wars. Yes, the film series! The `starwars` data set from the `dplyr` package contains information about the characters, including height, hair and skin colour and sex (to get more information type `?starwars` in your console). At this time we will use a reduced version of the full data set.
+Now, let's get serious and explore Star Wars. Yes, the film series! The `starwars` data set from the `dplyr` package contains information about the characters, including height, hair colour, and sex (to get more information type `?starwars` in your console). At this time we will use a reduced version of the full data set.
 
 1. First, we will run the next couple of lines to reduce the data set, and then we will glimpse the Star Wars characters:
 ```{r eval=FALSE}
@@ -98,23 +103,24 @@ starwars2 <- starwars[ ,1:11]
 glimpse(starwars2)
 ```
 2. What do you observe this time? ... It seems that the data type is not consistent with their content. For example, the variables `species`, `gender`, and `hair_color` are of type `<chr>` (that is `character`), when according to what we just learnt they should be a factor. To transform them, we will use the function ´factor()´. This process is known as coercing a variable, that is when you change form one type to other.
-3. Look what happens if you do the this..It confirms that this variable is stored as a character:
-```{r eval=FALSE}
-class(starwars2$species)
-```
-5. What if we first call the `factor()` function and then we ask R again about the type of vector using `class()`
-```{r eval=FALSE}
-factor(starwars2$species) %>% class()
-```
-6. Now it is telling us that this is a factor. So, this is what we want. Let's assign this coerced vector to our dataset.
+<!-- 3. Look what happens if you do the this..It confirms that this variable is stored as a character: -->
+<!-- ```{r eval=FALSE} -->
+<!-- class(starwars2$species) -->
+<!-- ``` -->
+<!-- 5. What if we first call the `factor()` function and then we ask R again about the type of vector using `class()` -->
+<!-- ```{r eval=FALSE} -->
+<!-- factor(starwars2$species) %>% class() -->
+<!-- ``` -->
+6. Let's coerce the species variable from character to factor and assign the result to the same column in the dataset.
 ```{r eval=FALSE}
 starwars2$species <- factor(starwars2$species)
 ```
-7. Let's check if the type of variable rally changed by glimpsing the data and checking the levels of `species`. 
+7. Let's check if the type of variable really changed by glimpsing the data and checking the levels of `species`. 
 ```{r eval=FALSE}
 glimpse(starwars2)
 levels(starwars2$species)
 ```
+
 The glimpse result now is telling us that `species` is a `<fct>`, as expected. Furthermore, the `levels()` function reveals that there are 37 types of species, including Human, Ewok, Droid, and more.
 
 Hopefully, these examples will help you to identify the the main vector types and more importantly to coerce them in an appropriate type. Be aware that many data sets represent categories with numeric values, for example, using '0' for males and '1' for females. Usually, large data sets are accompanied by extra information in a _code book_ or _documentation_ file, which specifies the values of the numeric code and their respective meaning.

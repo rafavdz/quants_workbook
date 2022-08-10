@@ -1,221 +1,184 @@
-# Visual exploratory analysis
+# Exploratory data analysis
 
-## Introduction
+In our previous session we learnt about wrangling data in `R` by implementing useful function such as `filter()`, `select()`, and `mutate()`. In this session we will focus on descriptive statistics. This includes the exploration and description of quantitative data.
 
-In the previous lab you were exploring the 2012 [Northern Ireland Life and Times Survey (NILT)](https://www.ark.ac.uk/nilt/). You learnt how to download, read and format the data. Also, you learnt how to explore categorical and numeric data and a mix of them. In this lab, we will extend your skills to explore data by visualizing it...and `R` is great for this! It is actually a demanded skill in the labour market.
+## Getting started
 
-Visualizing data is an important process in at least two stages in quantitative research: First, for your as a researcher to get familiar with the data; and second, to communicate your findings. `R` includes two important tools to achieve this: First, the `ggplot2` package (included in `tidyverse`) is a powerful tool to explore and plot data. Second, [R Markdown](https://rmarkdown.rstudio.com/) which allows you to create integrated quantitative reports.
+We will continue working on the same project and dataset that you created in the last lab on R Studio Cloud. Please follow the next steps:
 
-## R Markdown
-
-R Markdown (Rmd) is slightly different type of file included in R Studio. This allows you to create reports in common file types, such as `.html` (as the one used for this document), `.pdf` or word (`.doc`). The interesting thing is that the Rmd file allows you to integrate text, code, and plots directly in to your report.
-
-The basic components of an Rmd file are: the **_code_**, **_text_** and **_metadata_**. The code is integrated by blocks called 'chunks', and the metadata contains information to format the report. We believe the best way to learn is by doing it. So ,let's create your first Rmd document!
-
-### First R Markdown document
-
-We will continue working in the same project called _NILT_ in [RStudio Cloud](https://rstudio.cloud/).
-
-1. Please go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/) (log in if necessary);
-2. Open your own copy of the 'NILT' project from the 'Quants lab group';
-3. Create a new Rmd file, this is similar as creating and `R Script`, from the 'File' tab on the top-left: `File>New File>R Markdown...`;
-4. Type 'Test1' in 'Tile' section and your name in the 'Author' box. Leave the 'Default Output Format' as `HTML`. Then, click 'OK'.
-5. Save the Rmd file clicking on `File>Save as...`, type `Test1` in the 'File name' box, and click on the Save button.
-
-After completing the previous steps, your screen should look like this:
-```{r rmd-file, fig.cap="Rmd file.", echo=FALSE}
-knitr::include_graphics("./images/lab4_rmd_view.png")
-```
-
-Note that now you have two files open in Pane 1, one tab includes the R Script that we created in the last lab, and the other is the Rmd document that you just created.
-
-As you can see, the Rmd document `Test1` contains a default example. The first bit on the top enclosed by the dashes `---`, contains the general metadata to format the output, as shown in the Figure \@ref(fig: yalm-chunk). This bit is called YALM. In the default example, it contains the title, name of the author, data and the type of output (html). You can adjust this information directly by typing the relevant info (e.g. date or name).
-```{r yalm-chunk, fig.cap="YALM and code chunk.", echo=FALSE}
-knitr::include_graphics("./images/lab4_rmd_view_2.png")
-```
-
-Below the YALM shown in Figure \@ref(fig: yalm-chunk), there is another box. This is an R code 'chunk'. To run a chunk of code individually (that is to visualize a partial result of an Rmd document), you can click on the green arrow pointed on the top-left of the first chunk. 
-
-In line 12, you have a second-level header, which contains the name of a section in the document. As you can see this is preceded by double hashtag `##`. If you want a first-level header section, you would require only one hashtag like this `#`, and three for a third-level header. Finally the 'Knit' word is enclosed by double asterisk `**`. This is to format the characters enclosed in bold.
-
-In line 26, you will see a chunk including a basic plot. Let's check the results that this example in 'Test1' produce by ourselves. 
-
-To render the document from Rmd to HTML, we need to _Knit_ it by clicking on the icon shown below. Try it!
-
-![Knit button](./images/lab4_rmd_knit.png)
-
-After you knit the document, a window with the output will pop-up automatically. As you can see, this document contains the main title, followed by your name and date, as specified in the YALM. After this, there is a second-level header which includes the first section of this example document. Also the the word 'Knit' is shown in bold, as it was wrapped by double asterisk `**`. 
-
-An interesting thing is that we can integrate the result of our code in the output as we did with the second chunk (which starts in line 18). In this case, we can see a summary of the data set `cars` (which is an in-built data set in R that contains only two variables).
-
-<!-- Next, there is a second header, called 'Including Plots'. Under this section you can see a plot, but this time the code is not shown since `echo` was set to `FALSE`. You can close the pop-window when you finish exploring the output. -->
-
-Similarly, you can create a `.pdf` file. To do it, instead of clicking on on the _knit_ icon, click on the black arrow next to it. Then click 'Knit to PDF'.
-
-When you knitted the document, R Studio actually created a new `.html` or `.pdf` file named as same as the Rmd document. You can confirm this in the 'File' tab in Pane 4. You are able to download this file from the cloud to your local drive by clicking on the box of the output file. Then, click `More>Export...` in the same pane.
-
-<!-- You can find more text styles and their respective syntax [here](https://bookdown.org/yihui/rmarkdown/markdown-syntax.html). -->
-
-<!-- For a comprehensive list of chunk code options click [here](https://bookdown.org/yihui/rmarkdown-cookbook/chunk-options.html). -->
-
-IMPORTANT: Note that Rmd files are different from simple R scripts. While everything you write in an R script is interpreted as code, only the bits within code chunks will be interpreted as code in Rmd files. Everyghin else outside chunks in Rmd documents is interpreted as text.
-
-Make sure you got the basics of RMarkdown, since this is the tool in which you will write your final assignment. If there is something not very clear, feel free to ask your tutor. She will be happy to clarify your questions.
-
-## Data visualization
-
-Visual data exploration with `ggplot2` (Artwork by \@alison_horst).
-```{r fig.cap="Visual data exploration. Source: @Horst", echo=FALSE}
-knitr::include_graphics("./images/lab4_ggplot2_exploratory.png")
-```
-
-<!-- Visualizations are important for any quantitative analysis. These are helpful to identify overall trends, problems, or extreme values in your data at an initial stage. Additionally, visualizations are key to communicate your results at the final stage of the research process. These two stages are known as _exploratory_ and _explanatory_ visualizations, respectively. R includes some functionalities to create basic plots. These are often used to generate quick exploratory visualizations. In addition, `ggplot2`, which is one of the most popular data visualization tools for R, allows you to extend the base R capabilities and create publishable-quality plots. In this lab we will focus on `ggplot2`. -->
-
-Different plot types serve different types of data. In the last lab we introduced some functions to summarise your data and to generate some summaries for specific types of variable. This will help you to decide what is the most suitable plot for your data or variable. The table below presents a minimal guide to choose the type of plot as a function of the type of data you intend to visualize. In addition, it splits the type of plot by the number of variables included in the visualization, one for _univariate_, or two for _bivariate_.  Bivariate plots are useful to explore the relationship between variables.
-
-|  	|**Univariate**  	|  **Bivariate**	|  
-|-	|--------------	|----------	|
-| **Categorical** | Bar plot / Pie chart	| Bar plot  	|  
-| **Numeric** 	|  Histogram / boxplot	| Scatter plot  	|
-| **Categorical** + **Numeric** 	|  -	| Box plot 	|
-
-<!-- Note that it is possible to include more than two variables in one plot. Perhaps more than 3 would add complexity and can make the plot difficult to interpret. In the next section we will talk in more detail about these plots using the 2012 NILT survey. -->
-
-### Prepare the Rmd document and data
-
-As we did in the section above, we will learn by doing. We will start by creating a new R Markdown file as we did previously with the `Test1` file.
-
-1. Create a new Rmd file titled 'Lab 4. Data visualization', and write your name in the 'Author' space.
-2. Save the Rmd file clicking on `File>Save as...`, using `Lab_4` in the 'File name' box, and click on the 'Save' button.
-3. Delete all the contents in the default example with the exception of the first bit which contains the YALM and the first chunk, which contains the default chunk options. 
-4. In the setup chunk (line 8), change `echo` from `TRUE` to `FALSE` (this will hide the code for all chunks in the output).
-
-Once your Rmd document is ready, insert an R chunk to read and put the 2012 NILT data. To do this, click on the 'Insert' button on pane 1, and then click on 'R'. This will insert an R code chunk as the ones we explored in 'Test1'.
-
-```{r fig.cap="Insert a code chunk.", echo=FALSE}
-knitr::include_graphics("./images/Lab4_chunk.png")
-```
-
-In the body of the first chunk, load the packages that you will need. For now, it will be only `tidyverse`.
-```{r message=FALSE}
-library(tidyverse)
-```
-
-Insert a second chunk. In the body of the code copy and paste the lines below. This is to load the data we downloaded and formatted in the last lab in R format using the `readRDS()` function (note that we are reading the `.rds` file and not the original `.sav` file). Also, we will create a subset called `nilt_subset` selecting only the variables that we are interested in for now, as we did in the previous lab.
+1. Go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/).
+2. Open the project called 'NILT' located in your lab group'.
+3. Continue working at the bottom of the 'Exploratory analysis' script that you created in the last lab.
+4. Load `nilt` dataset that you create in the last session using the following code:
 ```{r}
 # Load the data from the .rds file we created in the last lab
 nilt <- readRDS("data/nilt_r_object.rds")
-#Create subset
+```
+5. Create a subset of the `nilt` data keeping only few variables using the `select()` function as shown below:
+```{r}
+#Subset
 nilt_subset <- select(nilt, rsex, rage, highqual, religcat, uninatid,  ruhappy, rhourswk, persinc2)
 ```
 
-Run both chunks individually by clicking on the green arrow located on the top-right of the chunk, as described earlier.
+## Exploratory analysis
+### Data overview
 
-<!-- Please notice that that we are able to load the NILT survey and we do not have to coerce it again into the correct type because we downloaded and saved the formatted data set in an `.rds` file before. Therefore, the data is stored in your R Studio Cloud project. Also, we did not need to install `tidyverse`, since we also did this in the past lab and we are working in the same project. Remember that if you create a new RStudio Cloud project, you will have to install the packages again. -->
-
-Now that we read the data in, we are ready to start creating our own own plots using the 2012 NILT survey. You do NOT need to reproduce the examples in the following sections, but carefully read the description and try to understand the code syntax.
-
-### Cateogrical variables
-
-I will start using the same variables we summarised in our last lab. We started by computing the total number of respondents by gender in a One-Way contingency table. We can easily visualize this using a bar plot with `ggplot`. This package always takes at least three layers, namely _**data**_, _**aesthetics**_ and _**geometry**_. Here, we define the _data_ as the first argument of the `ggplot()`function with the `nilt_subset`. The second argument, _aesthetics_, is separated by a comma and it introduced using the function `aes()`. In this case we define the X axis `x = ` of the plot by the categories included in the variable `rsex`. The geometry is specified with the function `geom_bar()` without arguments for now. Note that we added the geometry using the plus sign `+` at the end of the previous line code. As an extra, I included the main title and the name of the x axis using the `labs()` function (you don't need to copy or run the following code chunks in your .Rmd. This is only for demonstration purposes).
-```{r}
-ggplot(nilt_subset, aes(x = rsex)) +
-  geom_bar() +
-  labs(title = 'Gender', x = 'Gender of respondent')
+Are your summary statistics hiding something interesting?
+```{r fig.cap="Exploratory analysis.", echo=FALSE}
+knitr::include_graphics("./images/lab_3_summary_stats.jpg")
 ```
 
-From the plot above, we can graphically see what we found out previously: there are more female respondents than males in our sample. The advantage is that we can have a sense of the magnitude of the difference by visualising it.
+<!-- There are some basic functions that will allow you to understand and get familiar with the data. You used an important one already, `glimpse()`. But there are other useful ones. For instance, try `names()` to see a list of the variables' names, or have a look at the data using `View()`.  -->
 
-#### Bivariate categorical vs categorical
+To start exploring our data it essential to distinguish the adequate tools and measures available for the type of data in question. As you know now, there are two broad types: (1) categorical and (2) numeric.
 
-In Lab 3, we computed a Two-Way contingency table, which included the count of two categorical variables. This summary can be visualized using a stacked bar plot. This is quite similar to the above, with the addition that the area of the vertical plot is coloured by the size of each group. 
-
-If we wanted to know how gender is split by religion, we can add the `fill` argument with a second variable in aesthetics, as shown below.
-
-```{r}
-ggplot(nilt_subset, aes(x = rsex, fill = religcat)) +
-  geom_bar() +
-  labs(title = 'Gender by religion', x = 'Gender of respondent')
+There are several ways in which we can summarise our data. Today, we will use a useful package called `vtable`. Install it in your session running the following line in your console:
+```{r eval = FALSE}
+install.packages('vtable')
 ```
 
-This plot is not very informative, since the total size of female and male respondents is different. The type of visualization will also depend on a specific research question or the topic you are interested in. I think it is worthwhile visualizing the religion by gender. By doing so, the plot will show us the magnitudes and composition by gender for each religion. To do this, we need to change the aesthetics, specifying the religion by category variable `religcat` on the `x` axis and `fill` with gender `rsex`.
+Once it is installed, make sure to load it with the next line. This time copy and paste it in your `R` script, so you can run it every time you restart your session.
 
 ```{r}
-ggplot(nilt_subset, aes(x = religcat, fill = rsex)) +
-  geom_bar() +
-  labs(title = 'Religion by gender', x = 'Religion')
+library(vtable)
 ```
 
-As we can see, catholic and protestant religion is equally popular among the respondents. Also, we can see that these are composed by similar proportions of males and females. One interesting thing is that there are more male respondents with no religion than female participants. Again, we found this out with the descriptive statistics computed in the last lab. However, we have the advantage that we can graphically see the magnitude of these differences.  
 
-### Numeric variables
+### Categorical data
 
-#### Univariate numeric
+A usual way to explore the categorical data is using contingency and proportion tables. The contingency tables include the count for each category while the proportion tables contain the count divided by the total number of observations. 
 
-Last time we talked about some measures of centrality and spread for numeric variables. The histogram plot is similar to the bar plot, the difference is that it splits the numeric range in fix bins and computes the frequency/count for each bin instead of counting the number of respondents for each numeric value. The syntax is practically the same as the simple bar plot. At this time, we set the the `x` aesthetic with the numeric variable age `rage`. Also, the geometry is defined as a histogram, using the `geom_histogram()` function.
+Let's say we are interested in gender (called `rsex` in the dataset). We will use function `sumtable()` of the `vtable` package to produce a contingency table for a single variable (known as One-Way contingency table).
+```{r}
+sumtable(nilt_subset, vars = c('rsex'))
+```
+
+From the result, we see that there are more female respondents than males. 
+
+Specifically, we see that males respondents represent 44.% of the total sample, whereas females 55.4%. 
+
+We can do this with any type of categorical variable. Let's see how the sample is split by religion (`religcat`). So, we will add it to in the `vars` argument.
 
 ```{r}
-ggplot(nilt_subset, aes(x = rage)) +
-  geom_histogram() +
-  labs(title = 'Age distribution')
+sumtable(nilt_subset, vars = c('rsex', 'religcat'))
 ```
 
-From the histogram, we have age (in bins) on the X axis, and the frequency/count on the y axis. This plot is useful to visualize how respondent's age is distributed in our sample. For instance, we can quickly see the minimum and maximum value, or the most popular age, or a general trend indicating the largest age group. 
+As you can see, about the same number of people are identified as being catholic or protestant, and a relatively small number with no religion.
 
-A second option to visualize numeric variables is the box plot. Essentially this draws the quartiles of a numeric vector. For this time, `rage` is defined in the `y` axis. This is just a personal preference. The geometry is set by the `geom_boxplot()` function.
+What if we want to know the religious affiliation break-down by males and females. This is where Two-Way contingency tables are useful, and very common in quantitative research. To produce it, we have to specify the group argument in the `sumtable` function as following:
+```{r}
+sumtable(nilt_subset, vars = c('religcat'), group = 'rsex')
+```
+
+There are some interesting results from this table. You can see that there are proportionally more female respondents who are either Catholic or Protestant than males, namely  43.5% vs 40.2% and 44.1% vs 40.6%, respectively. We also see that there are almost 20% of male respondents who do not self-identify with a religion which contrast to the 12% of female participants.
+
+
+### Activity 1
+
+From your R Studio Cloud script, do the following activities using the data in the `nilt_subset` object:
+
+* Create a One-Way contingency table for `uninatid` in the `nilt_subset` dataset using the `sumtable()` function;
+* Using the variables `religcat` and `uninatid`, generate a Two-Way contingency table;
+* Are your summary statistics hiding something interesting? Discuss your results with your neighbour or your tutor.
+
+
+### Continuous (numeric) data
+
+In the previous section we learnt how to summarise categorical data. But very often we want to work with continuous numeric variables or a combination of both. To summarise and understand numeric data there are two main types: *measures of centrality* and *measures spread*.
+
+#### Measures of centrality
+
+In quantitative research, we usually have access to many observations in a sample which contains different attributes for each of them. It would be difficult (and probably not very useful) to talk about each of the NILT respondents one by one. Instead, to describe this sample we need measures that roughly represent all participants.
+
+This is actually an important step in quantitative research, since it allows us to characterise the people that we are studying. For example, in the previous section we only talked about gender and political affiliation, but who are the people we are talking about? Probably a place to start digging deeper is to know their age. The first tool that we will use to understand numeric values is a histogram. Let's see how the age of NILT respondents is distributed.
 
 ```{r}
-ggplot(nilt_subset, aes(y = rage)) +
-  geom_boxplot() +
-  labs(title = 'Age boxplot')
+hist(nilt_subset$rage)
 ```
 
-What we see from this plot is the first, second and third quartile. The second quartile (or median) is represented by the black line in the middle of the box. As you can see this is close to 50 years old, as we computed using the `quantile()` function. The lower edge of the box represents the 2nd quartile, which is somewhere around 35 years old. Similarly the 3rd quartile is represented by the upper edge of the box. We can confirm this by computing the quantiles for this variable.
+This plot show us on the X axis (horizontal) the age and the frequency on the Y axis. We can see that the youngest age in the sample is somewhere close to 20, and the oldest is almost 100. We also observe that the total number of observations (represented by the frequency on the vertical axis) for extreme values (close to 20 on the left-hand side and 100 on the right-hand side), tends to be lower that the values in the centre of the plot (somewhere between 30 and 45). For instance, we can see that there are approximately 120 respondents who are around 40 years old, that seems to be the most _popular_/frequent age in our sample. Now, we can represent these central values with actual measures, typically _mean_ or _median_.
+
+The _median_ is the mid-point value in a numeric series. If you sort the values and split it by half, the value right in the middle is the median. Luckily there is a function ready to be used called... You guessed it - `median()`.
+
+```{r}
+median(nilt_subset$rage, na.rm = TRUE)
+```
+
+The median age is 48, that means that 50% (or half) of the respondents are equal or younger than this, and the other 50% is equal or older.^[Note that the argument `na.rm` equal `TRUE` is used in the function. The 'na' bit refers to missing values, and the 'rm' refers to remove. So we are telling R to remove the missing values when computing the median. This is because we do not know the age of 3 of the respondents in the sample.]
+
+To compute the _mean_ manually, we need to sum all our values and divide it by the total number of the observations as follows:
+$$ mean =\frac{  x_1 + x_2 + x_3 ...+x_n } {n} $$
+The formula above is for you to know that this measure considers the magnitude of all values included in the numeric series. Therefore, the average is sensitive to extreme numbers (e.g. a very very old person). To compute the mean you need the `mean()` function.
+
+```{r}
+mean(nilt_subset$rage, na.rm = T)
+```
+
+As you can see, the above measures try to approximate values that fall somewhere in the centre of the histogram plot, and represent all observations in the sample. They tell different things and are sometimes more (or less) suitable in a specific situation.
+
+#### Measures of spread
+
+By contrast, there are measures that helps us to describe how far away a series of numeric values are from the centre. The common measures of spread are _quartiles_, _variance_ and _standard deviation_.
+
+The quartiles are very useful to quickly see how numeric data is distributed. Imagine that we sort all ages in the sample and split it in four equal parts. The first quartile includes the lowest 25% values, the second the other 25%, the third other other 25%, and the fourth the highest 25%. To compute quartiles we can use the `quantile` function.
 ```{r}
 quantile(nilt_subset$rage, na.rm = T)
 ```
+In our sample, the youngest quarter of the respondents is between 18 and 35 years old. The second quarter is between 35 and 48 years old. The next quartile is between 48 and 64. The oldest 25% of the respondents is between 64 and 97.
 
-#### Bivariate numeric
+The _variance_ is useful to obtain a singe measure of spread (instead of four values, as the above) taking the mean as a reference. This is given by the following formula:
 
-A useful plot to explore the relationship between two numeric variables is the scatter plot. This plot locates a dot for each observation according to to their respective numeric values. In the example below, we use age `rage` on the X axis (horizontal), and personal income `persinc2` on the Y axis (vertical). This type of plot is useful to explore a relationship between variables. 
+$$ var = \frac{ \sum(x - \bar{x})^2 }{n-1 } $$
 
-<!-- Let's imagine we are interested in personal income, we may therefore try to find the personal aspects related to personal income as an outcome. One reasonable characteristic can be age. We can hypothesize that personal income increases with time as they age (because an individual can have more experience or simply because of possible growing work-related benefits). Therefore we can suspect there is a relationship between these two variables.  -->
-
-To generate a scatter plot, we need to define `x` and `y` in aesthetics `aes()`. The geometry is a point, expressed by `geom_point()`. Note that we are specifying some further optional arguments. First, in `aes()` `alpha` regulates the opacity of the dots. This goes from 0.0 (completely translucent) to 1.0 (completely solid fill). Second, in `geom_point()` we defined `position` as `jitter`. This arguments slightly moves the point away from their exact location. These two arguments are desired in this plot because the personal income bands are overlapped. Adding some transparency and _noise_ to their position, can allow to visualize possible patterns easily.
-
-```{r}
-ggplot(nilt_subset, aes(x = rage, y = persinc2, alpha = 0.8)) +
-  geom_point(position = "jitter") +
-  labs(title = 'Personal income vs age', x = 'Age', y = 'Personal income (£)')
-```
-
-There is not a clear pattern in our previous plot. However, it is interesting to note that most of the people younger than 25 years old earn less than £20K a year. Similarly, most of the people older than 75 earn less than £20K. And only very few earn over £60k a year (looking at the top of the plot).
-
-### Mixed data
-
-Very often we want to summarise central or spread measure by categories or groups. For example, let's go back to the example of age and gender. We can visualize these two variables (which include one numeric and one categorical) using a box plot. To create this, we need to specify the `x` and `y` value in `aes()` and include the `geom_boxplot()` geometry.
+To decipher the formula above, the $\bar{x}$ represents the mean, the $x$ represents each of the values in the numeric series. The formula takes each of the $x$ values and subtract it from the _mean_ $\bar{x}$. Later, it squares the the result of the subtraction (that is multiply it by itself). This is done to obtain a positive value, since some numbers in the series will be lower than the mean (resulting in negative values). Then, we sum all of them and divide the sum by the size/length of the numeric sequence $n$ minus 1. To estimate the variance in R we only need the `var()` function.
 
 ```{r}
-ggplot(nilt_subset, aes(y = rage, x= rsex)) +
-  geom_boxplot() +
-  ggtitle('Age by gender')
+var(nilt_subset$rage, na.rm = T)
 ```
 
-From this, we can visualize that female participants are slightly younger than their male counterparts in the sample. 
+As you can see, the result is not very intuitive. That is because we squared the subtraction. Luckily, there is a  measure that put it in _readable_ scale. This is the _standard deviation_. In essence this takes the square root of the variance (the reversed operation of squaring it):
+$$sd=\sqrt{var}$$
 
-<!-- ### Additional resources -->
+To compute it in `R`, use the `sd()` function.
 
-<!-- We have seen and practised some data visualizations with a real-word data set. I tried to keep the things as simple as possible. There are a number of features that you can customize in your plots, including the background, text size, colours, adding more variables, etc. Perhaps a place to start expanding your skills is the [Data Visualization with ggplot2 Cheat Sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf). An extra tip is that you can change the overall look of the plot by adding pre-defined themes. You can read more about it [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). Another interesting site is the [The R Graph Gallery](https://www.r-graph-gallery.com/), which includes a comprehensive showcase of plot types and their respective code. -->
+```{r}
+sd(nilt_subset$rage, na.rm = T)
+```
 
-## Excercices
+This measure is more _human readable_ than the variance. Don't worry too much about the formula. An important thing to remember is what the measure represents. An informal definition of the standard deviation is *the average distance from the mean*. In essence, it tell us how far the values in our data are from the mean.
 
-Using the `nilt_subset` object, complete the tasks below in the Rmd file 'Lab_4', which you created earlier. Insert a new chunk for each of these activities and include brief comments as text in the Rmd document to introduce the plots and discuss the results. Feel free to copy and adapt the code shown above.
+### Putting it all together
 
-* Create a first-level header to start a section called "Categorical analysis";
-* Create simple bar plot using the `geom_bar()` geometry to visualize the political affiliation reported by the respondents using the variable `uninatid`;
-* Based on the plot above, create a 'stacked bar plot' to visualize the political affiliation by religion, using the `uninatid` and `religcat` variables;
-* Create a new first-level header to start a section called "Numeric analysis";
-* Create a scatter plot about the relationship between personal income `persinc2` on the Y axis and number of hours worked a week `rhourswk` on the X axis;
-* Finally, create a box plot to visualize personal income `persinc2` on the Y axis and self-reported level of happiness `ruhappy` on the x axis... Interesting result, Isn't it? Talk to your lab group-mates and tutors about your results on Zoom (live) or your Lab Group on Teams (online anytime);
-* Briefly comment each of the plots as text in your Rmd file;
-* Knit the .Rmd document as HTML or PDF. The knitted file will be saved automatically in your project. You can come back to the Rmd file to make changes if needed and knit it again as many times as you wish.
+Phew, that was a lot!...
+
+... Luckily we can use the `sumtable` function to compute all these measures at the same time! 
+
+It is very simple. You can compute a quick summary for age as following:
+```{r}
+sumtable(nilt_subset, vars = c('rage'))
+```
+
+The result displays the number of observations used (N), the mean, the standard deviation, minimum, the 1st (same as 'Pctl. 25') and 3rd quartile (same as 'Pctl. 75'), as well as the maximum (i.e., eldest respondent).
+
+#### Categorical and numeric data
+
+Lastly, there will be times in which you will need to compute a summary combining categorical and numeric data, to compare groups for example. The good news is that we can use exactly the same function and syntax to do this. Let's take the following example to compute the summary of the respondent's age (`rage`) by gender:
+
+```{r}
+sumtable(nilt_subset, vars = c('rage'), group = 'rsex')
+```
+
+In the code above, we are simple specifying the variable `rage` and grouping the summary by `rsex`. This produces a small summary included the number of observations in each category an the main measure of centrality and spread, namely the mean and the std. dev.
+
+### Activity 2
+
+Can money buy happiness?
+
+Using the data in the `nilt_subset` dataset, complete the following activities. 
+
+* Using the `hist()` function plot a histogram of personal income `persinc2`. From the NILT documentation this variable refers to annual personal income in £ before taxes and other deductions (use the `$` symbol after the name of the dataset and then the name of the variable inside the function);
+* Create a summary of the personal income `persinc2` variable, using the `sumtable()` function;
+* Finally, compute the mean and standard deviation of the personal income `persinc2`, grouped by happiness `ruhappy`. What do you observe?
+* Discuss the results with your neighbour or your tutor.
+
+

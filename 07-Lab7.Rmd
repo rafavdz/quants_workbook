@@ -1,219 +1,251 @@
-# Multivariate linear model{#Lab7}
+# Correlation
 
-## Introduction
+## What is correlation?
 
-In the last lab we mentioned that one of the advantages of linear regression is that we can include more than one independent (explanatory) variable to evaluate their relationship with the dependent variable. This technique is known as multivariate linear regression. In practice, few studies in quantitative social research rely only on simple linear models. This is because often in reality there is more than one variable associated to a social phenomenon. This is why it is important to familiarise yourself with the multivariate linear model.
+When conducting empirical research, we are often interested in associations between two variables, e.g. personal income and attitudes towards migrants. In this lab we will focus on visualizing relationship between variables and how to measure it. In quantitative research, the main variable of interest in an analysis is called the _dependent_ or _response variable_, and the second is known as the _independent_ or _explanatory_. In the example above, we can think of personal income as the independent variable and attitudes as the dependent.
 
-## Multivariete model
+The relationship between variables can be positive, negative or non-existent. The figure below shows these type of relationships to different extents. The association is positive when one of the variables increases and the second variable tends to go in the same direction (that is increasing as well). The first plot on the left-hand side shows a strong positive relationship. As you can see, the points are closely clustered around the straight line. The next plot also shows a positive relationship. This time the relationship is moderate. Therefore, the points are more dispersed in relation to the line compared to the previous one.
 
-The multivariate linear model is based on the same principles as the simple linear model. It is worth remembering that this model is appropriate only when we have a numeric (interval/ratio) dependent variable. As a rule-of-thumb, a variable can be treated as numeric when you have at least 7 ordered categories (Fogarty, 2019). As mentioned before, we can use any type of independent variables, such as ordinal, categorical and numeric. More than one and a combination of these can be analysed simultaneously.
+<br>
 
-### Paralell slopes
-
-We will follow-up the example we used before to introduce the simple linear model to illustrate the advantages of using more than one variable. To do so, please set your RStudio environment as follows:
-
-1. Go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/);
-2. Open your own 'NILT2' project from your 'Quants lab group';
-3. Once in the project, create a new R Script file (a simple R Script, NOT an `.Rmd` file).
-4. Save the script document as 'multivariate_linear_model'.
-
-Reproduce the code below, by copying, pasting and running it from your new script.
-
-First, install the `moderndive`package. 
-```{r eval=FALSE}
-install.packages("moderndive")
-```
-
-Load the `tidyverse` and `moderndive` libraries (`tidyverse` was pre-installed for you before, you do not need to re-install it in this project) and read the `nilt_r_object.rds` file which is stored in the 'data' folder and contains the NILT survey.
-```{r}
-## Load the packages
+```{r fig.width=12, fig.height=3, echo = FALSE, fig.cap="\\label{fig:figs} Types of correlation."}
+#library(MASS)
 library(tidyverse)
-library(moderndive)
 
-# Read the data from the .rds file
-nilt <- readRDS("data/nilt_r_object.rds")
-```
-
-Once again, create a minimal random sample for the following example using the code below:
-```{r}
-# select a small random sample
+# Create fake data set
 set.seed(3)
-# Filter where partner's age is not NA and take a random sample of 40
-nilt_sample <- filter(nilt, !is.na(spage)) %>% sample_n(40)
-# Select only respondent's age and spouse/partner's age
-nilt_sample <- select(nilt_sample, rage, spage, rsex)
+samples = 100
+mu = 40
+cor_fake = as.data.frame(
+  cbind(
+    # positive strong
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, .9, .9, 1), nrow=2), 
+      empirical=TRUE),
+    # positive moderate
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, .55, .55, 1), nrow=2), 
+      empirical=TRUE),
+    # no correlation
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, 0, 0, 1), nrow=2), 
+      empirical=TRUE),
+    # negative moderate
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, -.55, -.55, 1), nrow=2), 
+      empirical=TRUE),
+    # negative strong
+    MASS::mvrnorm(
+      n=samples, mu=c(mu, mu), Sigma=matrix(c(1, -.90, -.90, 1), nrow=2), 
+      empirical=TRUE)
+    )
+  )
+# set variables df
+variables <- matrix(noquote(names(cor_fake)), ncol = 2, byrow = TRUE)
+variables <- data.frame(title = c("Strong \npositive", "Moderate \npossitive", "No \ncorrelation", "Moderate \nnegative", "Strong \nnegative"),
+            as.data.frame(variables))
+# function to plot x-y correlation
+xy_plot <- function(x_var, y_var, title){
+  ggplot(cor_fake, aes_string(x=x_var, y=y_var), inherit.aes = FALSE) +
+    geom_point() +
+    geom_smooth(method = "lm", se = FALSE, colour="red") +
+    labs(x = "X", y = "Y") +
+    scale_y_continuous(limits = c(37, 43)) +
+    scale_x_continuous(limits = c(37, 43)) +
+    theme_classic() +
+    ggtitle(title) +
+    theme(plot.title = element_text(size=14)
+          )
+  }
+# plot grid
+xy_plots <- lapply(1:nrow(variables), function(i) xy_plot(variables[i, 2], variables[i, 3], variables[i, 1]))
+cowplot::plot_grid(plotlist = xy_plots, nrow = 1)
 ```
 
-As a follow-up, we will draw a scatter plot using `ggplot` specifying the age of the respondent `rage` on the X axis and the respondent's partner/spouse age `spage` on the Y axis. This time, we will add sex `rsex` as a third variable defining the `color` argument.
+The plot in the middle, shows two variables that are not correlated. The location of the points is not following any pattern and the line is flat. By contrast, the last two plots on the right hand-side show a negative relationship. When the values on the X axis increase, the values on the Y axis tend to decrease.
 
-```{r}
-# plot
-ggplot(nilt_sample,  aes(x = rage, y = spage, color = rsex)) + 
-  geom_point(position = "jitter") +
-  labs(title = "Respondent's age vs respondent’s spouse/partner age", 
-       x = "Respondent's age", y = "Respondent’s spouse/partner age" )
-```
-What do you observe in the plot above? ... 
+### Data and R environment
 
-The first thing to note is that both females and males go in the same direction. When the respondent's age increases the age of the partner increases as well. An interesting thing is that females tend to be located higher with respect to the Y axis compared to the male dots.
+We will continue working on the same R Studio Cloud project as in the previous session and using the 2012 [Northern Ireland Life and Times Survey (NILT)](https://www.ark.ac.uk/nilt/) data. To set the `R` environment please follow the next steps:
 
-Therefore, we can imagine that not only the age of the respondent is involved in the decision on how people chooses their partner, but also sex. We can draw two lines one for male and the other for female respondents, instead of only a general one as we did in the previous lab. To do this we will use the `ggplot` function in combination with the `geom_parallel_slopes` function from the `moderndive` package:
+1. Please go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/) (log in if necessary);
+2. Open your own copy of the 'NILT' project from the 'Quants lab group';
+3. Create a new Rmd file, type 'Correlation analysis' in 'Tile' section and your name in the 'Author' box. Leave the 'Default Output Format' as `HTML`.
+4. Save the Rmd document under the name 'Lab7_correlation'.
+5. Delete all the contents in the Rmd default example with the exception of the first bit which contains the YALM and the first chunk, which contains the default chunk options (that is all from line 12 and on).
+6. In the setup chunk, change `echo` from `TRUE` to `FALSE` in line 9 (this will hide the code for all chunks in your final document).
+7. Within the first chunk, copy and paste the following code below line 9 `knitr::opts_chunk$set(message = FALSE, warning = FALSE)`. This will hide the warnings and messages when you load the packages.
 
-```{r}
-# plot
-ggplot(nilt_sample,  aes(x = rage, y = spage, color = rsex)) + 
-  geom_point(position = "jitter") +
-  geom_parallel_slopes(se = FALSE) +
-  labs(title = "Respondent's age vs respondent’s spouse/partner age", 
-       x = "Respondent's age", y = "Respondent’s spouse/partner age" )
-```
-Well, our suspicions that points representing female respondents were above the ones for males are turning out to be true. What we have in the plot above are the optimal parallel lines that describe our points the best for each group. The interpretation of our visualizations so far is: 
-
-1. both males and females partner's age is positively associated with respondent's age. 
-2. This association is different for males and females. Overall, females choose older partners compared to males.
-
-But what is the magnitude of these relationships? We can easily extend the simple linear model by adding `rsex` as a second explanatory variable as follows:
-```{r}
-m1 <- lm(spage ~ rage + rsex, nilt_sample)
-m1
-```
-
-From the output, we see that there is one intercept $\beta_0$, one slope coefficient $\beta_1$ for the numeric variable `rage` and other coefficient $\beta_2$ for the categorical variable. If you observe closer, the output appended only one of the two categories for `rsex`. This is because categorical variables take one of the categories as the reference. The variable that it is not shown is the reference, 'Male' in this case.
-
-Being more precise with our previous interpretation, we can say there is a positive relationship between both males and female participants' age and their partner's age by a factor of 0.91 for every additional year in age. Also, female respondent's partners are expected to be 4.9 years older compared to male respondents.
-
-Before we move on, it is worth mentioning that the criterion to fit the coefficient is the same as in the linear model. This procedure guarantees to produce the smallest possible sum of squared residuals (SSR) using the ordinary least square method (OLS). We can check if the SSR was reduced by adding this extra variable by computing the SSR as we did before:
-```{r}
-sum(residuals(m1) ^ 2)
-```
-
-Yes, it improved! Before it was about 1,175.
-
-### Multivariete model specification
-
-After the introduction of the simple linear model, the formal definition of the multivariate linear model should not look that scary, right? In essence, this equation tells us how $\hat{y}$ is described/explained by other variables.
-
-$$
-\begin{aligned}
-\hat{y} = \hat{\beta_0} + \hat{\beta_1}*x_1 + \hat{\beta_2}*x_2 + ... +  \hat{\epsilon}, && \epsilon ~ N(0, \sigma)  
-\end{aligned}
-$$
-
-We can break down the equation above in smaller pieces as follows: 
-
-* $\hat{y}$ is the dependent variable, which is explained by
-* $\hat{\beta_0}$ the intercept, plus
-* $\hat{\beta_1}$ the slope coefficient for the first independent variable times the value of $x_1$ variable 1, plus
-* $\hat{\beta_2}$ the slope coefficient for the second independent variable times the value of $x_2$, plus
-* $...$ any number of independent variables, plus
-* $\hat{\epsilon}$ the error/residual term.
-* $\epsilon ~ N(0, \sigma)$ this bit tell us that the residuals are normally distributed.
-
-## R syntax for the multivariate linear model
-
-(You don't need to reproduce the code of this section in your script).
-
-The general syntax in R is as follows:
-```{r eval=FALSE}
-lm(formula, data)
-```
-
-Where the formula is given by a dependent variable which is followed by `~` one or more independent variables joined by a plus sign `+`:
-```{r eval=FALSE}
-dependent_variable ~ independent_variable1 + independent_variable2 ...
-```
-
-In the previous section, we used a small random sample of 40 people only. Now, let's fit a multivariate linear model using all the observations in the `nilt` dataset. In addition to the respondent age `rage` and `rsex`, I am interested to know whether the type of place where they live (e.g. big city, village, farm/country, etc.) `placeliv` plays a role in how people choose their partner.
-
-First, I need to coerce the `placeliv` variable as factor. And I will have a quick look at a table of this variable to have an idea of how respondents are distributed and see how the factor levels are ordered.
-```{r}
-# coerce to factor
-nilt$placeliv <- as_factor(nilt$placeliv)
-table(nilt$placeliv)
-```
-
-We see that most of the respondents live in 'a small city or town'. Also, note that the category 'Dont know' contains 0 observations. I will use the function `droplevels()` to remove the unused category in our variables. This also means that the first level in this variable will be 'a big city'. Then, I will fit the model and store it in an object called `m2`.
-```{r}
-# remove unused levels
-nilt <- droplevels(nilt)
-# boxplot
-m2 <- lm(spage ~ rage + rsex + placeliv, nilt)
-m2
-```
-
-From the result:
-
-1. We confirm the positive relationship between the respondent's age and his/her partner by a factor of 0.94. 
-2. The difference in years by sex now is smaller. We see that the age of a female respondent partner is expected to be 3.8 years older compared to males.
-3. As before, we see that the result appended the name of the categories to the `placeliv` variables. This is because it is comparing each of the categories with the category of reference, in this case, 'a big city'. The interpretation must be in comparative terms. For instance, the age of the respondent's partner in 'the suburbs or outskirts of a big city' is expected to be 0.02 years older than the partner of someone living in a 'a big city'. Overall, the coefficients do not differ much as a function of the type of place of where they live. The largest expected difference is for people living in 'a small city or town', where partner's age is expected to be -0.7 years old compared to those living in 'a big city'.
-
-In general, our model can be expressed as:
-
-$$ \hat{spage}_i = \hat{\beta_0} + \hat{\beta_1}*rage_i + \hat{\beta_2}*rsex_i + \hat{\beta_3} *  placeliv_i $$
-So, if we wanted to know the expected age of the partner of a 40 years old female who lives in a small city or town, we can use and apply the formula above:
-```{r}
-1.03 + 0.94*40 + 3.80*1 + -0.7*1
-```
-
-The expected age of this partner is, therefore, 41.7 years old.
-
-### Model evaluation
-
-We can obtain more details from our model using the `summary()` function.
-```{r}
-summary(m2)
-```
-
-From the summary, we note that the 1st and 3rd quartile of residuals are symmetric (-2.18 to 2.21). This means that 50% of the estimated/predicted ages are approximately $\pm$ 2.2 years away from the observed partner's age. Though, the minimum and the maximum residuals are not symmetric, this could be due to some extreme observed values. We can have a look to a histogram of the residuals to have a clearer idea.
-
-```{r}
-hist(m2$residuals)
-```
-
-Overall they seem normally distributed with the exception of the negative value to the left.
-
-Second, from the summary we see that respondent age `rage` and respondent sex `rsex` have a significant association with the dependent variable (indicated by the p-value < 0.001). You can confirm this in the fourth column of the coefficients ('Pr(>|t|) '). Also, the std. error for the coefficients of this variables is small. However, the std. error for the categories of the place of where they live `placeliv` is large when compared to the estimated coefficients in the first column. In fact, when we look at the fourth column we see that the p-values are much larger than 0.05, which means that there is not a significant relationship between any of the type of places where they live and the partner's respondent age. What this means is that the place where people live does not play a role in the age of the respondent's partner.
-
-Third, this time we see that the multiple R-squared is slightly different from the adjusted R-squared. This is because the adjusted considers the number of independent variables included in the model. This is why the adjusted r-squared is preferred for multivariate models. This shows our model explains 91% of the variance of the respondent's partner age.
-
-Lastly, it is important to note that even though we use the full `nilt` data set, 614 of the observations were not considered in the analysis. This is because we do not have information for some respondents. Probably some do not have a partner or preferred not to say their sex.
-
-## Assumptions
-
-You need to know that these estimates are backed by well-established patterns studied in probability and statistics. Therefore, the linear model, as many other statistical techniques, provides reliable estimates if the data follows certain characteristics. These are known as assumptions. We will not go into detail with these. However, it is important that you have them in mind when you evaluate your results and also evaluate others.
-
-There are many assumption for the linear regression model, but we will introduce four of the most commonly assessed (Boston University School of Public Health, 2016):
-
-* Linearity: The relationship between X and the mean of Y is linear.
-* Homoscedasticity: The variance of residual is the same for any value of X.
-* Independence: Observations are independent of each other.
-* Normality: For any fixed value of X, Y is normally distributed.
-
-A first step to identify potential violations of the points above is to assess the distribution of the residuals by looking to the quartiles, mean and histogram. There are many other specific tests and techniques that can help us to know whether we met the assumptions and more importantly that can help to correct them.
-
-For the moment we will leave it here. The important thing is to be aware of the existence of these potential problems and to be transparent with the results you produce. For now, I would suggest you to acknowledge the limitations of your assumptions checks.
-
-## Lab activities
-
-Set an R Markdown document in your 'NILT2' project as following:
-
-1. Create a new Rmd file, type 'Multivariate linear model' in 'Tile' section and your name in the 'Author' box. Leave the 'Default Output Format' as `HTML`.
-2. Save the Rmd document as 'Multivariate_lab_7'.
-3. Erase all the contents in the Rmd default example with the exception of the first bit (that contains the YALM) and the first R chunk (which contains the default chunk options), that is all from line 12 and on.
-
-Using the `nilt` object do the following by inserting a new chunk for each bullet points below (remember to write the comments and observations for the results as simple text outside the chunks):
-
-1. Load the packages, and  the data that you will need in your file using the code below:
-```{r eval=FALSE}
+In the Rmd document insert a new a chunk, copy and paste the following code. Then, run the individual chunk by clicking on the green arrow on the top-right of the chunk.
+```{r }
 ## Load the packages
 library(tidyverse)
-library(moderndive)
-# Read the data from the .rds file
+# Load the data from the .rds file we created in lab 3
 nilt <- readRDS("data/nilt_r_object.rds")
 ```
-2. Print a table for the highest level of qualification `highqual` using the `table()` function.
-3. Generate a scatter plot using `ggplot`. Within `aes()`, locate the number of hours worked a week `rhourswk` on the X axis and the personal income `persinc2` on the Y axis, and specify the `color` of the dots by the highest level of qualification `highqual`. Use the `geom_point()` function and 'jitter' the points using the argument `position`. Add the parallel slopes using the `geom_parallel_slopes()` function and set the standard error `se` to `FALSE`. What is your interpretation of the plot? Write down your comments to introduce the plot.
-4. Fit a linear model model using the `lm()` function to analyse the personal income `persinc2` using the number of works worked a week `rhourswk`, the highest level of qualification `highqual`, and the age of the respondent `rage` as independent variables. Store the model in an object called `m4` and print the summary. 
-5. Comment on the results of the model by mentioning which of the variables is significant and their respective p-value, the adjusted r-squared of the model, and the number of observations used to fit the model.
-6. Plot a histogram of the residuals for model `m4`. Do they look normally distributed? Can we trust our estimates or would you advise to carry out further actions to verify the adequate interpretation of this model?
+
+This time we will use new variables from the survey. Therefore, we need to coerce them into their appropriate type first. Insert a second chunk, copy and paste the code below. Then, run the individual chunk.
+```{r}
+# Age of respondent’s spouse/partner
+nilt$spage <- as.numeric(nilt$spage)
+# Migration
+nilt <- mutate_at(nilt, vars(mil10yrs, miecono, micultur), as.numeric)
+```
+
+Also, we will create a new variable called `mig_per` by summing the respondent's opinion in relation to migration using the following variables: `mil10yrs`, `miecono` and `micultur` (see the documentation p. 14 [here](https://www.ark.ac.uk/teaching/NILT2012TeachingResources.pdf) to know more about these variables). Again, insert a new chunk, copy and paste the code below, and run the individual chunk.
+```{r}
+# overall perception towards migrants
+nilt <- rowwise(nilt) %>% 
+  # sum values
+  mutate(mig_per = sum(mil10yrs, miecono, micultur, na.rm = T )) %>% 
+  ungroup() %>% 
+  # assign NA to values that sum 0
+  mutate(mig_per =  na_if(mig_per, 0))
+```
+
+### Visualizing correlation
+
+Visualizing two or more variables can help to uncover or understand the relationship between these variables. As briefly introduced in the previous session, different types of plots are appropriate for different types of variables. Therefore, we split the following sections according to the type of data to be analysed.
+
+You do not need to run or reproduce the examples shown in the following sections in your R session with the exception of exercises that are under the _activity_ headers.
+
+#### Numeric vs numeric 
+
+To illustrate this type of correlation, let's start with a quite obvious but useful example. Suppose we are interested in how  people choose their spouse or parter. The first characteristic that we might look at is age. We might suspect that there is a correlation between the the `nilt` respondents' age and their partner's age. Since both ages are a numeric variables, a scatter plot is appropriate to visualize the correlation. To do this, let's use the functions `ggplot()` and `geom_point()`. In aesthetics `aes()` let's define the respondent's age `rage` in the X axis and the respondent's spouse/partner age `spage` in the Y axis. As a general convention in quantitative research, the response/dependent variable is visualized on the Y axis and the independent on the X axis (you do not need to copy and reproduce the example below).
+
+```{r}
+ggplot(nilt, aes(x = rage, y = spage)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(title = "Respondent's age vs respondent’s spouse/partner age", 
+       x = "Respondent's age", y = "Respondent’s spouse/partner age" )
+```
+
+Note that in this plot the function `geom_smooth()` was used. This is to plot a straight line which describes the best all the points in the graph. 
+
+From the plot above, we see that there is a positive strong correlation between the respondent's age and their partner's age. We see that for some individuals their partner's age is older, whereas others is younger. Also, there are some dots that are far away from the straight line. For example, in one case the respondent is around 60 years old and the age of the partner is around 30 years old (can you find that dot on the plot?). These extreme values are known as _outliers_.
+
+We may also suspect that gender is playing a role in this relationship. We can include this as a third variable in the plot by colouring the dots by gender. To do this, let's specify the `colour` argument in aesthetics `aes()` with a categorical variable `rsex`.
+```{r}
+ggplot(nilt, aes(x = rage, y = spage, colour = rsex)) + 
+  geom_point() +
+  geom_abline(slope = 1, intercept = 0, colour = "gray20") +
+  labs(title = "Respondent's age vs respondent’s spouse/partner age", 
+       x = "Respondent's age", y = "Respondent’s spouse/partner age" )
+```
+In the previous plot, I included a line which describes what it would look like if the partner's age were exactly the same as the respondent's age. We observe a clear pattern in which female participants are on one side of the line and males on the other. Not too surprisingly, most female respondents tend to choose/have partners who are older, whereas males younger ones.
+
+### Activity 1
+
+In the `Lab7_correlation` file, use the `nilt` data object to visualize the relationship of the following variables by creating a new chunk. Run the chunk individually and comment on what you observe from the result as text (outside the code chunks).
+
+* Create a scatter plot to visualize the correlation between the respondent's overall opinion in relation to migration `mig_per` and the respondent's age `rage`. Remember that we just created the `mig_per` variable by summing three variables which were in a 0-10 scale (the higher the value, the better the person's perception is). In `aes()`, specify `rage` on the X axis and `mig_per` on the Y axis. Use `ggplot()` function and `geom_point()`. Also, include a straight line describing the points using the `geom_smooth()` function. Within this function set the `method` argument to `'lm'`.
+* What type of relationship do you observe? Comment as text in the Rmd the overall result of the plot and whether this is in line with your previous expectation.
+
+#### Numeric vs categorical
+
+As briefly introduced in the last lab, correlations often occur between categorical and numeric data. A good way to observe the relationship between these type of variables is using a box plot. Which essentially shows the distribution of the numeric values by category/group.
+
+Let's say we are interested in the relationship between education level and perception of migration. The variable `highqual` contains the respondent's highest education qualification. Using `ggplot()`, I will situate `mig_per` on the X axis and `highqual` on the Y axis, and plot it with the `gem_boxplot()` function. Note that before passing the dataset to `ggplot`, I filtered out two categories of the variable `highqual` where education level is unknown (i.e. "Other, level unknown" or "Unclassified").
+```{r}
+nilt %>% 
+  filter(highqual != "Other, level unknown" & highqual != "Unclassified") %>% 
+  ggplot(aes(x = mig_per, y = highqual )) +
+  geom_boxplot()
+```
+From the plot above, we see that respondents with higher education level (on the bottom) have more positive opinion on migration when compared to respondents with lower education level or no qualifications (on the top). Overall, the lower the education level, the worse the opinion towards migration. Since education level is an ordinal variable, we can say this is a positive relationship.
+
+### Activity 2
+
+Using the `nilt` data object, visualize the relationship of the following variables by creating a new chunk. Run the chunk individually and comment on what you can observe from the results as text in the Rmd file to introduce the plot. 
+
+* Create a boxplot to visualize the correlation between the respondent's overall opinion in relation to migration `mig_per` and the political party which the respondent identify with `uninatid`. Use `ggplot()` in combination with `geom_boxplot()`. Make sure to specify `mig_per` on the Y axis and `uninatid` on the X axis in `aes()`.
+* Do you think the opinion towards migration differs among the groups in the plot? Comment on the overall results in the Rmd document. 
+
+## Measuring correlation
+
+So far we have examined correlation by visualizing variables only. A useful practice in quantitative research is to actually measure the magnitude of the relationship between these variables. One common measure is the _Pearson_ correlation coefficient. This measure results in a number that goes from -1 to 1. A coefficient below 0 implies a negative correlation whereas a coefficient over 0 a positive one. When the coefficient is close to positive one (1) or negative (-1), it implies that the relationship is strong. By contrast, coefficients close to 0 indicate a weak relationship. This technique is appropriate to measure linear numeric relationships, that is when we have numeric variables with a normal distribution, e.g. age in our dataset. 
+
+Let's start measuring the relationship between the respondent's age and their partner's age. To do this in R, we should use the `cor()` function. In the R syntax, first we specify the variables separated by a comma. We need to be explicit by specifying the object name, the dollar sign, and the name of the variable, as shown below. Also, I set the `use` argument as `'pairwise.complete.obs'`. This is because one or both of the variables contain more than one missing value. Therefore, we are telling R to use complete observations only.
+
+```{r}
+cor(nilt$rage, nilt$spage, use = 'pairwise.complete.obs')
+```
+
+The correlation coefficient between this variables is 0.95. This is close to positive 1. Therefore, it is a strong positive correlation. The result is completely in line with the plot above, since we saw how the dots were close to the straight line.
+
+What about the relationship between `age` and `mig_per` that you plotted earlier?
+```{r}
+cor(nilt$rage, nilt$mig_per, use = 'pairwise.complete.obs')
+```
+The coefficient is very close to 0, which means that the correlation is practically non-existent. The absence of correlation is also interesting in research. For instance, one could expect that younger people would be more open to migration. However, it seems that age does not play a role on people's opinion about migration in NI.
+
+Let's say that we are interested in the correlation between `mig_per` and all other numeric variables in the dataset. Instead of continuing computing the correlation one by one, we can run a correlation matrix. The code syntax can be read as follows: from the `nilt` data select these variables, then compute the correlation coefficient using complete cases, and then round the result to 3 decimals.
+```{r}
+nilt %>% 
+  select(mig_per, rage, spage, rhourswk, persinc2) %>% 
+  cor(use = 'pairwise.complete.obs') %>% 
+  round(3)
+```
+
+From the result above, we have a correlation matrix that computes the _Person_ correlation coefficient for the selected variables. In the first row we have migration perception. You will notice that the first value is 1.00, this is because it is measuring the correlation against the same variable (i.e. itself). The next value in the first row is age, which is nearly 0. The next variables also result in low coefficients, with the exception of the personal income, where we see a moderate/low positive correlation. This can be interpreted that respondents with high income are associated with more positive opinion towards migration compared to low-income respondents.
+
+### Activity 3
+
+* Insert a new chunk in your Rmd file;
+* Using the `nilt` data object, compute a correlation matrix using the following variables: `rage`, `persinc2`, `mil10yrs`, `miecono` and `micultur`, setting the `use` argument to `'pairwise.complete.obs'` and rounding the result to 3 decimals;
+* Run the chunk individually and comment whether personal income or age is correlated with the perception of migrants in relation to the specific aspects asked in the variables measured (consult the documentation in p. 14 to get a description of these variables);
+* Knit the `Lab7_correlation` Rmd document to `.html` or `.pdf`. The output document will automatically be saved in your project.
+* Discuss your overall results wiht your neighbour or tutor.
+
+
+<!-- ## Critical Appraisal: Practice -->
+
+<!-- As a little exercise to prepare you for your first summative assessment of this course, we are going to spare 10 minutes in the lab session this week to talk about the **Critical Appraisal**. You're not required to use R at all for this assessment, unlike the research report, but some of the skills you've been learning in interpreting and designing quantitative analysis will be very useful. -->
+
+<!-- ### What is a critical appraisal?  -->
+
+<!-- The critical appraisal is designed to provide you with an opportunity to critically review the overall appropriateness of the research design underpinning a piece of social science research.  -->
+
+<!-- This will involve assessing the **strengths** and **weaknesses** of the particular methodological approach adopted in the research and commenting on its suitability to address the research questions. -->
+
+<!-- ### What do you have to do?  -->
+
+<!-- You have to submit a 1,000-word critical appraisal of a research article from an academic journal (uploaded on Moodle). You will be provided with a choice of articles to appraise, which will be posted on the course Moodle site and further discussed in one of the lecture Moodle books.  -->
+
+<!-- #### What should you focus it on?  -->
+<!-- Your appraisal should be specifically __methodological__ in focus.  Here are few guiding questions to help you write and focus on reviewing: -->
+
+<!-- * The research questions the author(s) set out to address. Are they concrete and appropriate?  -->
+<!-- * The combination of methods being employed. Are they appropriate and fully justified? -->
+<!-- * To what extent are the methods chosen suitable to answer the research questions? Are they coherent and well-aligned?  -->
+<!-- * Did the authors describe their methods fully? What are some gaps you identified?  -->
+<!-- * What the data and evidence is. How were they collected/recorded/retrieved, analysed and interpreted?  -->
+<!-- * The methodological and epistemological strengths/weaknesses of the research design. What ontological and epistemological assumptions are made by the author[s]? -->
+<!-- * Ethical and/or political issues concerning the research. Are they apparent and being addressed by the author[s]? -->
+
+
+<!-- ### Activity  -->
+<!-- We are going to run a little mock critical appraisal during your lab session this week. It will be a bit more like a "traditional" tutorial, which means you will have a discussion with other students and tutors based on a reading. You should have been asked and read the Pattaro et al. (2020) article this week, particularly its methods section. -->
+
+<!-- Based on this article, discuss the following point-by-point. n.b. There's no right or wrong answer here, so just share what you think or what your first impression was about this article. The main thing is get the conversation going, and help each other to appreciate and critique the strengths and weaknesses of this article. Remember, you can be critical by saying why the article is good in its approach e.g. in justifying its research question, as well as any weakness you may have identified.  -->
+
+<!-- **General points to discuss:** -->
+
+<!-- * Was there anything that striked you as particularly well argued by the authors in this article?  -->
+<!-- * Are there any other issues and confusions you spotted when you read the article?  -->
+
+<!-- **More specific aspects to discuss and review:** -->
+
+<!-- * Are the research questions set out by the authors concrete and appropriate? How well are the research questions linked to a gap in the literature they have identified?  -->
+<!-- * How well have the authors demonstrated an awareness of problems and shortcomings of the data and methods of analysis? What are the opportunities and limitations of secondary data analysis identified by the author? -->
+<!-- * How well was the methodological approach articulated by the authors? Are there any gaps in their discussion that you wish you could hear more on? (e.g. research design, ethics, or ontology/epistemology) -->
+<!-- * How reflexive (i.e. reflecting on their own position and assumptions as researchers) are the authors in their comments on the research methods? Was the ethical stance and weaknesses of the authors' approach well discussed? -->
+<!-- * To what extent was the method of data collection, analysis, and interpretation well-defined?  -->
+
+<!-- Well, that's how you do a critical appraisal. Just imagine you are the a reviwer/marker of this article, what comments and suggestions would you give to the authors or to other students if they were to study this article?  -->
+
+<!-- Take a few minutes to de-brief how you feel about writing your own critical appraisal too. Ask any questions you have to your tutor in the session, or post them on Teams in your lab group channel.  -->
+
+<!-- More details about how to address the assessment is available in the course handbook and will be uplaoded to Moodle.  -->
 

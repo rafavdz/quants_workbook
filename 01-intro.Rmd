@@ -31,35 +31,37 @@ Some of the advantages of using R are the following:
 * High compatibility. You can read and produce most types of file extensions;
 * There are a number of easy-access web resources to support you in the learning process.
 
-### Activity. Examples
+<!-- ### Activity. Examples -->
 
-So far we have talked about some properties of R, but it is worthwhile having a look your-self and discover some of the potential through some examples using _real-life_ data sets. Please take a few minutes to explore the following links that were completely developed using R.
+<!-- So far we have talked about some properties of R, but it is worthwhile having a look your-self and discover some of the potential through some examples using _real-life_ data sets. Please take a few minutes to explore the following links that were completely developed using R. -->
 
-* [COVID-19 tracker](https://vac-lshtm.shinyapps.io/ncov_tracker/?_ga=2.140661819.883107759.1598267087-903949304.1571305449)
-* [69 Love Songs: A Lyrical Analysis](https://committedtotape.shinyapps.io/sixtyninelovesongs/)
-* [ScotPHO's profiles tool](https://scotland.shinyapps.io/ScotPHO_profiles_tool/)
+<!-- * [COVID-19 tracker](https://vac-lshtm.shinyapps.io/ncov_tracker/?_ga=2.140661819.883107759.1598267087-903949304.1571305449) -->
+<!-- * [69 Love Songs: A Lyrical Analysis](https://committedtotape.shinyapps.io/sixtyninelovesongs/) -->
+<!-- * [ScotPHO's profiles tool](https://scotland.shinyapps.io/ScotPHO_profiles_tool/) -->
 
-What do you think about them? Which one did you enjoy the most?
+<!-- What do you think about them? Which one did you enjoy the most? -->
 
-Of course the examples above are meant for you to have a sense of the flexibility and potential to process and communicate quantitative analyses in `R`. This course covers the basics to process data and conduct quantitative analyses in social sciences.
+<!-- Of course the examples above are meant for you to have a sense of the flexibility and potential to process and communicate quantitative analyses in `R`. This course covers the basics to process data and conduct quantitative analyses in social sciences. -->
 
 ## Get started
 ### Setting RStudio
 
-At this point you need to know that there are at least two alternatives to start using RStudio. One, and by far the most common, is to download both `R` and RStudio and install the applications in your local drive. The other consists on using RStudio Cloud. This is an on-line version of RStudio that does not require installing any new software. For now, this is the version we will be working with. To get started, follow the next steps:
+At this point you need to know that there are at least two alternatives to start using RStudio. One, and by far the most common, is to download both `R` and RStudio and install the applications in your local drive. The other option is RStudio Cloud. This is an on-line version of RStudio that does not require installing any additional software. You can run it directly from your browser (e.g. GoogleChrome, Safary, Firefox, etc). For now, we will use the cloud version. 
 
-Part 1. Create an RStudio Cloud account
+To get started, follow the next steps:
+
+**Part 1** Create an RStudio Cloud account.
 
 1. Click on this link [RStudio Cloud](https://rstudio.cloud/), which should automatically open a new tab in your web browser or go directly to the browser and copy this URL: https://rstudio.cloud/;
-2. Click on the "Get started for free" option > Select the "Cloud Free" tab > Click "Sign Up";
-3. Enter your details and sign up with your university email address;
-4. Access your university email and verify your address by following the instructions you received in an email from RStudio.
+2. Click on the "Get started for free" option. Click on the "Sing up" button (ignore the 'Plus' option);
+3. Enter your details and sign up with your student *UoG email address* (if available, access using the institutional log in option using your UoG credentials);
+4. Access your UoG email and verify your address by following the instructions you received in an email.
 
 <br>
 
-Part 2. Join your lab group.
+**Part 2** Join your lab group.
 
-1. You will receive a link from your tutor to join your lab group in a shared space. Copy and paste it in your web browser. You should see the following window:
+1. You will receive a link from your tutor to join your lab group. Copy and paste it in your web browser. You should see the following window:
 ```{r fig.cap="Join Space.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_joinspace.png")
 ```
@@ -97,21 +99,23 @@ knitr::include_graphics("./images/rstudio_cloud_new_script.png")
 ```
 <br>
 
-Once you have created your first R Script, save it by clicking on File > Save as.. > `[write the name of your file]`. After this, your RStudio screen will be split in four windows or panes as shown here:
+Once you have created your first R Script, save it by clicking on File > Save as.. > `[write the name of your file]`. 
+
+After this, your RStudio screen will be split in four **imporant** windows or panes as shown below:
 
 <br>
 ```{r fig.cap="R Studio panes.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_panels.png")
 ```
 
-* In **Pane 1**, you have your newly created R Script. This is the area where you will be working most of the time. From here, you will write your functions (commands). To run a function, you can click on the `Run` green arrow situated on the top of pane 1 or more commonly you can run a code line by typing `alt + enter`. The things you write in this section will be saved in your R Script file.
+* In **Pane 1**, you have your newly created `R` script. This is the area where you will be working most of the time. From here, you will write functions. To run a an `R` script line, you can click on the `Run` green arrow situated on the top of pane 1 or more commonly you can run a code line by typing `alt + enter`. The things you write in this section will be saved in your R script file.
 ![Run button](./images/rstudio_cloud_run_button.png)
-* In **Pane 2**, you have the "Global Environment", this is one of the most useful tabs in this pane. It shows you the active 'objects' that you have available/loaded in your current R session (this will probably make more sense in the coming sections).
-* In **Pane 3**, you have the R Console, this is where you will see most of the results of the functions you run from your script (pane 1). You can also write and run functions from here, by typing the function and hitting enter. NOTE that what you do here will NOT be saved, this is usually used to quickly call functions that you do not want to have in your script.
+* In **Pane 2**, you have the "Global Environment", this is one of the most useful tabs in this pane. It shows you the active 'objects' that you have available/loaded in your current session (this will probably make more sense in the coming sections).
+* In **Pane 3**, you have the R Console, this is where you will see most of the results of the functions you run from your script (pane 1). You can also write and run functions from here, by typing the function and hitting enter. NOTE that what you do here will NOT be saved, this is usually used to quickly call functions that you do not want to save in your script.
 ```{r fig.cap="Console.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_console.png")
 ```
-* Finally, in **Pane 4** you have multiple useful tabs. In the `File` tab you can see the files and directories that you have in your Project. In the `Plot` tab you will see a preview of the static plots/charts your will be producing form your scrip. In `Packages`, you have a list of the extensions or plug-ins ('packages' in R) that are installed in your working environment. The `Help` contains some resources that clarify or expand what each of the functions does. Again, probably this will make more sense once you get started. We will come back to this later. Finally, the `Viewer` displays interactive outputs.
+* Finally, in **Pane 4** you have multiple useful tabs. In the `File` tab you can see the files and directories that you have in your R project. In the `Plot` tab you will see a preview of the static plots/charts your will be producing form your scrip. In `Packages`, you have a list of the extensions or plug-ins (called 'packages' in R) that are installed in your working environment. The `Help` contains some resources that clarify or expand what each of the functions does. Again, probably this will make more sense once you get started. We will come back to this later. Finally, the `Viewer` displays interactive outputs.
 
 ## Hands on R
 
@@ -141,15 +145,17 @@ Now, write and run the following lines in your console and take some time to obs
 * `'a' == 'a'`
 * `'a' == 'b'`
 
-What do you observe? ... 
+What do you see? ... 
 
-...That's it! When you use the double equal sing `==` you are _asking_ R whether the value on the left hand-side of the operator is equal to the one on the right hand-side. Likewise, when you combine the exclamation sign `!` with other operator, you get the reversed result. In the past exercises you used `!=`, this was interpreted as "is not equal to", that is why `10 != 10` returns `FALSE`, but `10 == 10` returns `TRUE`. Similarly, R can process different value classes. In this case we used letters and we _asked_ R whether 'a' was equal to 'a', and of course the result is `TRUE`. Note that when you want to input text (referred as _character_ values in R), you need quotation marks `'`. If you want to enter numeric values, you simply input the raw number. These are different 'class' values.
+...That's it! When you use the double equal sing `==` you are _asking_ R whether the value on the left hand-side of the operator is equal to the one on the right hand-side. Likewise, when you combine the exclamation sign `!` with other operator, you get the reversed result. In the past exercises you used `!=`, this was interpreted as "is not equal to", that is why `10 != 10` returns `FALSE`, but `10 == 10` returns `TRUE`. 
+
+`R` can process different classes of inputs. In this case we used letters and we _asked_ R whether 'a' was equal to 'a', and of course the result is `TRUE`. Note that when you want to input text (referred as _character_ values in R), you need quotation marks `'`. If you want to enter numeric values, you simply input the raw number. These are different 'class' values.
 
 Perhaps logical operators do not make much sense at this point, but you will find out later that they are useful to manipulate data. For example, these are essential to filter a data set based on specific _rules_ or patterns.
 
 #### Assigning values to 'objects'
 
-In `R`, it is very common to store values or data as 'objects'. These are temporally stored in your current session (in the virtual memory of your machine). Let's try it! In your `R` script (Pane 1), write the following and run it by clicking the green arrow or using `alt + ent`:
+In `R`, it is very common (and practical) to store values or data as 'objects'. These are temporally stored in your current session. Let's try it! In your `R` script (Pane 1), write the following and run it by clicking the green arrow or using `alt + ent`:
 
 ```{r eval = FALSE}
 a <- 10
@@ -224,7 +230,9 @@ knitr::include_graphics("./images/rstudio_cloud_environment.png")
 
 <!-- Here, you can scroll down or visualize your columns to your right in a table-style format. You can sort the contents of the variables by clicking on the header. But note that you cannot make any changes from here. Once you finished checking your data, simply click on the cross mark and you will be back to your script tab. -->
 
-Finally, the changes made in your script are saved automatically in RStudio Cloud. To verify this, have a look at the name of your script in the top-left of pane 1. If changes are due to be saved, the name will be written in red. If it is in red, save changes manually by clicking on the disk icon. After you have made sure your changes are saved, end your session simply by closing the RStudio Cloud tab in your browser.
+This is a very good start, great job! 
+
+Note that the changes made in your script are saved automatically in RStudio Cloud. To verify this, have a look at the name of your script in the top-left of pane 1. If changes are due to be saved, the name will be written in red. If it is in red, save changes manually by clicking on the disk icon. After you have made sure your changes are saved, end your session simply by closing the RStudio Cloud tab in your browser.
 
 
 
