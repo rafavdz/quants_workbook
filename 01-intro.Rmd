@@ -53,7 +53,7 @@ To get started, follow the next steps:
 **Part 1** Create an RStudio Cloud account.
 
 1. Click on this link [RStudio Cloud](https://rstudio.cloud/), which should automatically open a new tab in your web browser or go directly to the browser and copy this URL: https://rstudio.cloud/;
-2. Click on the "Get started for free" option. Click on the "Sing up" button (ignore the 'Plus' option);
+2. Click on the "Get started for free" option. Click on the "Sign up" button (ignore the 'Plus' option);
 3. Enter your details and sign up with your student *UoG email address* (if available, access using the institutional log in option using your UoG credentials);
 4. Access your UoG email and verify your address by following the instructions you received in an email.
 
