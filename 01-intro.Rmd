@@ -7,7 +7,7 @@ knitr::include_graphics("./images/r-lang-popularity-increase.png")
 ```
 <br>
 
-`R` and `R Studio` are two separated things. R is the actual programming language and the main processing tool which does the computations in the background, whereas RStudio integrates all functionalities in a friendly and interactive interface. In short, for this course (and most of the times in practice) you only work in RStudio. Thereafter, we will refer to R, as the integrated interface.
+`R` and `R Studio` are two separate things. R is the actual programming language and the main processing tool which does the computations in the background, whereas RStudio integrates all functionalities in a friendly and interactive interface. In short, for this course (and most of the times in practice) you only work in RStudio. Thereafter, we will refer to R, as the integrated interface.
 
 `R` works as a command-based line user interface most of the time. This means that you need to call the commands (or _**functions**_, as they are called in R) through text lines. This can look intimidating at first glance. But do not worry, we will guide you step by step.
 
@@ -19,7 +19,7 @@ At this point you may be wondering why you need to bother learning these tools. 
 
 R can be applied in a wide variety of fields and subjects, including not only those in the social sciences (e.g. sociology, politics or policy research), but also in humanities (e.g. history, digital humanities), natural and physical sciences (e.g. biology, chemistry or geography), health (e.g. medical studies, public health, epidemiology), business and management (e.g. finance, economics, marketing), among many others. 
 
-The broad application of R is due to its flexibility which allows to perform a range of tasks related to data. These cover tasks at initial stages, such as downloading, mining, or importing data. But it is also useful to manipulate, edit, transform, and organize information. Furthermore and most important for us, there are set of tools that allows us to analyse data using a range of statistical techniques. These are useful to understand, summarize and draw conclusions about samples, e.g. people. Lastly, `R` is powerful to communicate and share information and documents. There are several extensions (called _**packages**_ in R) that can help to produce static and interactive plots/charts, maps, written reports, interactive applications or even entire books! In fact this workbook was written from RStudio.
+The broad application of R is due to its flexibility which allows to perform a range of tasks related to data. These cover tasks at initial stages, such as downloading, mining, or importing data. But it is also useful to manipulate, edit, transform, and organize information. Furthermore and most important for us, there are a set of tools that allows us to analyse data using a range of statistical techniques. These are useful to understand, summarize and draw conclusions about samples, e.g. people. Lastly, `R` is powerful to communicate and share information and documents. There are several extensions (called _**packages**_ in R) that can help to produce static and interactive plots/charts, maps, written reports, interactive applications or even entire books! In fact this workbook was written from RStudio.
 
 ### Advantages of using R
 
@@ -27,7 +27,7 @@ Some of the advantages of using R are the following:
 
 * It is free and open source. You do not need to pay for a license. Thus you can use it at any-where any-time even if you do not have an affiliation to an institution or organization (e.g. University or workplace);
 * It is a collaborative project. This means that it is the users who maintain, extend and update its applications;
-* It is reproducible. Research can be more transparent since you will get the same results every time you run your analysis through an specific pathway (i.e. through scripts);
+* It is reproducible. Research can be more transparent since you will get the same results every time you run your analysis through a specific pathway (i.e. through scripts);
 * High compatibility. You can read and produce most types of file extensions;
 * There are a number of easy-access web resources to support you in the learning process.
 
@@ -46,7 +46,7 @@ Some of the advantages of using R are the following:
 ## Get started
 ### Setting RStudio
 
-At this point you need to know that there are at least two alternatives to start using RStudio. One, and by far the most common, is to download both `R` and RStudio and install the applications in your local drive. The other option is RStudio Cloud. This is an on-line version of RStudio that does not require installing any additional software. You can run it directly from your browser (e.g. GoogleChrome, Safary, Firefox, etc). For now, we will use the cloud version. 
+At this point you need to know that there are at least two alternatives to start using RStudio. One, and by far the most common, is to download both `R` and RStudio and install the applications in your local drive. The other option is RStudio Cloud. This is an on-line version of RStudio that does not require installing any additional software. You can run it directly from your browser (e.g. GoogleChrome, Safari, Firefox, etc). For now, we will use the cloud version. 
 
 To get started, follow the next steps:
 
@@ -61,7 +61,7 @@ To get started, follow the next steps:
 
 **Part 2** Join your lab group.
 
-1. You will receive a link from your tutor to join your lab group. Copy and paste it in your web browser. You should see the following window:
+1. You will receive a link from your tutor to join your lab group on RStudio Cloud (and the link will be posted on Moodle). N.b. you must use this specific link to join and access your lab group workspace, as each link is unique to your group. So only use your group's specific link. Copy and paste the link in your web browser. You should see the following window:
 ```{r fig.cap="Join Space.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_joinspace.png")
 ```
@@ -115,7 +115,7 @@ knitr::include_graphics("./images/rstudio_cloud_panels.png")
 ```{r fig.cap="Console.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_console.png")
 ```
-* Finally, in **Pane 4** you have multiple useful tabs. In the `File` tab you can see the files and directories that you have in your R project. In the `Plot` tab you will see a preview of the static plots/charts your will be producing form your scrip. In `Packages`, you have a list of the extensions or plug-ins (called 'packages' in R) that are installed in your working environment. The `Help` contains some resources that clarify or expand what each of the functions does. Again, probably this will make more sense once you get started. We will come back to this later. Finally, the `Viewer` displays interactive outputs.
+* Finally, in **Pane 4** you have multiple useful tabs. In the `File` tab you can see the files and directories that you have in your R project. In the `Plot` tab you will see a preview of the static plots/charts your will be producing form your script. In `Packages`, you have a list of the extensions or plug-ins (called 'packages' in R) that are installed in your working environment. The `Help` contains some resources that clarify or expand what each of the functions does. Again, probably this will make more sense once you get started. We will come back to this later. Finally, the `Viewer` displays interactive outputs.
 
 ## Hands on R
 
@@ -132,7 +132,7 @@ knitr::include_graphics("./images/rstudio_cloud_r_as_calculator.png")
 <br>
 Try different operations such as `50 / 20` or `3 * 5`.
 
-Fairly simple, right? Let's continue with the next activities.
+Fairly simple, right? And don't forget, it is entirely normal to copy/paste and tweak any existing codes. Unlike writing an essay or an exam, you don't actually need to know and write codes "off the cuff" or recite/memorise any syntax. You are only expected to know how to run the codes and tweak them as you go along, there is a huge amount of trial and error when you work in R. So don't worry if you feel like you are just making minor changes to the codes, that's how it's supposed to work, and the first few weeks is all about getting comfortable in using R, then the level of challenge will go up. Let's continue with the next activities!
 
 #### Testing logical operators
 
@@ -147,7 +147,7 @@ Now, write and run the following lines in your console and take some time to obs
 
 What do you see? ... 
 
-...That's it! When you use the double equal sing `==` you are _asking_ R whether the value on the left hand-side of the operator is equal to the one on the right hand-side. Likewise, when you combine the exclamation sign `!` with other operator, you get the reversed result. In the past exercises you used `!=`, this was interpreted as "is not equal to", that is why `10 != 10` returns `FALSE`, but `10 == 10` returns `TRUE`. 
+...That's it! When you use the double equal sign `==` you are _asking_ R whether the value on the left hand-side of the operator is equal to the one on the right hand-side. Likewise, when you combine the exclamation mark `!` with other operator, you get the reversed result. In the past exercises you used `!=`, this was interpreted as "is not equal to", that is why `10 != 10` returns `FALSE`, but `10 == 10` returns `TRUE`. 
 
 `R` can process different classes of inputs. In this case we used letters and we _asked_ R whether 'a' was equal to 'a', and of course the result is `TRUE`. Note that when you want to input text (referred as _character_ values in R), you need quotation marks `'`. If you want to enter numeric values, you simply input the raw number. These are different 'class' values.
 
