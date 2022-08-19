@@ -1,7 +1,7 @@
 --- 
-title: "UG Quantitative Methods in the Social Sciences: Lab workbook"
-subtitle: "A step-by-step guide for conducting quantitative research in R"
-author: "Rafael Verudzco Torres and Mark Wong"
+title: "UG Quantitative Methods in the Social Sciences lab workbook"
+subtitle: "A step-by-step guide for conducting quantitative research with R"
+author: "by J Rafael Verudzco Torres and Mark Wong"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
@@ -20,8 +20,14 @@ library(tidyverse)
 
 # Welcome{-#Welcome}
 
+![](./images/cover.PNG)
+
+
 Welcome to the Quantitative Methods in the Social Sciences lab!
 
+This woorkbook is targeted to University of Glasgow students enrolled in the Undergraduate Quantitative Research Methods course of the School of Social & Political Sciences. The activities are designed for [RStudio Cloud](https://rstudio.cloud/).
+
+The book was written using `R` [bookdown](https://github.com/rstudio/bookdown) package based on the GitHub repository: <https://github.com/rstudio/bookdown-demo>.
 
 
 <br>
