@@ -3,13 +3,13 @@
 For this course we will be using [R](https://www.r-project.org/) [@R-base] and [R Studio](https://rstudio.com/) as the main tools for conducting quantitative analysis. `R` and the basic versions of `R Studio` are open-source and thus free software. Even though `R` appeared in the early 90s, it has been gaining a lot of popularity in recent years. In fact, it is now one of the most common software for doing statistics in academia.
 
 ```{r fig.cap="Soruce: www.https://tiobe.com/.", include=FALSE}
-knitr::include_graphics("./images/r-lang-popularity-increase.png")
+knitr::include_graphics("images/r-lang-popularity-increase.png")
 ```
-<br>
 
-`R` and `R Studio` are two separate things. R is the actual programming language and the main processing tool which does the computations in the background, whereas RStudio integrates all functionalities in a friendly and interactive interface. In short, for this course (and most of the times in practice) you only work in RStudio. Thereafter, we will refer to R, as the integrated interface.
 
-`R` works as a command-based line user interface most of the time. This means that you need to call the commands (or _**functions**_, as they are called in R) through text lines. This can look intimidating at first glance. But do not worry, we will guide you step by step.
+`R` and `R Studio` are two separate things. `R` is the actual programming language and the main processing tool which does the computations in the background, whereas RStudio integrates all functionalities in a friendly and interactive interface. In short, for this course (and most of the times in practice) you chiefly RStudio whilst `R` is silently doing all the work in the background. Thereafter, we will refer to `R`, as the integrated interface.
+
+`R` works in a command-based line environment. This means that you need to call the commands (or _**functions**_, as called in R) through text. This can look intimidating at first glance. But do not worry, we will guide you step by step.
 
 At this point you may be wondering why you need to bother learning these tools. In the next section you will see some of the advantages and examples that can be achieved using `R`.
 

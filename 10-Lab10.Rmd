@@ -3,17 +3,25 @@
 ## Introduction
 
 
-## Create your work space to write your research project
+## Create your research report project from GitHub
 
-1. Access RStudio Cloud as usual
-2. Make sure you are in your Quants Lab group (not in 'Your Workspace').
+1. Access RStudio Cloud as usual.
+2. Make sure you are in your Quants lab group (not in 'Your Workspace').
 3. Click on the 'New Project' button and select 'New Project from Git Repository'.
-4. Paste the following URL in the box and click 'OK': https://github.com/rafavdz/UGQuant-assignment2 .
-5. You are ready! 
+```{r fig.cap="New project from GitHub.", echo=FALSE}
+knitr::include_graphics("./images/research_rep_2.PNG")
+```
+4. Paste the following URL in the box and click 'OK': https://github.com/rafavdz/UGQuant-assignment2.
+5. You are all set! Just click on the project to access the contents.
+
 
 ## Research report template
 
-Once in your `UGQuant-assignment2` project, you can find the `Assignmet2-template.Rmd` file in Pane 4 under the 'Files' tab.
+Once in your **UGQuant-assignment2** project, open the `Assignmet2-template.Rmd` file in Pane 4 under the 'Files' tab, as shown below.
+
+```{r fig.cap="Template.", echo=FALSE}
+knitr::include_graphics("./images/research_rep_3.PNG")
+```
 
 This template contains the following:
 
@@ -21,13 +29,16 @@ This template contains the following:
 * Suggested word count for each section
 * Code necessary to run and present the results of a multivariate linear regression.
 
+In essence, this is the basic structure to continue working towards writing your assignment. Of course, you can add, edit, and customize as much as you consider it appropriate. Remember, this is just a generic suggestion and you should address all the points required in the according to the best of your abilities. It is your time to shine!
+
+
 ## Activity 1
 
 1. In the template, fill in the 'author' and 'date' space in the YALM at the top of the file with your student number and appropriate information using quotation marks.
 2. Knit the `Rmd` file as `html` (`R` studio will ask to install some packages, click 'Yes').
 3. In the output, look at the results of the table under the 'Results' section and identify the *dependent* and the *independent* variables. You can learn more about the meaning of this variables in the NILT documentation ([click here to access the documentation](https://www.ark.ac.uk/teaching/NILT2012TeachingResources.pdf)).
 4. Identify the variables that are significant in this model.
-5. Discuss with your neighbour or tutor your interpretations.
+5. Discuss with your neighbour or tutor your interpretations. You can refer back to [Lab 8](#simple-lm) and [Lab 9](#multi-lm).
 
 ## Activity 2
 

@@ -1,4 +1,4 @@
-# Linear model. Simple linear regression
+# Linear model. Simple linear regression{#simple-lm}
 
 ## Welcome
 

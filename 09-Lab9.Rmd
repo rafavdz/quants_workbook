@@ -1,4 +1,4 @@
-# Multivariate linear model{#Lab7}
+# Multivariate linear model{#multi-lm}
 
 ## Introduction
 

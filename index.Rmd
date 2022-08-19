@@ -25,7 +25,7 @@ library(tidyverse)
 
 Welcome to the Quantitative Methods in the Social Sciences lab!
 
-This woorkbook is targeted to University of Glasgow students enrolled in the Undergraduate Quantitative Research Methods course of the School of Social & Political Sciences. The activities are designed for [RStudio Cloud](https://rstudio.cloud/).
+This workbook is targeted to University of Glasgow students enrolled in the Undergraduate Quantitative Research Methods course of the School of Social & Political Sciences. The activities are designed for [RStudio Cloud](https://rstudio.cloud/).
 
 The book was written using `R` [bookdown](https://github.com/rstudio/bookdown) package based on the GitHub repository: <https://github.com/rstudio/bookdown-demo>.
 
