@@ -52,16 +52,27 @@ To get started, follow the next steps:
 
 **Part 1** Create an RStudio Cloud account.
 
+<!-- The following instructions are without SSO: -->
+<!-- 1. Click on this link [RStudio Cloud](https://rstudio.cloud/), which should automatically open a new tab in your web browser or go directly to the browser and copy this URL: https://rstudio.cloud/; -->
+<!-- 2. Click on the "Get started for free" option. Click on the "Sign up" button (ignore the 'Plus' option); -->
+<!-- 3. Enter your details and sign up with your student *UoG email address* (if available, access using the institutional log in option using your UoG credentials); -->
+<!-- 4. If required by the platform, access your UoG email and verify your address by following the instructions you received in an email. -->
+
+<!-- The following instructions are according to the SSO -->
 1. Click on this link [RStudio Cloud](https://rstudio.cloud/), which should automatically open a new tab in your web browser or go directly to the browser and copy this URL: https://rstudio.cloud/;
-2. Click on the "Get started for free" option. Click on the "Sign up" button (ignore the 'Plus' option);
-3. Enter your details and sign up with your student *UoG email address* (if available, access using the institutional log in option using your UoG credentials);
-4. Access your UoG email and verify your address by following the instructions you received in an email.
+2. Enter your University of Glasgow email address in the login page as normal;
+3. Then it gets linked to the SSO sign-in page, which you input your GUID and password (same page as if you're logging into the library portal/e-reading list);
+```{r fig.cap="SSO Login", echo=FALSE}
+knitr::include_graphics("./images/sso_login.png")
+```
+4. Done! You will be taken you into your own Rstudio Cloud work space as usual. 
+
 
 <br>
 
 **Part 2** Join your lab group.
 
-1. You will receive a link from your tutor to join your lab group on RStudio Cloud (and the link will be posted on Moodle). N.b. you must use this specific link to join and access your lab group workspace, as each link is unique to your group. So only use your group's specific link. Copy and paste the link in your web browser. You should see the following window:
+1. You will receive a link from your tutor to join your lab group on RStudio Cloud (the link will be posted on Moodle too). N.b. you must use this specific link to join and access your lab group workspace, as each link is unique to your group. So only use your group's specific link. Copy and paste the link in your web browser. You should see the following window:
 ```{r fig.cap="Join Space.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_joinspace.png")
 ```

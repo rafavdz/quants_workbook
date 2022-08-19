@@ -1,5 +1,45 @@
-# Research report
+# UG Quants assignment: Research report
 
 ## Introduction
+
+
+## Create your work space to write your research project
+
+1. Access RStudio Cloud as usual
+2. Make sure you are in your Quants Lab group (not in 'Your Workspace').
+3. Click on the 'New Project' button and select 'New Project from Git Repository'.
+4. Paste the following URL in the box and click 'OK': https://github.com/rafavdz/UGQuant-assignment2 .
+5. You are ready! 
+
+## Research report template
+
+Once in your `UGQuant-assignment2` project, you can find the `Assignmet2-template.Rmd` file in Pane 4 under the 'Files' tab.
+
+This template contains the following:
+
+* Suggested structure
+* Suggested word count for each section
+* Code necessary to run and present the results of a multivariate linear regression.
+
+## Activity 1
+
+1. In the template, fill in the 'author' and 'date' space in the YALM at the top of the file with your student number and appropriate information using quotation marks.
+2. Knit the `Rmd` file as `html` (`R` studio will ask to install some packages, click 'Yes').
+3. In the output, look at the results of the table under the 'Results' section and identify the *dependent* and the *independent* variables. You can learn more about the meaning of this variables in the NILT documentation ([click here to access the documentation](https://www.ark.ac.uk/teaching/NILT2012TeachingResources.pdf)).
+4. Identify the variables that are significant in this model.
+5. Discuss with your neighbour or tutor your interpretations.
+
+## Activity 2
+
+1. Write one introductory paragraph in the 'Introduction' section of the template according to the guidance provided.
+2. Knit the document again.
+
+
+## Conclusion 
+
+We hope that by getting you familiar with this setting, you will succeed in writing your research report using all the knowledge and skills learnt during this course. Take this session to read the instruction for Assingment 2 and ask as much question as possible. This is the perfect time to have specialized one-to-one support from your tutor.
+
+We wish you the best of luck!
+
 
 
