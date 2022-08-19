@@ -10,4 +10,5 @@ The book was written using `R` [bookdown](https://github.com/rstudio/bookdown) p
 
 To render the book locally, open the R Markdown file `index.Rmd` and click the Build tab of RStudio and select the bookdown::gitbook option. For more information see <https://bookdown.org/yihui/bookdown/>.
 
-This book was written based on the GitHub repository: <https://github.com/rstudio/bookdown-demo>.
+This book was written using the following GitHub repository:
+<https://github.com/rstudio/bookdown-demo>.
