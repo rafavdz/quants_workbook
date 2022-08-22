@@ -10,7 +10,7 @@ The multivariate linear model is based on the same principles as the simple line
 
 ### Paralell slopes
 
-We will follow-up the example we used before to introduce the simple linear model to illustrate the advantages of using more than one variable. To do so, please set your RStudio environment as follows:
+We will follow-up with the example we used before introducing the simple linear model to further illustrate the advantages of using more than one variable. To do so, please set your RStudio environment as follows:
 
 1. Go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/);
 2. Open your own 'NILT2' project from your 'Quants lab group';
@@ -55,9 +55,9 @@ ggplot(nilt_sample,  aes(x = rage, y = spage, color = rsex)) +
 ```
 What do you observe in the plot above? ... 
 
-The first thing to note is that both females and males go in the same direction. When the respondent's age increases the age of the partner increases as well. An interesting thing is that females tend to be located higher with respect to the Y axis compared to the male dots.
+The first thing to note is that females and males go in the same direction. When the respondent's age increases the age of the partner increases as well. An interesting thing is that females tend to be located higher with respect to the Y axis compared to the male dots.
 
-Therefore, we can imagine that not only the age of the respondent is involved in the decision on how people chooses their partner, but also sex. We can draw two lines one for male and the other for female respondents, instead of only a general one as we did in the previous lab. To do this we will use the `ggplot` function in combination with the `geom_parallel_slopes` function from the `moderndive` package:
+Therefore, we can imagine that not only the age of the respondent is involved in the decision on how people choose their partner, but also the respondents' sex. We can draw two lines, one for male and the other for female respondents, instead of only a general one as we did in the previous lab. To do this we will use the `ggplot` function in combination with the `geom_parallel_slopes` function from the `moderndive` package:
 
 ```{r}
 # plot
@@ -67,7 +67,7 @@ ggplot(nilt_sample,  aes(x = rage, y = spage, color = rsex)) +
   labs(title = "Respondent's age vs respondent’s spouse/partner age", 
        x = "Respondent's age", y = "Respondent’s spouse/partner age" )
 ```
-Well, our suspicions that points representing female respondents were above the ones for males are turning out to be true. What we have in the plot above are the optimal parallel lines that describe our points the best for each group. The interpretation of our visualizations so far is: 
+Well, our suspicion that the points representing female respondents were generally above the male ones is turning out to be true. What we have in the plot above are the optimal parallel lines that describe our points the best for each group. The interpretation of our visualizations so far is: 
 
 1. both males and females partner's age is positively associated with respondent's age. 
 2. This association is different for males and females. Overall, females choose older partners compared to males.
@@ -78,7 +78,7 @@ m1 <- lm(spage ~ rage + rsex, nilt_sample)
 m1
 ```
 
-From the output, we see that there is one intercept $\beta_0$, one slope coefficient $\beta_1$ for the numeric variable `rage` and other coefficient $\beta_2$ for the categorical variable. If you observe closer, the output appended only one of the two categories for `rsex`. This is because categorical variables take one of the categories as the reference. The variable that it is not shown is the reference, 'Male' in this case.
+From the output, we see that there is one intercept $\beta_0$, one slope coefficient $\beta_1$ for the numeric variable `rage`, and another coefficient $\beta_2$ for the categorical variable. If you observe closer, the output appended only one of the two categories for `rsex`. This is because categorical variables take one of the categories as the reference. The variable that is not shown is the reference, 'Male', in this case.
 
 Being more precise with our previous interpretation, we can say there is a positive relationship between both males and female participants' age and their partner's age by a factor of 0.91 for every additional year in age. Also, female respondent's partners are expected to be 4.9 years older compared to male respondents.
 
