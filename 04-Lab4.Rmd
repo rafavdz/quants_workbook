@@ -1,6 +1,6 @@
 # Exploratory data analysis
 
-In our previous session we learnt about wrangling data in `R` by implementing useful function such as `filter()`, `select()`, and `mutate()`. In this session we will focus on descriptive statistics. This includes the exploration and description of quantitative data.
+In our previous session we learned about wrangling data in `R` by implementing useful function such as `filter()`, `select()`, and `mutate()`. In this session we will focus on descriptive statistics. This includes the exploration and description of quantitative data.
 
 ## Getting started
 
