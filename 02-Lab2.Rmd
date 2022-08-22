@@ -2,7 +2,7 @@
 
 ## Welcome back!
 
-In our previous lab we set up an RStudio Cloud session, we got familiar with the RStudio environment and some of the purpose and contents of its panes. In this Lab we will learn about R packages, how to install them and load them. Also, we will use different types of data. You will have the chance to practice with additional `R` operators. Lastly, we will load a real-world data set and put in practice your new skills.
+In our previous lab, we set up an RStudio Cloud session and we got familiar with the RStudio environment and some of the purpose and contents of its panes. In this Lab we will learn about R packages, how to install them and load them. Also, we will use different types of data. You will have the chance to practice with additional `R` operators. Lastly, we will load a real-world data set and put in practice your new skills.
 
 ## R Packages{#learn-packages}
 
@@ -18,7 +18,7 @@ Let's put hands-on to install and load some useful packages. We will start with 
 
 **Part 1**. Access your lab group in R Studio Cloud
 
-1. Make sure you have a free [RStudio Cloud](https://rstudio.cloud/) account (in case you have not created one yet, please follow the guidance provided in Lab 1);
+1. Make sure you have a free, institutional-subscription [RStudio Cloud](https://rstudio.cloud/) account (in case you have not created one yet, please follow the guidance provided in Lab 1);
 2. You will receive a link from your tutor to join your lab group in a shared space. Copy and paste it in your web browser (log in if necessary). If you already joined your lab group in RStudio Cloud, simply access the 'Lab 2' project and omit steps 3 to 5. Otherwise, continue with steps 3, 4 and 5.
 3. If you did not join your lab group yet, you should see the following window:
 ```{r fig.cap="Join Space", echo=FALSE}
@@ -45,19 +45,19 @@ library(tidyverse)
 
 And that's it, `tidyverse` is ready to be used in your current session!
 
-There are couple of things you should. First, the packages need to be installed only per project in RStudio Cloud (and only once if you are working in RStudio Desktop version). By contrast, packages must be loaded using the `library()` function every time you restart an R session. 
+There are couple of things you should know. First, the packages need to be installed only per project in RStudio Cloud (and only once if you are working in RStudio Desktop version). However, packages must be loaded using the `library()` function every time you restart an R session. 
 
 Another thing to notice is that when you install a package you need to use quotation marks, whereas in `library()` you only need to write the plain package name within brackets. Usually, you will load the packages at the beginning of your script.
 
 
 ## Types of variables
 
-`R` can handle many classes of data. It is crucial that you can distinguish the main. Broadly speaking there are two types of variables,
+`R` can handle many classes of data. It is crucial that you can distinguish the main ones. Broadly speaking there are two types of variables,
 
 1. **categorical** and; 
 2. **numeric** (formally know as interval or ratio). 
 
-Categorical variables distinguished because they are limited in the number of categories it can take, e.g., country, name, political party, or gender. Ordinal data is a *sub-type* of the categorical, and it is used when the categories can be ranked and their order is meaningful, e.g., education level or level of satisfaction. Numeric values can be continuous (these are usually measured and can take infinite values, e.g. speed or time).^[For more details, please refer to the DataCamp module [Introduction to Data in R](https://learn.datacamp.com/courses/introduction-to-data-in-r).]
+Categorical variables are distinctive because they are limited in the number of categories it can take, e.g., country, name, political party, or gender. Ordinal data is a *sub-type* of the categorical, and it is used when the categories can be ranked and their order is meaningful, e.g., education level or level of satisfaction. Numeric values can be continuous (these are usually measured and can take infinite values, e.g. speed or time).^[For more details, please refer to the DataCamp module [Introduction to Data in R](https://learn.datacamp.com/courses/introduction-to-data-in-r).]
 
 In `R`, the basic types of data are known as 'atomic vectors' and there are 6 of them (logical, integer, double, character, complex and raw). In the social sciences, we often use the following: `numeric`, `factor` and `character`. Numeric vectors are used to represent continuous numerical data.^[Notice that `numeric` vectors can be represented as `integer`or `double` in `R`, their difference is of little relevance for now.] On the other hand, factor vectors are used to represent categorical and ordinal data.
 
@@ -95,14 +95,14 @@ Note the syntax above. Inside the function, we used the name of the dataset foll
 <!-- table(diamonds$cut) -->
 <!-- ``` -->
 
-Now, let's get serious and explore Star Wars. Yes, the film series! The `starwars` data set from the `dplyr` package contains information about the characters, including height, hair colour, and sex (to get more information type `?starwars` in your console). At this time we will use a reduced version of the full data set.
+Now, let's get serious and explore Star Wars. Yes, the famous film series! The `starwars` data set from the `dplyr` package contains information about the characters, including height, hair colour, and sex (to get more information type `?starwars` in your console). At this time we will use a reduced version of the full data set.
 
 1. First, we will run the next couple of lines to reduce the data set, and then we will glimpse the Star Wars characters:
 ```{r eval=FALSE}
 starwars2 <- starwars[ ,1:11]
 glimpse(starwars2)
 ```
-2. What do you observe this time? ... It seems that the data type is not consistent with their content. For example, the variables `species`, `gender`, and `hair_color` are of type `<chr>` (that is `character`), when according to what we just learnt they should be a factor. To transform them, we will use the function ´factor()´. This process is known as coercing a variable, that is when you change form one type to other.
+2. What do you observe this time? ... It seems that the data type is not consistent with their content. For example, the variables `species`, `gender`, and `hair_color` are of type `<chr>` (that is `character`), when according to what we just learnt they should be a factor. To transform them, we will use the function ´factor()´. This process is known as coercing a variable, that is when you change from one type to another.
 <!-- 3. Look what happens if you do the this..It confirms that this variable is stored as a character: -->
 <!-- ```{r eval=FALSE} -->
 <!-- class(starwars2$species) -->
@@ -123,7 +123,7 @@ levels(starwars2$species)
 
 The glimpse result now is telling us that `species` is a `<fct>`, as expected. Furthermore, the `levels()` function reveals that there are 37 types of species, including Human, Ewok, Droid, and more.
 
-Hopefully, these examples will help you to identify the the main vector types and more importantly to coerce them in an appropriate type. Be aware that many data sets represent categories with numeric values, for example, using '0' for males and '1' for females. Usually, large data sets are accompanied by extra information in a _code book_ or _documentation_ file, which specifies the values of the numeric code and their respective meaning.
+Hopefully, these examples will help you to identify the the main vector types and more importantly to coerce them in an appropriate type. Be aware that many data sets represent categories with numeric values, for example, using '0' for males and '1' for females. Usually, large data sets are accompanied by extra information in a _code book_ or _documentation_ file, which specifies the values of the numeric code and their respective meaning. It's important to consult the code book/documentation of every dataset as each dataset's conventions and meangings can vary. That's also why good documentaiton is important when working with data. 
 
 ## More operators and some essential symbols
 
@@ -131,7 +131,7 @@ Hopefully, these examples will help you to identify the the main vector types an
 
 <!-- The dollar sign `$` is frequently used and it is part of base R. Actually, we used it a couple of times in the previous section. This is used to access or extract information from an object (e.g. a data set). For instance, earlier we selected only one variable from the `starwars` data set by writing `starwars2$species`. A practical tip to quickly access or find variables in a data set is to write the name of your object followed by the dollar sign only, like this: `starwars2$` (without specifying the variable to be accessed yet). After, type `tab` in your keyboard. Then, R will display a list with the variables available. Try it yourself! -->
 
-A useful operator is the pipe `%>%`. This is part of the `tidyverse` package. So, it is ready for you to use it. This operator passes the result of one operation to the next. Check the results of the following operations in your console:
+A useful operator is the pipe `%>%`. This is part of the `tidyverse` package. So, it is ready for you to use. This operator passes the result of one operation to the next. Check the results of the following operations in your console:
 
 ```{r eval = FALSE}
 1 %>% + 1
@@ -144,7 +144,7 @@ Similarly, the second line follows this process: 'take 1, THEN sum 1, take the r
 
 ## Black lives matter!
 
-In this section we will work with data originally collected by The Guardian in 2015, for more information click [here](https://www.theguardian.com/us-news/ng-interactive/2015/jun/01/about-the-counted). The data set we will use today is an extended version which was openly shared in GitHub by the American news website [FiveThirtyEight](https://fivethirtyeight.com/). This data set contains information about the people that were killed by police or other law enforcement bodies in the US, such as age, gender, raceethnicity, etc. Additionally, it includes information about the city or region where the event happened. For more information click [here](https://github.com/fivethirtyeight/data/tree/master/police-killings).
+In this section we will work with data originally collected by The Guardian in 2015, for more information click [here](https://www.theguardian.com/us-news/ng-interactive/2015/jun/01/about-the-counted). The data set we will use today is an extended version which was openly shared in GitHub by the American news website [FiveThirtyEight](https://fivethirtyeight.com/). This data set contains information about the people that were killed by police or other law enforcement bodies in the US, such as age, gender, race/ethnicity, etc. Additionally, it includes information about the city or region where the event happened. For more information click [here](https://github.com/fivethirtyeight/data/tree/master/police-killings).
 
 ### Downloading and reading the data
 
@@ -174,7 +174,7 @@ If you look at your 'Environment' tab in pane 2, you will see there is a new obj
 glimpse(police)
 ```
 
-As you can see, there are several variables included in the dataset, such as age, gender, law enforcement agency (`lawenforcementagency`), or whether the victim was armed (`armed`). You will see some of these variables are not in the adequate type. For instance, some are categorical and should be type `<fct>` instead of `<chr>`. 
+As you can see, there are several variables included in the dataset, such as age, gender, law enforcement agency (`lawenforcementagency`), or whether the victim was armed (`armed`). You will see some of these variables are not in the appropriate type. For instance, some are categorical and should be type `<fct>` instead of `<chr>`. 
 
 ### Data wrangling
 
@@ -188,7 +188,7 @@ If you look again to the 'Environment' tab, there is a second data set with the 
 glimpse(police_2)
 ```
 
-Having a closer look to the reduced version, we can see that in fact all the variables are of type `<chr>`, including `age`.
+Having a closer look at the reduced version, we can see that in fact all the variables are of type `<chr>`, including `age`.
 
 Let's coerce the variables in to their correct type. We will start with age, from character to numeric:^[Age is not known for some cases. Thus, it is recorded as 'Unknown' in the dataset. Since this is not recognized as a numeric value in the coercion process, `R` automatically sets it as a missing value, `NA`.]
 ```{r eval = FALSE}
@@ -206,21 +206,21 @@ Let's run a summary of your data. This shows the number of observations in each 
 summary(police_2)
 ```
 
-There are some interesting figures coming out from the summary. For instance, in age you can see that the youngest is... 16 years old?!, and the oldest 87 years old. Also, the vast majority are male individuals (445 vs 22). In relation to race/ethnicity, roughly half of them is 'White', whereas 'Black' individuals represent an important share. One may question about the proportion of people killed in terms of race compared to the composition of the total population (considering black is a minority group).
+There are some interesting figures coming out from the summary. For instance, in age you can see that the youngest is... 16 years old(?!), and the oldest 87 years old. Also, the vast majority are male individuals (445 vs 22). In relation to race/ethnicity, roughly half of them is 'White', whereas 'Black' individuals represent an important share. One may question about the proportion of people killed in terms of race/ethnicity compared to the composition of the total population (considering Black is a minority group in the US).
 
 Let's suppose that we only want observations in which race/ethnicity is not unknown. To 'remove' _undesired_ observation we can use the `filter()` function. We will assign the result of `filter` in a variable called `police_2`.
 ```{r eval = FALSE}
 police_2 <- police_2 %>% filter(raceethnicity != 'Unknown')
 ```
 
-So, what did it just happen in the code above? First, the pipe operator, `%>%`: What we are doing verbally is _take the object `police_2`, THEN filter raceethnicity based on a condition_. Later, what is happening inside `filter`? Lets have a look at what R does in the background for us (Artwork by \@alison_horst):
+So, what just happened in the code above? First, the pipe operator, `%>%`: What we are doing verbally is _take the object `police_2`, THEN filter raceethnicity based on a condition_. Later, what is happening inside `filter`? Lets have a look at what R does in the background for us (Artwork by \@alison_horst):
 
 ```{r fig.cap="Filter. Source: Artwork by @Horst.", echo=FALSE}
 knitr::include_graphics("./images/lab_2_filter.jpg")
 ```
 
 
-In the example above, we are keeping the observations in `raceethnicity` that are NOT EQUAL to 'Unknown'. Finally, when we assigned the result to an object named as the same as our previous object. So, we replaced the _old_ dataset with the filtered version.
+In the example above, we are keeping the observations in `raceethnicity` that are NOT EQUAL to 'Unknown'. Finally, when we assigned the result to an object named as the same as our previous object, we replaced the _old_ dataset with the filtered version.
 
 <!-- Finally, there are times when you would like to group categories in a factor differently, for example to simplify a graph or statistical analysis. Coming back to race/ethnicity, we may observe that there are some relatively small categories, e.g. 'Native American', 'Asian/Pacific Islander'. So we will create a new variable called `raceethnicity_recoded` using `mutate()` which will recode these categories in to one only called 'Other' using the function `recode()`. We will save the result under the same data named `police_2`. -->
 
@@ -233,7 +233,7 @@ In the example above, we are keeping the observations in `raceethnicity` that ar
 
 <!-- If we look at the summary again, the classifications of `raceethnicity` are reduced in the new variable `raceethnicity_recoded`. The categories 'Native American' and 'Asian/Pacific Islander' were summed in only one category called `Other`. -->
 
-This is the end of Lab 2. Again, the changes in your script should be saved automatically in R Studio Cloud. However, make sure this is the case as you were taught in Lab 1. After this, you can close the tab in your web browser.
+This is the end of Lab 2. Again, the changes in your script should be saved automatically in R Studio Cloud. However, make sure this is the case as you were taught in Lab 1. After this, you can close the tab in your web browser. Hope you had fun!
 
 <br>
 
