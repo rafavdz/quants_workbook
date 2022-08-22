@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This chapter presents the suggested `R` code to answer the workbook activities and exercises throughout the course labs in Quantitative Research Methods for Social Sciences. This covers from Lab 3 until Lab 9.
+This chapter presents the suggested `R` code to answer the workbook activities and exercises throughout the course labs in Quantitative Research Methods for Social Sciences. This covers from Lab 3 to Lab 9.
 
 Before looking at the answers, try asking your tutor for help. Also, we strongly recommend web resources, such as <https://stackoverflow.com/> or <https://community.rstudio.com/>. By solving the issues, you will learn a lot! ;)
 
