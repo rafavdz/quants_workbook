@@ -2,7 +2,7 @@
 
 ## What is correlation?
 
-When conducting empirical research, we are often interested in associations between two variables, e.g. personal income and attitudes towards migrants. In this lab we will focus on visualizing relationship between variables and how to measure it. In quantitative research, the main variable of interest in an analysis is called the _dependent_ or _response variable_, and the second is known as the _independent_ or _explanatory_. In the example above, we can think of personal income as the independent variable and attitudes as the dependent.
+When conducting empirical research, we are often interested in associations between two variables, for example, personal income and attitudes towards migrants. In this lab we will focus on visualizing relationship between variables and how to measure it. In quantitative research, the main variable of interest in an analysis is called the _dependent_ or _response variable_, and the second is known as the _independent_ or _explanatory_. In the example above, we can think of personal income as the independent variable and attitudes as the dependent.
 
 The relationship between variables can be positive, negative or non-existent. The figure below shows these type of relationships to different extents. The association is positive when one of the variables increases and the second variable tends to go in the same direction (that is increasing as well). The first plot on the left-hand side shows a strong positive relationship. As you can see, the points are closely clustered around the straight line. The next plot also shows a positive relationship. This time the relationship is moderate. Therefore, the points are more dispersed in relation to the line compared to the previous one.
 
@@ -111,7 +111,7 @@ You do not need to run or reproduce the examples shown in the following sections
 
 #### Numeric vs numeric 
 
-To illustrate this type of correlation, let's start with a quite obvious but useful example. Suppose we are interested in how  people choose their spouse or parter. The first characteristic that we might look at is age. We might suspect that there is a correlation between the the `nilt` respondents' age and their partner's age. Since both ages are a numeric variables, a scatter plot is appropriate to visualize the correlation. To do this, let's use the functions `ggplot()` and `geom_point()`. In aesthetics `aes()` let's define the respondent's age `rage` in the X axis and the respondent's spouse/partner age `spage` in the Y axis. As a general convention in quantitative research, the response/dependent variable is visualized on the Y axis and the independent on the X axis (you do not need to copy and reproduce the example below).
+To illustrate this type of correlation, let's start with a relatively obvious but useful example. Suppose we are interested in how people choose their spouse or partner. The first characteristic that we might look at is age. We might suspect that there is a correlation between the the `nilt` respondents' won age and their partner's age. Since both ages are numeric variables, a scatter plot is appropriate to visualize the correlation. To do this, let's use the functions `ggplot()` and `geom_point()`. In aesthetics `aes()` let's define the respondent's age `rage` in the X axis and the respondent's spouse/partner age `spage` in the Y axis. As a general convention in quantitative research, the response/dependent variable is visualized on the Y axis and the independent on the X axis (you do not need to copy and reproduce the example below).
 
 ```{r}
 ggplot(nilt, aes(x = rage, y = spage)) + 
@@ -123,9 +123,9 @@ ggplot(nilt, aes(x = rage, y = spage)) +
 
 Note that in this plot the function `geom_smooth()` was used. This is to plot a straight line which describes the best all the points in the graph. 
 
-From the plot above, we see that there is a positive strong correlation between the respondent's age and their partner's age. We see that for some individuals their partner's age is older, whereas others is younger. Also, there are some dots that are far away from the straight line. For example, in one case the respondent is around 60 years old and the age of the partner is around 30 years old (can you find that dot on the plot?). These extreme values are known as _outliers_.
+From the plot above, we see that there is a strong positive correlation between the respondent's age and their partner's age. We see that for some individuals their partner's age is older, whereas others is younger. Also, there are some dots that are far away from the straight line. For example, in one case the respondent is around 60 years old and the age of their partner is around 30 years old (can you find that dot on the plot?). These extreme values are known as _outliers_.
 
-We may also suspect that gender is playing a role in this relationship. We can include this as a third variable in the plot by colouring the dots by gender. To do this, let's specify the `colour` argument in aesthetics `aes()` with a categorical variable `rsex`.
+We may also suspect that the respondents' sex is playing a role in this relationship. We can include this as a third variable in the plot by colouring the dots by the respondents' sex. To do this, let's specify the `colour` argument in aesthetics `aes()` with a categorical variable `rsex`.
 ```{r}
 ggplot(nilt, aes(x = rage, y = spage, colour = rsex)) + 
   geom_point() +
@@ -133,7 +133,7 @@ ggplot(nilt, aes(x = rage, y = spage, colour = rsex)) +
   labs(title = "Respondent's age vs respondent’s spouse/partner age", 
        x = "Respondent's age", y = "Respondent’s spouse/partner age" )
 ```
-In the previous plot, I included a line which describes what it would look like if the partner's age were exactly the same as the respondent's age. We observe a clear pattern in which female participants are on one side of the line and males on the other. Not too surprisingly, most female respondents tend to choose/have partners who are older, whereas males younger ones.
+In the previous plot, we included a line which describes what it would look like if the partner's age were exactly the same as the respondent's age. We observe a clear pattern in which female participants are on one side of the line and males on the other. As we can see, most female respondents tend to choose/have partners who are older, whereas males younger ones.
 
 ### Activity 1
 
@@ -146,14 +146,14 @@ In the `Lab7_correlation` file, use the `nilt` data object to visualize the rela
 
 As briefly introduced in the last lab, correlations often occur between categorical and numeric data. A good way to observe the relationship between these type of variables is using a box plot. Which essentially shows the distribution of the numeric values by category/group.
 
-Let's say we are interested in the relationship between education level and perception of migration. The variable `highqual` contains the respondent's highest education qualification. Using `ggplot()`, I will situate `mig_per` on the X axis and `highqual` on the Y axis, and plot it with the `gem_boxplot()` function. Note that before passing the dataset to `ggplot`, I filtered out two categories of the variable `highqual` where education level is unknown (i.e. "Other, level unknown" or "Unclassified").
+Let's say we are interested in the relationship between education level and perception of migration. The variable `highqual` contains the respondent's highest education qualification. Using `ggplot()`, we can situate `mig_per` on the X axis and `highqual` on the Y axis, and plot it with the `gem_boxplot()` function. Note that before passing the dataset to `ggplot`, we can filter out two categories of the variable `highqual` where education level is unknown (i.e. "Other, level unknown" or "Unclassified").
 ```{r}
 nilt %>% 
   filter(highqual != "Other, level unknown" & highqual != "Unclassified") %>% 
   ggplot(aes(x = mig_per, y = highqual )) +
   geom_boxplot()
 ```
-From the plot above, we see that respondents with higher education level (on the bottom) have more positive opinion on migration when compared to respondents with lower education level or no qualifications (on the top). Overall, the lower the education level, the worse the opinion towards migration. Since education level is an ordinal variable, we can say this is a positive relationship.
+From the plot above, we see that respondents with higher education level (on the bottom) appear to have more positive opinion on migration when compared to respondents with lower education level or no qualifications (on the top). Overall, the data shows a pattern that the lower one's education level is, the worse their opinion towards migration is likely to be. Since education level is an ordinal variable, we can say this is a positive relationship.
 
 ### Activity 2
 
@@ -164,7 +164,7 @@ Using the `nilt` data object, visualize the relationship of the following variab
 
 ## Measuring correlation
 
-So far we have examined correlation by visualizing variables only. A useful practice in quantitative research is to actually measure the magnitude of the relationship between these variables. One common measure is the _Pearson_ correlation coefficient. This measure results in a number that goes from -1 to 1. A coefficient below 0 implies a negative correlation whereas a coefficient over 0 a positive one. When the coefficient is close to positive one (1) or negative (-1), it implies that the relationship is strong. By contrast, coefficients close to 0 indicate a weak relationship. This technique is appropriate to measure linear numeric relationships, that is when we have numeric variables with a normal distribution, e.g. age in our dataset. 
+So far we have examined correlation by visualizing variables only. A useful practice in quantitative research is to actually measure the magnitude of the relationship between these variables. One common measure is the _Pearson_ correlation coefficient. This measure results in a number that goes from -1 to 1. A coefficient below 0 implies a negative correlation whereas a coefficient over 0 a positive one. When the coefficient is close to positive one (1) or negative one (-1), it implies that the relationship is strong. By contrast, coefficients close to 0 indicate a weak relationship. This technique is appropriate to measure linear numeric relationships, which is when we have numeric variables with a normal distribution, e.g. age in our dataset. 
 
 Let's start measuring the relationship between the respondent's age and their partner's age. To do this in R, we should use the `cor()` function. In the R syntax, first we specify the variables separated by a comma. We need to be explicit by specifying the object name, the dollar sign, and the name of the variable, as shown below. Also, I set the `use` argument as `'pairwise.complete.obs'`. This is because one or both of the variables contain more than one missing value. Therefore, we are telling R to use complete observations only.
 
@@ -178,7 +178,7 @@ What about the relationship between `age` and `mig_per` that you plotted earlier
 ```{r}
 cor(nilt$rage, nilt$mig_per, use = 'pairwise.complete.obs')
 ```
-The coefficient is very close to 0, which means that the correlation is practically non-existent. The absence of correlation is also interesting in research. For instance, one could expect that younger people would be more open to migration. However, it seems that age does not play a role on people's opinion about migration in NI.
+The coefficient is very close to 0, which means that the correlation is practically non-existent. The absence of correlation is also interesting in research. For instance, one might expect that younger people would be more open to migration. However, it seems that age does not play a role on people's opinion about migration in NI according to this data.
 
 Let's say that we are interested in the correlation between `mig_per` and all other numeric variables in the dataset. Instead of continuing computing the correlation one by one, we can run a correlation matrix. The code syntax can be read as follows: from the `nilt` data select these variables, then compute the correlation coefficient using complete cases, and then round the result to 3 decimals.
 ```{r}
@@ -196,7 +196,7 @@ From the result above, we have a correlation matrix that computes the _Person_ c
 * Using the `nilt` data object, compute a correlation matrix using the following variables: `rage`, `persinc2`, `mil10yrs`, `miecono` and `micultur`, setting the `use` argument to `'pairwise.complete.obs'` and rounding the result to 3 decimals;
 * Run the chunk individually and comment whether personal income or age is correlated with the perception of migrants in relation to the specific aspects asked in the variables measured (consult the documentation in p. 14 to get a description of these variables);
 * Knit the `Lab7_correlation` Rmd document to `.html` or `.pdf`. The output document will automatically be saved in your project.
-* Discuss your overall results wiht your neighbour or tutor.
+* Discuss your overall results with your neighbour or tutor.
 
 
 <!-- ## Critical Appraisal: Practice -->
