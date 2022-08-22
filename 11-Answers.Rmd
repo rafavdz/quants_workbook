@@ -7,7 +7,7 @@ This chapter presents the suggested `R` code to answer the workbook activities a
 Before looking at the answers, try asking your tutor for help. Also, we strongly recommend web resources, such as <https://stackoverflow.com/> or <https://community.rstudio.com/>. By solving the issues, you will learn a lot! ;)
 
 
-## Lab 3 Data wrangling
+## Lab 3. Data wrangling
 
 ```{r eval = FALSE}
 ## Load the packages
