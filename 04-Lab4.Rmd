@@ -48,14 +48,14 @@ library(vtable)
 
 A usual way to explore the categorical data is using contingency and proportion tables. The contingency tables include the count for each category while the proportion tables contain the count divided by the total number of observations. 
 
-Let's say we are interested in gender (called `rsex` in the dataset). We will use function `sumtable()` of the `vtable` package to produce a contingency table for a single variable (known as One-Way contingency table).
+Let's say we are interested in the data's break down by respondents' sex (called `rsex` in the dataset). We will use function `sumtable()` of the `vtable` package to produce a contingency table for a single variable (known as One-Way contingency table).
 ```{r}
 sumtable(nilt_subset, vars = c('rsex'))
 ```
 
 From the result, we see that there are more female respondents than males. 
 
-Specifically, we see that males respondents represent 44.% of the total sample, whereas females 55.4%. 
+Specifically, we see that males respondents represent 44.6% of the total sample, whereas females 55.4%. 
 
 We can do this with any type of categorical variable. Let's see how the sample is split by religion (`religcat`). So, we will add it to in the `vars` argument.
 
@@ -65,7 +65,7 @@ sumtable(nilt_subset, vars = c('rsex', 'religcat'))
 
 As you can see, about the same number of people are identified as being catholic or protestant, and a relatively small number with no religion.
 
-What if we want to know the religious affiliation break-down by males and females. This is where Two-Way contingency tables are useful, and very common in quantitative research. To produce it, we have to specify the group argument in the `sumtable` function as following:
+What if we want to know the religious affiliation break-down by males and females. This is where Two-Way contingency tables are useful and very common in quantitative research. To produce it, we have to specify the group argument in the `sumtable` function as following:
 ```{r}
 sumtable(nilt_subset, vars = c('religcat'), group = 'rsex')
 ```
@@ -84,19 +84,19 @@ From your R Studio Cloud script, do the following activities using the data in t
 
 ### Continuous (numeric) data
 
-In the previous section we learnt how to summarise categorical data. But very often we want to work with continuous numeric variables or a combination of both. To summarise and understand numeric data there are two main types: *measures of centrality* and *measures spread*.
+In the previous section we've learnt how to summarise categorical data. But very often we want to work with continuous numeric variables or a combination of both. To summarise and understand numeric data there are two main types: *measures of centrality* and *measures of spread*.
 
 #### Measures of centrality
 
 In quantitative research, we usually have access to many observations in a sample which contains different attributes for each of them. It would be difficult (and probably not very useful) to talk about each of the NILT respondents one by one. Instead, to describe this sample we need measures that roughly represent all participants.
 
-This is actually an important step in quantitative research, since it allows us to characterise the people that we are studying. For example, in the previous section we only talked about gender and political affiliation, but who are the people we are talking about? Probably a place to start digging deeper is to know their age. The first tool that we will use to understand numeric values is a histogram. Let's see how the age of NILT respondents is distributed.
+This is actually an important step in quantitative research, since it allows us to characterise the people that we are studying. For example, in the previous section we only talked about the respondents' sex and political affiliation, but who are the people we are talking about? Probably a place to start digging deeper is to know their age. The first tool that we will use to understand numeric values is a histogram. Let's see how the age of NILT respondents is distributed.
 
 ```{r}
 hist(nilt_subset$rage)
 ```
 
-This plot show us on the X axis (horizontal) the age and the frequency on the Y axis. We can see that the youngest age in the sample is somewhere close to 20, and the oldest is almost 100. We also observe that the total number of observations (represented by the frequency on the vertical axis) for extreme values (close to 20 on the left-hand side and 100 on the right-hand side), tends to be lower that the values in the centre of the plot (somewhere between 30 and 45). For instance, we can see that there are approximately 120 respondents who are around 40 years old, that seems to be the most _popular_/frequent age in our sample. Now, we can represent these central values with actual measures, typically _mean_ or _median_.
+This plot show us on the X axis (horizontal) the age and the frequency on the Y axis. We can see that the youngest age in the sample is somewhere close to 20, and the oldest is almost 100. We also observe that the total number of observations (represented by the frequency on the vertical axis) for extreme values (close to 20 on the left-hand side and 100 on the right-hand side), tends to be lower than the values in the centre of the plot (somewhere between 30 and 45). For instance, we can see that there are approximately 120 respondents who are around 40 years old, that seems to be the most _popular_/frequent age in our sample. Now, we can represent these central values with actual measures, typically _mean_ or _median_.
 
 The _median_ is the mid-point value in a numeric series. If you sort the values and split it by half, the value right in the middle is the median. Luckily there is a function ready to be used called... You guessed it - `median()`.
 
@@ -130,13 +130,13 @@ The _variance_ is useful to obtain a singe measure of spread (instead of four va
 
 $$ var = \frac{ \sum(x - \bar{x})^2 }{n-1 } $$
 
-To decipher the formula above, the $\bar{x}$ represents the mean, the $x$ represents each of the values in the numeric series. The formula takes each of the $x$ values and subtract it from the _mean_ $\bar{x}$. Later, it squares the the result of the subtraction (that is multiply it by itself). This is done to obtain a positive value, since some numbers in the series will be lower than the mean (resulting in negative values). Then, we sum all of them and divide the sum by the size/length of the numeric sequence $n$ minus 1. To estimate the variance in R we only need the `var()` function.
+To decipher the formula above, the $\bar{x}$ represents the mean, the $x$ represents each of the values in the numeric series. The formula takes each of the $x$ values and subtract it from the _mean_ $\bar{x}$. Later, it squares the result of the subtraction (that is multiply it by itself). This is done to obtain a positive value, since some numbers in the series will be lower than the mean (resulting in negative values). Then, we sum all of them and divide the sum by the size/length of the numeric sequence $n$ minus 1. To estimate the variance in R we only need the `var()` function.
 
 ```{r}
 var(nilt_subset$rage, na.rm = T)
 ```
 
-As you can see, the result is not very intuitive. That is because we squared the subtraction. Luckily, there is a  measure that put it in _readable_ scale. This is the _standard deviation_. In essence this takes the square root of the variance (the reversed operation of squaring it):
+As you can see, the result is not very intuitive. That is because we squared the subtraction. Luckily, there is a measure that put it in _readable_ scale. This is the _standard deviation_. In essence this takes the square root of the variance (the reversed operation of squaring it):
 $$sd=\sqrt{var}$$
 
 To compute it in `R`, use the `sd()` function.
@@ -174,7 +174,7 @@ In the code above, we are simple specifying the variable `rage` and grouping the
 
 Can money buy happiness?
 
-Using the data in the `nilt_subset` dataset, complete the following activities. 
+Using the data in the `nilt_subset` dataset, complete the following activities. This will be a good practice run for doing the research report when you run your own analysis on the NILT teaching dataset. Handy! 
 
 * Using the `hist()` function plot a histogram of personal income `persinc2`. From the NILT documentation this variable refers to annual personal income in £ before taxes and other deductions (use the `$` symbol after the name of the dataset and then the name of the variable inside the function);
 * Create a summary of the personal income `persinc2` variable, using the `sumtable()` function;
