@@ -2,9 +2,9 @@
 
 ## Introduction
 
-In this lab, we will extend your skills to explore data by visualizing it...and `R` is great for this! It is actually a demanded skill in the labour market.
+In this lab, we will extend your skills to explore data by visualizing it...and `R` is great for this! It is actually a highly-demanded skill in the job market.
 
-Visualizing data is an important process in at least two stages in quantitative research: First, for your as a researcher to get familiar with the data; and second, to communicate your findings. `R` includes two important tools to achieve this: First, the `ggplot2` package (included in `tidyverse`) is a powerful tool to explore and plot data. Second, [R Markdown](https://rmarkdown.rstudio.com/) which allows you to create integrated quantitative reports.
+Visualizing data is an important process in at least two stages in quantitative research: First, for your as a researcher to get familiar with the data; and second, to communicate your findings. `R` includes two important tools to achieve this: First, the `ggplot2` package (included in `tidyverse`), a powerful tool to explore and plot data. Second, [R Markdown](https://rmarkdown.rstudio.com/) which allows you to create integrated quantitative reports. Combining and mastering the two can create  very effective results. 
 
 
 ## Data visualization
@@ -16,7 +16,7 @@ knitr::include_graphics("./images/lab4_ggplot2_exploratory.jpg")
 
 <!-- Visualizations are important for any quantitative analysis. These are helpful to identify overall trends, problems, or extreme values in your data at an initial stage. Additionally, visualizations are key to communicate your results at the final stage of the research process. These two stages are known as _exploratory_ and _explanatory_ visualizations, respectively. R includes some functionalities to create basic plots. These are often used to generate quick exploratory visualizations. In addition, `ggplot2`, which is one of the most popular data visualization tools for R, allows you to extend the base R capabilities and create publishable-quality plots. In this lab we will focus on `ggplot2`. -->
 
-Different plot types serve different types of data. In the last lab we introduced some functions to summarise your data and to generate some summaries for specific types of variable. This will help you to decide what is the most suitable plot for your data or variable. The table below presents a minimal guide to choose the type of plot as a function of the type of data you intend to visualize. In addition, it splits the type of plot by the number of variables included in the visualization, one for _univariate_, or two for _bivariate_.  Bivariate plots are useful to explore the relationship between variables.
+Different plot types serve different types of data. In the last lab, we introduced some functions to summarise your data and to generate summaries for specific types of variable. This will help you to decide what the most suitable plot is for your data or variable. The table below presents a minimal guide to choose the type of plot as a function of the type of data you intend to visualize. In addition, it splits the type of plot by the number of variables included in the visualization, one for _univariate_, or two for _bivariate_.  Bivariate plots are useful to explore the relationship between variables.
 
 |  	|**Univariate**  	|  **Bivariate**	|  
 |-	|--------------	|----------	|
@@ -28,9 +28,9 @@ Different plot types serve different types of data. In the last lab we introduce
 
 ### Prepare the Rmd document and data
 
-As we did in the last session, we will learn by doing. We will continue working in the same project called _NILT_ in [RStudio Cloud](https://rstudio.cloud/). Set up your session as following:
+As we did in the last session, let's learn by doing. We will continue working in the same project called _NILT_ in [RStudio Cloud](https://rstudio.cloud/). Set up your session as follow:
 
-1. Please go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/) (log in if necessary);
+1. Go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/) (log in if necessary);
 2. Open your own copy of the 'NILT' project from the 'Quants lab group';
 
 
@@ -41,7 +41,7 @@ Next, create a new Rmd document following the next steps.
 3. Delete all the contents in the default example with the exception of the first bit which contains the YALM and the first chunk, which contains the default chunk options. 
 4. In the setup chunk (line 8), change `echo` from `TRUE` to `FALSE` (this will hide the code for all chunks in the output).
 
-Once your Rmd document is ready, insert an R chunk to read and put the 2012 NILT data. To do this, click on the 'Insert' button on pane 1, and then click on 'R'. This will insert an R code chunk as the ones we explored in 'Test1'.
+Once your Rmd document is ready, insert an R chunk to read the 2012 NILT data. To do this, click on the 'Insert' button on pane 1, and then click on 'R'. This will insert an R code chunk as the ones we explored in 'Test1'.
 
 ```{r fig.cap="Insert a code chunk.", echo=FALSE}
 knitr::include_graphics("./images/Lab4_chunk.png")
@@ -69,7 +69,7 @@ Now that we read the data in, we are ready to start creating our own own plots u
 
 ## Cateogrical variables
 
-I will start using the same variables we summarised in our last lab. We started by computing the total number of respondents by gender in a One-Way contingency table. We can easily visualize this using a bar plot with `ggplot`. This package always takes at least three layers, namely _**data**_, _**aesthetics**_ and _**geometry**_. Here, we define the _data_ as the first argument of the `ggplot()`function with the `nilt_subset`. The second argument, _aesthetics_, is separated by a comma and it introduced using the function `aes()`. In this case we define the X axis `x = ` of the plot by the categories included in the variable `rsex`. The geometry is specified with the function `geom_bar()` without arguments for now. Note that we added the geometry using the plus sign `+` at the end of the previous line code. As an extra, I included the main title and the name of the x axis using the `labs()` function (you don't need to copy or run the following code chunks in your .Rmd. This is only for demonstration purposes).
+Let's start using the same variables we summarised in our last lab. We started by computing the total number of respondents by gender in a One-Way contingency table. We can easily visualize this using a bar plot with `ggplot`. This package always takes at least three layers, namely _**data**_, _**aesthetics**_ and _**geometry**_. Here, we define the _data_ as the first argument of the `ggplot()`function with the `nilt_subset`. The second argument, _aesthetics_, is separated by a comma and is introduced using the function `aes()`. In this case we define the X axis `x = ` of the plot by the categories included in the variable `rsex`. The geometry is specified with the function `geom_bar()` without arguments for now. Note that we added the geometry using the plus sign `+` at the end of the previous line code. As an extra, I included the main title and the name of the x axis using the `labs()` function (you don't need to copy or run the following code chunks in your .Rmd. This is only for demonstration purposes).
 ```{r}
 ggplot(nilt_subset, aes(x = rsex)) +
   geom_bar() +
@@ -90,7 +90,7 @@ ggplot(nilt_subset, aes(x = rsex, fill = religcat)) +
   labs(title = 'Gender by religion', x = 'Gender of respondent')
 ```
 
-This plot is not very informative, since the total size of female and male respondents is different. The type of visualization will also depend on a specific research question or the topic you are interested in. I think it is worthwhile visualizing the religion by gender. By doing so, the plot will show us the magnitudes and composition by gender for each religion. To do this, we need to change the aesthetics, specifying the religion by category variable `religcat` on the `x` axis and `fill` with gender `rsex`.
+This plot is not very informative, since the total size of female and male respondents is different. The type of visualization will also depend on your specific research question or the topic you are interested in. For example, if I think it is worthwhile visualizing the religion by respondents' sex. A plot can show us the magnitudes and composition by respondents' sex for each religion. To do this, we need to change the aesthetics, specifying the religion by category variable `religcat` on the `x` axis and `fill` with gender `rsex`.
 
 ```{r}
 ggplot(nilt_subset, aes(x = religcat, fill = rsex)) +
@@ -98,13 +98,13 @@ ggplot(nilt_subset, aes(x = religcat, fill = rsex)) +
   labs(title = 'Religion by gender', x = 'Religion')
 ```
 
-As we can see, catholic and protestant religion is equally popular among the respondents. Also, we can see that these are composed by similar proportions of males and females. One interesting thing is that there are more male respondents with no religion than female participants. Again, we found this out with the descriptive statistics computed in the last lab. However, we have the advantage that we can graphically see the magnitude of these differences.  
+As we can see, catholic and protestant religion are equally popular among the respondents. Also, we can see that these are composed by similar proportions of males and females. One interesting thing is that there are more male respondents with no religion than female participants. Again, we found this out with the descriptive statistics computed in the last lab. However, we have the advantage that we can graphically reprsent and inspect the magnitude of these differences.  
 
 ## Numeric variables
 
 ### Univariate numeric
 
-Last time we talked about some measures of centrality and spread for numeric variables. The histogram plot is similar to the bar plot, the difference is that it splits the numeric range in fix bins and computes the frequency/count for each bin instead of counting the number of respondents for each numeric value. The syntax is practically the same as the simple bar plot. At this time, we set the the `x` aesthetic with the numeric variable age `rage`. Also, the geometry is defined as a histogram, using the `geom_histogram()` function.
+Last time we talked about some measures of centrality and spread for numeric variables. The histogram plot is similar to the bar plot, the difference is that it splits the numeric range in fix "bins" and computes the frequency/count for each bin instead of counting the number of respondents for each numeric value. The syntax is practically the same as the simple bar plot. At this time, we set the the `x` aesthetic with the numeric variable age `rage`. Also, the geometry is defined as a histogram, using the `geom_histogram()` function.
 
 ```{r}
 ggplot(nilt_subset, aes(x = rage)) +
@@ -145,19 +145,15 @@ There is not a clear pattern in our previous plot. However, it is interesting to
 
 ## Mixed data
 
-Very often we want to summarise central or spread measure by categories or groups. For example, let's go back to the example of age and gender. We can visualize these two variables (which include one numeric and one categorical) using a box plot. To create this, we need to specify the `x` and `y` value in `aes()` and include the `geom_boxplot()` geometry.
+Very often we want to summarise central or spread measure by categories or groups. For example, let's go back to the example of age and respondents' sex. We can visualize these two variables (which include one numeric and one categorical) using a box plot. To create this, we need to specify the `x` and `y` value in `aes()` and include the `geom_boxplot()` geometry.
 
 ```{r}
 ggplot(nilt_subset, aes(y = rage, x= rsex)) +
   geom_boxplot() +
-  ggtitle('Age by gender')
+  ggtitle('Age by sex')
 ```
 
 From this, we can visualize that female participants are slightly younger than their male counterparts in the sample. 
-
-<!-- ### Additional resources -->
-
-<!-- We have seen and practised some data visualizations with a real-word data set. I tried to keep the things as simple as possible. There are a number of features that you can customize in your plots, including the background, text size, colours, adding more variables, etc. Perhaps a place to start expanding your skills is the [Data Visualization with ggplot2 Cheat Sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf). An extra tip is that you can change the overall look of the plot by adding pre-defined themes. You can read more about it [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). Another interesting site is the [The R Graph Gallery](https://www.r-graph-gallery.com/), which includes a comprehensive showcase of plot types and their respective code. -->
 
 ## Activity
 
@@ -169,5 +165,9 @@ Using the `nilt_subset` object, complete the tasks below in the Rmd file `Lab_6`
 * Create a new first-level header to start a section called "Numeric analysis";
 * Create a scatter plot about the relationship between personal income `persinc2` on the Y axis and number of hours worked a week `rhourswk` on the X axis;
 * Finally, create a box plot to visualize personal income `persinc2` on the Y axis and self-reported level of happiness `ruhappy` on the x axis... Interesting result, Isn't it? Talk to your lab group-mates and tutors about your results on Zoom (live) or your Lab Group on Teams (online anytime);
-* Briefly comment each of the plots as text in your Rmd file;
+* Add your own (brief) comments to each of the plots as text in your Rmd file;
 * Knit the .Rmd document as HTML or PDF. The knitted file will be saved automatically in your project. You can come back to the Rmd file to make changes if needed and knit it again as many times as you wish.
+
+### R Cheatsheets!
+
+There are a number of features that you can customize in your plots, including the background, text size, colours, adding more variables. But you don't have to memorise or remember all this, one thing that is very commonly used by R data scientists are R cheat sheets! They are extremely handy when you try to create a visualisation from scratch, check out the [Data Visualization with ggplot2 Cheat Sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf). An extra tip is that you can change the overall look of the plot by adding pre-defined themes. You can read more about it [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). Another interesting site is the [The R Graph Gallery](https://www.r-graph-gallery.com/), which includes a comprehensive showcase of plot types and their respective code.
