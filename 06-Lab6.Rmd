@@ -168,6 +168,6 @@ Using the `nilt_subset` object, complete the tasks below in the Rmd file `Lab_6`
 * Add your own (brief) comments to each of the plots as text in your Rmd file;
 * Knit the .Rmd document as HTML or PDF. The knitted file will be saved automatically in your project. You can come back to the Rmd file to make changes if needed and knit it again as many times as you wish.
 
-### R Cheatsheets!
+### R Cheatsheets
 
 There are a number of features that you can customize in your plots, including the background, text size, colours, adding more variables. But you don't have to memorise or remember all this, one thing that is very commonly used by R data scientists are R cheat sheets! They are extremely handy when you try to create a visualisation from scratch, check out the [Data Visualization with ggplot2 Cheat Sheet](https://rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf). An extra tip is that you can change the overall look of the plot by adding pre-defined themes. You can read more about it [here](https://ggplot2.tidyverse.org/reference/ggtheme.html). Another interesting site is the [The R Graph Gallery](https://www.r-graph-gallery.com/), which includes a comprehensive showcase of plot types and their respective code.
