@@ -87,7 +87,7 @@ Before we move on, it is worth mentioning that the criterion to fit the coeffici
 sum(residuals(m1) ^ 2)
 ```
 
-Yes, it improved! Before it was about 1,175.
+Yes, it improved! Before, it was about 1,175, as we saw in the last lab workbook.
 
 ### Multivariete model specification
 
@@ -123,16 +123,16 @@ Where the formula is given by a dependent variable which is followed by `~` one 
 dependent_variable ~ independent_variable1 + independent_variable2 ...
 ```
 
-In the previous section, we used a small random sample of 40 people only. Now, let's fit a multivariate linear model using all the observations in the `nilt` dataset. In addition to the respondent age `rage` and `rsex`, I am interested to know whether the type of place where they live (e.g. big city, village, farm/country, etc.) `placeliv` plays a role in how people choose their partner.
+In the previous section, we used a small random sample of 40 people only. Now, let's fit a multivariate linear model using all the observations in the `nilt` dataset. In addition to the respondent age `rage` and `rsex`, we might be interested to know whether the type of place where they live (e.g. big city, village, farm/country, etc.) `placeliv` plays a role in how people choose their partner.
 
-First, I need to coerce the `placeliv` variable as factor. And I will have a quick look at a table of this variable to have an idea of how respondents are distributed and see how the factor levels are ordered.
+First, we need to coerce the `placeliv` variable as factor. And we will have a quick look at a table of this variable to have an idea of how respondents are distributed and see how the factor levels are ordered.
 ```{r}
 # coerce to factor
 nilt$placeliv <- as_factor(nilt$placeliv)
 table(nilt$placeliv)
 ```
 
-We see that most of the respondents live in 'a small city or town'. Also, note that the category 'Dont know' contains 0 observations. I will use the function `droplevels()` to remove the unused category in our variables. This also means that the first level in this variable will be 'a big city'. Then, I will fit the model and store it in an object called `m2`.
+We see that most of the respondents live in 'a small city or town'. Also, note that the category 'Dont know' contains 0 observations. Let's use the function `droplevels()` to remove the unused category in our variables. This also means that the first level in this variable will be 'a big city'. Then, we will fit the model and store it in an object called `m2`.
 ```{r}
 # remove unused levels
 nilt <- droplevels(nilt)
@@ -143,8 +143,8 @@ m2
 
 From the result:
 
-1. We confirm the positive relationship between the respondent's age and his/her partner by a factor of 0.94. 
-2. The difference in years by sex now is smaller. We see that the age of a female respondent partner is expected to be 3.8 years older compared to males.
+1. We confirm the positive relationship between the respondent's age and their partner by a factor of 0.94. 
+2. The difference in years by sex now is smaller. We see that the age of a female respondent's partner is expected to be 3.8 years older compared to males.
 3. As before, we see that the result appended the name of the categories to the `placeliv` variables. This is because it is comparing each of the categories with the category of reference, in this case, 'a big city'. The interpretation must be in comparative terms. For instance, the age of the respondent's partner in 'the suburbs or outskirts of a big city' is expected to be 0.02 years older than the partner of someone living in a 'a big city'. Overall, the coefficients do not differ much as a function of the type of place of where they live. The largest expected difference is for people living in 'a small city or town', where partner's age is expected to be -0.7 years old compared to those living in 'a big city'.
 
 In general, our model can be expressed as:
@@ -155,7 +155,7 @@ So, if we wanted to know the expected age of the partner of a 40 years old femal
 1.03 + 0.94*40 + 3.80*1 + -0.7*1
 ```
 
-The expected age of this partner is, therefore, 41.7 years old.
+The expected age of a 40 year old female's partner is, therefore, 41.7 years old.
 
 ### Model evaluation
 
@@ -172,11 +172,11 @@ hist(m2$residuals)
 
 Overall they seem normally distributed with the exception of the negative value to the left.
 
-Second, from the summary we see that respondent age `rage` and respondent sex `rsex` have a significant association with the dependent variable (indicated by the p-value < 0.001). You can confirm this in the fourth column of the coefficients ('Pr(>|t|) '). Also, the std. error for the coefficients of this variables is small. However, the std. error for the categories of the place of where they live `placeliv` is large when compared to the estimated coefficients in the first column. In fact, when we look at the fourth column we see that the p-values are much larger than 0.05, which means that there is not a significant relationship between any of the type of places where they live and the partner's respondent age. What this means is that the place where people live does not play a role in the age of the respondent's partner.
+Secondly, from the summary we can see that respondent age `rage` and respondent sex `rsex` have a significant association with the dependent variable (indicated by the p-value < 0.001). You can confirm this in the fourth column of the coefficients ('Pr(>|t|) '). Also, the std. error for the coefficients of this variables is small. However, the std. error for the categories of the place of where they live `placeliv` is large when compared to the estimated coefficients in the first column. In fact, when we look at the fourth column we see that the p-values are much larger than 0.05, which means that there is not a significant relationship between any of the type of places where they live and the partner's respondent age. What this means is that the place where people live does not play a role in the age of the respondent's partner.
 
-Third, this time we see that the multiple R-squared is slightly different from the adjusted R-squared. This is because the adjusted considers the number of independent variables included in the model. This is why the adjusted r-squared is preferred for multivariate models. This shows our model explains 91% of the variance of the respondent's partner age.
+Third, this time we see that the multiple R-squared is slightly different from the adjusted R-squared. This is because the adjusted considers the number of independent variables included in the model. This is why the adjusted r-squared is preferred for multivariate models. This shows our model explains 91.34% of the variance of the respondent's partner age.
 
-Lastly, it is important to note that even though we use the full `nilt` data set, 614 of the observations were not considered in the analysis. This is because we do not have information for some respondents. Probably some do not have a partner or preferred not to say their sex.
+Lastly, it is important to note that even though we use the full `nilt` data set, 614 of the observations were not considered in the analysis. This is because we do not have information for these respondents. Probably some do not have a partner or preferred not to say their sex, for example. 
 
 ## Assumptions
 
