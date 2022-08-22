@@ -1,8 +1,8 @@
-# Linear model. Simple linear regression{#simple-lm}
+# Linear model: Simple linear regression{#simple-lm}
 
 ## Welcome
 
-In the previous lab we learnt about correlation. We visualized the relationship for different types of variables. Also, we  computed one correlation measure for two numeric variables, _Pearson correlation_. This measure is useful to compute the strength and the direction of the association. However, it presents some limitations, e.g. it can be used only for numeric variables, it allows only one variable at a time and is it is appropriate to describe a linear relationship.
+In the previous lab we learned about correlation. We visualised the relationship of different types of variables. Also, we computed one correlation measure for two numeric variables, _Pearson correlation_. This measure is useful to compute the strength and the direction of the association. However, it presents some limitations, e.g. it can only be used for numeric variables, it allows only one variable at a time, and it is appropriate to describe a linear relationship.
 
 Linear regression can overcome some of these limitations and it can be extended to achieve further purposes (e.g. use multiple variables or estimate scenarios). This technique is in fact very common and one of the most popular in quantitative research in social sciences. Therefore, getting familiar with it will be important for you not only to perform your own analyses, but also to interpret and critically read literature.
 
@@ -33,9 +33,9 @@ library(tidyverse)
 nilt <- readRDS("data/nilt_r_object.rds")
 ```
 
-This data set is exactly the same as the one you processed in previous labs.
+This dataset is exactly the same as the one you processed in previous labs.
 
-I will re-take the example of the respondent's spouse/partner characteristics. To keep things simple, create a minimal sample of the data set including only 40 random observations:
+We will re-revisit the example of the respondent's spouse/partner characteristics. To keep things simple, let's create a minimal sample of the dataset including only 40 random observations:
 ```{r}
 # select a small random sample
 set.seed(3)
@@ -54,7 +54,7 @@ ggplot(nilt_sample,  aes(x = rage, y = spage)) +
        x = "Respondent's age", y = "Respondent’s spouse/partner age" )
 ```
 
-As you can see, even with this minimal example using 40 observations, there is a clear trend. From the plot, it seems intuitive to draw a line that describes this general trend. Imagine a friend will draw this line for you. You will have to tell her some basic references on how to do it. You could for example specify a start point and and end point in the plot above. Alternately, you can specify a start point and a value that describes the slope of the line. This is what we will do in the next plot. For now, our friend is `ggplot`. You have to pass these two values in the `geom_abline()` function to draw a line which I think describes these points well.
+As you can see, even with this minimal example using 40 observations, there is a clear trend. From the plot, it seems intuitive to draw a line that describes this general trend. Imagine a friend will draw this line for you. You will have to tell them some basic references on how to do it. You can, for example, specify a start point and and end point in the plot. Alternatively, which is what we will do below, you can specify a start point and a value that describes the slope of the line.  For now, our friend is `ggplot`. You have to pass these two values (start point and slope) in the `geom_abline()` function to draw a line which describes these points.
 
 ```{r}
 ggplot(nilt_sample, aes(x = rage, y = spage)) + 
@@ -64,7 +64,7 @@ ggplot(nilt_sample, aes(x = rage, y = spage)) +
        x = "Respondent's age", y = "Respondent’s spouse/partner age" )
 ```
 
-In the guess above, it is thought that the age of the spouse/partner would be the same as the respondent. To draw a line that does this, we used 0 as the start value in the `geom_abline()` function. In statistics this is known as the _intercept_ and it is often represented with a Greek letter and a zero sub-index as $\beta_0$ (beta-naught) or with $\alpha$ (alpha). The location of the intercept can be found along the vertical axis (in this case it is not visible). The second value we passed to describe the line, the steepness factor or the _slope_, uses the X axis as the reference. This value is multiplied by the value of the X axis. Therefore, a slope of 0 would be completely horizontal. In this example, a slope of 1 produces a line rotated by 45º. The the slope is often represented with the Greek letter beta and a sequential numeric sub-index like this: $\beta_1$ (beta-one).
+In the guess above, it is assumed that the age of the spouse/partner might be exactly the same as the respondent. To draw a line like this, we used 0 as the starting value in the `geom_abline()` function. In statistics, this is known as the _intercept_ and it is often represented with a Greek letter and a zero sub-index as $\beta_0$ (beta-naught) or with $\alpha$ (alpha). The location of the intercept can be found along the vertical axis (in this case it is not visible). The second value we passed to describe the line is the _slope_, which uses the X axis as the reference. The slope value is multiplied by the value of the X axis. Therefore, a slope of 0 is completely horizontal. In this example, a slope of 1 produces a line at 45º. The  slope is often represented with the Greek letter beta and a sequential numeric sub-index like this: $\beta_1$ (beta-one).
 
 We will create some points in the data frame based on these two values, the start point and the steepness factor or, formally speaking, the intercept and the slope respectively. We will store the results in a column called `line1` and print the head of this data set.
 ```{r}
@@ -99,7 +99,7 @@ nilt_sample <- nilt_sample %>%
 head(nilt_sample)
 ```
 
-Coming back to the question, is my line good enough? We could sum all these residuals as an overall measure to know how good my line is. From the previous plot, we see that some of the expected ages exceed the actual values and other are below. This produces negative and positive residuals. If we simply sum them, they would compensate each other and this would not tell us much about the overall magnitude of the difference. To overcome this, we can multiply the differences by themselves (to make all numbers positive) and then sum them all together. This is known as the _sum of squared residuals_ (SSR) and it is the criteria to measure how good my line is with respect to the overall trend of the points.
+Coming back to the question, is my line good enough? We could sum all these residuals as an overall measure to know how good my line is. From the previous plot, we see that some of the expected ages exceed the actual values and others are below. This produces negative and positive residuals. If we simply sum them, they would compensate each other and this would not tell us much about the overall magnitude of the difference. To overcome this, we can multiply the differences by themselves (to make all numbers positive) and then sum them all together. This is known as the _sum of squared residuals_ (SSR) and we can use this as the criterion to measure how good my line is with respect to the overall trend of the points.
 
 For line 1, we can easily calculate the SSR as follows:
 ```{r}
@@ -108,9 +108,9 @@ sum((nilt_sample$residuals) ^ 2)
 
 The sum of squared residuals for line 1 is 1,325.
 
-We could try different lines to find the combination of intercept and slope that produces the smallest error (SSR). To our luck, we can find the best values using a well established technique called _Ordinary Least Square_ (OLS). This finds the optimal solution by the principle of maxima and minima. We do not need to know the details on how to do this for now. The important thing is that this procedure guarantees to find a line that produces the smallest possible error (SSR).
+We can try different lines to find the combination of intercept and slope that produces the smallest error (SSR). To our luck, we can find the best values using a well established technique called _Ordinary Least Square_ (OLS). This finds the optimal solution by the principle of maxima and minima. We do not need to know the details on how to do this for now. The important thing is that this procedure guarantees to find a line that produces the smallest possible error (SSR).
 
-In R, it is very simple to fit a linear model and we do not need to go trough each of the steps above _manually_. To do it, use the function `lm()`, save the result in an object called `m1` and print it.
+In R, it is very simple to fit a linear model and we do not need to go through each of the steps above _manually_ nor to memorise all the steps. To do this, simply use the function `lm()`, save the result in an object called `m1` and print it.
 ```{r}
 m1 <- lm(spage ~ rage, nilt_sample)
 m1
@@ -123,7 +123,7 @@ sum(residuals(m1) ^ 2)
 
 Yes, this is better than before (because the value is smaller)!
 
-Let's plot the guessed line and the optimal line together:
+Let's plot the line we guessed and the optimal line together:
 ```{r}
 ggplot(nilt_sample, aes(x = rage, y = spage)) + 
   geom_point() +
@@ -151,7 +151,7 @@ You do not need to memorize this equation, but being familiar to this type of no
 
 ### R syntax
 
-We already fitted our first linear model using the `lm()`, which of course stands for _linear model_, but we did not discuss the specifications needed in this function. The first argument takes the dependent variable, then, we use tilde `~` to express that this is _followed by_ the dependent variable. Then, we specify the data set separated by a comma, as shown below (this is just a conceptual example, it does not actually run):
+We already fitted our first linear model using the `lm()` above, which of course stands for _linear model_, but we did not discuss the specifications needed in this function. The first argument takes the dependent variable, then, we use tilde `~` to express that this is _followed by_ the independent variable. Then, we specify the data set separated by a comma, as shown below (this is just a conceptual example, it does not actually run):
 
 ```{r eval=FALSE}
 lm(dependent_variable ~ independent_variable, data)
@@ -166,11 +166,11 @@ m2 <- lm(spage ~ rage, nilt)
 m2
 ```
 
-The output first displays the formula employed to estimate the model. Then, it show us the estimated values for intercept and the slope for the age of the respondent, these estimated values are as a whole called coefficients. In this model, the coefficients differ from the ones in the example above (m1). This is because we now have more information to fit this line. Despite the difference, we see that the relationship is still in the same direction (positive) In fact, the value for the slope $\beta_1$ did not change much (0.87 vs 0.92).
+The output first displays the formula employed to estimate the model. Then, it show us the estimated values for the intercept and the slope for the age of the respondent, these estimated values are called coefficients. In this model, the coefficients differ from the ones in the example above (m1). This is because we now have more information to fit this line. Despite the difference, we see that the relationship is still in the same direction (positive). In fact, the value of the slope $\beta_1$ did not change much if you look at it carefully (0.87 vs 0.92).
 
 ### Interpreting results
 
-But what are the slope and intercept telling us? The first thing to note is that the slope is positive, which means that the relationship between the respondent age and their partner are in the same direction. When the age of the respondent goes up, the age of their partner is expected to increase as well.
+But what are the slope and intercept telling us? The first thing to note is that the slope is positive, which means that the relationship between the respondent age and their partner are in the same direction. When the age of the respondent goes up, the age of their partner is expected to go up as well.
 
 In our model, the intercept does not have a meaningful interpretation on its own, it would not be logical to say that when the respondent's age is 0 their partner would be expected to be 3.70 years old. Interpretations should be made only within the range of the values used to fit the model (the youngest age in this data set is 18). The slope can be interpreted as following: For every year older the respondent is, the partner's age is expected to change by 0.92. In other words, the respondents are expected to have a partner who is 0.92 times years older than themselves. This means that their partners are expected to be slightly younger.
 
@@ -182,9 +182,9 @@ m3 <- lm(persinc2 ~ rhourswk, data = nilt)
 m3
 ```
 
-This time, the coefficients look quite different. The results are telling us that for every additional hour worked a week a respondent is expected to earn £463.2 more a year than other respondent. Note that the input units are not the same in the interpretation. The dependent variable is in pounds earned a year and the independent is in hours worked a week. Does this mean that someone who works 0 hours a week is expected to earn £5170.4 a year (given the fitted model $ \hat{persinc2} =  5170.4 + 0*463.2 $) or that someone who works 110 hours a week is expected to earn £56K a year? No, remember that we should only make reasonable interpretations of the coefficients within the range analysed.
+This time, the coefficients look quite different. The results are telling us that for every additional hour worked a week a respondent is expected to earn £463.2 more a year than other respondent. Note that the input units are not the same in the interpretation. The dependent variable is in pounds earned a year and the independent is in hours worked a week. Does this mean that someone who works 0 hours a week is expected to earn £5170.4 a year (given the fitted model $\hat{persinc2} =  5170.4 + 0*463.2$) or that someone who works 110 hours a week is expected to earn £56K a year? No, remember that we should only make reasonable interpretations of the coefficients within the range analysed.
 
-Finally, an important thing to know when interpreting linear models using cross sectional data (data collected in a single time point only) is: **_correlation does not imply causation_**. Variables are often correlated with other non-observed variables which may cause the effects observed on the independent variable in reality. This is why we cannot be sure that X is causing the observed changes on Y.
+Finally, an important thing to know when interpreting linear models using cross sectional data (data collected in a single time point only) is: **_correlation does not imply causation_**. Variables are often correlated with other non-observed variables which may cause the effects observed on the independent variable in reality. This is why we cannot always be sure that X is causing the observed changes on Y.
 
 ## Model evaluation
 
@@ -203,15 +203,15 @@ The first part, **Call**, is simply printing the variables that were used to pro
 
 The second part, the **Residuals**, provides a small summary of the residuals by quartile, including minimum and maximum residual values. Remember the second part of the formal specification of the model? Well, this is where we can see in practice the distribution of the residuals. If we look at the first and third quartile, we can see that that 50% of the predicted values by the model are $\pm$ 2.5 years old away form the observed partner's age...not that bad. 
 
-The third part is about the **coefficients**. This time, the summary provides more information about the intercept and the slope than just the estimated coefficients as before. Usually, we focus on the independent variables in this section, `rage` in our case. The first column, standard error, tell us how large the error of the slope is, which is small for our variable. The third and fourth columns provide measures about the statistical significance of the relationship between the dependent and independent variable. The most commonly reported is the p-value (the fourth column). When these values contains many digits, R reports the result in scientific notation. In our result the p-value is `<2e-16` (the real equivalent number is <0.0000000000000002, if you want to know more about scientific notation click [here](https://www.calculatorsoup.com/calculators/math/scientific-notation-converter.php#:~:text=The%20proper%20format%20for%20scientific,equivalent%20to%20the%20original%20number.)). As a general agreement, if the p-value is equal or less than 0.05 ($p$ ≤ 0.05), we can reject the null hypothesis, and say that the relationship between the dependent variable and the independent is significant. Our p-value is far lower than 0.05. Then, we can say that the relationship between the respondent's spouse/partner age and the respondent's age is significant. In fact, R includes codes for each coefficients to help us to identify the significance. In our result, we got three stars/asterisks. This is because the value is less than 0.001. R assigns two stars if the p-value is less than 0.01, and one star if it is lower than 0.05.
+The third part is about the **coefficients**. This time, the summary provides more information about the intercept and the slope than just the estimated coefficients as before. Usually, we focus on the independent variables in this section, `rage` in our case. The second column, standard error, tell us how large the error of the slope is, which is small for our variable. The third and fourth columns provide measures about the statistical significance of the relationship between the dependent and independent variable. The most commonly reported is the p-value (the fourth column). When these values contains many digits, R reports the result in scientific notation. In our result the p-value is `<2e-16` (the real equivalent number is <0.0000000000000002, if you want to know more about scientific notation click [here](https://www.calculatorsoup.com/calculators/math/scientific-notation-converter.php#:~:text=The%20proper%20format%20for%20scientific,equivalent%20to%20the%20original%20number.)). As a general agreed principle, **if the p-value is equal or less than 0.05 ($p$ ≤ 0.05), we can reject the null hypothesis, and say that the relationship between the dependent variable and the independent is significant.** In our case, the p-value is far lower than 0.05. So, we can say that the relationship between the respondent's spouse/partner age and the respondent's age is significant. In fact, R includes codes for each coefficient to help us to identify the significance. In our result, we got three stars/asterisks. This is because the value is less than 0.001. R assigns two stars if the p-value is less than 0.01, and one star if it is lower than 0.05.
 
-In the fourth area, we have various goodness-of-fit measures. Overall, these measures tell us how well the model represents our data. For now, let's focus on the _adjusted r-squared_ and the sample size. The r-squared is a value that goes from 0 to 1. 0 means that model is not explaining any of the variance, whereas 1 would mean a perfect model. In social sciences we do not see high values often. The adjusted r-squared can be understood as the percentage variance that the model is able to explain. In the example above, the model explains 90% percent of the total variance. This is a good fit, but this is because we are modelling a quite "obvious" relationship. The r-squared does not represent how good or bad our work is. You may wonder why we do not report the sum of square residuals (SSR), as we just learnt. This is because the scale of the SSR is in the units used to fit the model, which would make it difficult to compare my model with other models that use different units or different variables. Conversely, the adjusted r-squared is expressed in relative terms which makes it a suitable measure to compare with other models. An important thing to note is that the output is telling us that this model excluded 613 observations which were missing in our dataset. This is because we do not have the age of the respondent's partner in 613 of the rows. This missingness may be because the respondent do not have a partner, refused to provide the information, etc.
+In the fourth area, we have various goodness-of-fit measures. Overall, these measures tell us how well the model represents our data. For now, let's focus on the _adjusted r-squared_ and the sample size. The r-squared is a value that goes from 0 to 1. 0 means that model is not explaining any of the variance, whereas 1 would mean a perfect model. In social sciences we do not see high values often. The adjusted r-squared can be understood as the percentage variance that the model is able to explain. In the example above, the model explains 89.88% percent of the total variance. This is a good fit, but this is because we are modelling a quite "obvious" relationship. The r-squared does not represent how good or bad our work is. You may wonder why we do not report the sum of square residuals (SSR), as we just learned. This is because the scale of the SSR is in the units used to fit the model, which would make it difficult to compare our model with other models that use different units or different variables. Conversely, the adjusted r-squared is expressed in relative terms which makes it a more suitable measure to compare with other models. An important thing to note is that the output is telling us that this model excluded 613 observations which were missing in our dataset. This is because we do not have the age of the respondent's partner in 613 of the rows. This missingness may be because the respondent do not have a partner, refused to provide the information, etc.
 
 In academic papers in the social sciences, usually the measures reported are the coefficients, p-values, the adjusted r-squared, and the size of the sample used to fit the model (number of observations).
 
 ### Further checks
 
-The linear model, as many other techniques in statistics, relies on assumptions. These refer to characteristics of the data that are taken for granted to generate the estimates. It is the task of the modeller/analyst to make sure the data used is following these assumptions. One simple yet important check is to examine the distribution of the residuals. These should follow a normal distribution.
+The linear model, as many other techniques in statistics, relies on assumptions. These refer to characteristics of the data that are taken for granted to generate the estimates. It is the task of the modeller/analyst to make sure the data used follows these assumptions. One simple yet important check is to examine the distribution of the residuals, which ought to follow a normal distribution.
 
 Does the residuals follow a normal distribution in `m1`? We can go further and plot a histogram to graphically evaluate it. Use the function `residuals()` to extract the residuals from our object `m2`, and then plot a histogram with the r-base function `hist()`.
 
@@ -219,7 +219,7 @@ Does the residuals follow a normal distribution in `m1`? We can go further and p
 hist(residuals(m2), breaks = 20)
 ```
 
-Overall, it seems that the residuals follow the normal distribution reasonably well, with the exception of the negative value to the left of the plot. Very often when there is a strange distribution or different to the normal is because one of the assumptions is violated. If that is the case we cannot trust the coefficient estimates. In the next lab we will talk more about the assumptions of the linear model. For now, we will leave it here.
+Overall, it seems that the residuals follow the normal distribution reasonably well, with the exception of the negative value to the left of the plot. Very often when there is a strange distribution or different to the normal is because one of the assumptions is violated. If that is the case we cannot trust the coefficient estimates. In the next lab we will talk more about the assumptions of the linear model. For now, we will leave it here and get some practice. 
 
 ## Lab activities
 
