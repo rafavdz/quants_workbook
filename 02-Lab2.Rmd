@@ -18,7 +18,7 @@ Let's put hands-on to install and load some useful packages. We will start with 
 
 **Part 1**. Access your lab group in R Studio Cloud
 
-1. Make sure you have a free, institutional-subscription [RStudio Cloud](https://rstudio.cloud/) account (in case you have not created one yet, please follow the guidance provided in Lab 1);
+1. Make sure you have a free, institutional-subscription [RStudio Cloud](https://rstudio.cloud/) account (in case you have not created one yet, please follow the guidance provided in [Lab 1](#lab-intro));
 2. You will receive a link from your tutor to join your lab group in a shared space. Copy and paste it in your web browser (log in if necessary). If you already joined your lab group in RStudio Cloud, simply access the 'Lab 2' project and omit steps 3 to 5. Otherwise, continue with steps 3, 4 and 5.
 3. If you did not join your lab group yet, you should see the following window:
 ```{r fig.cap="Join Space", echo=FALSE}

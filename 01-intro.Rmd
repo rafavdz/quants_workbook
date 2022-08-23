@@ -1,4 +1,4 @@
-# Introduction to R {#intro}
+# Introduction to R {#lab-intro}
 
 For this course we will be using [R](https://www.r-project.org/) [@R-base] and [R Studio](https://rstudio.com/) as the main tools for conducting quantitative analysis. `R` and the basic versions of `R Studio` are open-source and thus free software. Even though `R` appeared in the early 90s, it has been gaining a lot of popularity in recent years. In fact, it is now one of the most common software for doing statistics in academia.
 
