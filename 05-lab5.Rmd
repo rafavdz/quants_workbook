@@ -16,11 +16,11 @@ We will continue working in the same project called _NILT_ in [RStudio Cloud](ht
 
 1. Please go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/) (log in if necessary);
 2. Open your own copy of the 'NILT' project from the 'Quants lab group';
-3. Create a new Rmd file, this is similar as creating and `R Script`, from the 'File' tab on the top-left: `File>New File>R Markdown...`;
+3. Create a new Rmd file, this is similar as creating and `R Script`, from the 'File' tab on the top-left: `File>New File>R Markdown...` (Rstudio may ask to install some packages, click 'Yes');
 4. Type 'Test1' in 'Tile' section and your name in the 'Author' box. Leave the 'Default Output Format' as `HTML`. Then, click 'OK'.
 5. Save the Rmd file clicking on `File>Save as...`, type `Test1` in the 'File name' box, and click on the Save button.
 
-After completing the previous steps, your screen should look like this:
+After completing the previous steps, your screen should look like this (You can minimize the console to expand pane 1):
 ```{r rmd-file, fig.cap="Rmd file.", echo=FALSE}
 knitr::include_graphics("./images/lab4_rmd_view.png")
 ```
@@ -76,5 +76,5 @@ In the `Test1.Rmd` file that you just created, do the following:
 
 <br>
 
-Make sure you've got the basics of R Markdown, since this is the tool which you will write your final assignment (i.e. research report). If there is something not very clear, feel free to ask your tutor. They will be happy to answer your questions.
+Make sure you've got the basics of R Markdown, since this is the tool which you will use to write your final assignment (i.e. research report). If there is something not very clear, or you are curious about, feel free to ask your tutor. They will be happy to answer your questions.
 

@@ -89,7 +89,7 @@ Before doing some analyses, we will drop unused levels (or categories) in our da
 nilt <- droplevels(nilt)
 ```
 
-Finally, save the NILT survey in an `.rds` file (this is the R format). We will not use this file now, but this will save us time formatting the data set in next labs (that is not having to repeat the steps above every time).
+Finally, save the NILT survey in an `.rds` file (this is the R format). We will not use this file now, but this will save us time formatting the dataset in next labs (So, we do not have to repeat the steps above every time).
 ```{r}
 saveRDS(nilt, "data/nilt_r_object.rds")
 ```
@@ -102,7 +102,7 @@ As a final step, just double check that things went as expected. For this purpos
 
 ### Activity
 
-* Read the `.rds` file that you just create in the last step using the `readRDS()` function and assign it to an object called `cleanesed_data`. Remember to include the full directory of the file using quotation marks inside the function.
+* Using the `readRDS()` function, read the `.rds` file that you just created in the last step and assign it to an object called `cleanesed_data`. Remember to include the full directory of the file using quotation marks inside the function.
 * Run the `glimpse` function on the `cleanesed_data` object.
 * Run the `glimpse` function on the `nilt` object.
 * Do they look the same? If yes, it means that you successfully saved your work.

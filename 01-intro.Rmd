@@ -134,7 +134,7 @@ Now you are ready! It is your turn to start exploring and getting familiar with 
 
 #### R as calculator
 
-Go to your console (pane 3), write some simple calculations and run them by typing 'enter' after each of them, as shown below.
+Go to your **console** (pane 3, bottom-left pane), write some simple calculations and run them by typing 'enter' after each of them, as shown below.
 
 ```{r fig.cap="R Console as calculator.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_r_as_calculator.png")
@@ -147,7 +147,7 @@ Fairly simple, right? And don't forget, it is entirely normal to copy/paste and 
 
 #### Testing logical operators
 
-Now, write and run the following lines in your console and take some time to observe the result in detail for each of them:
+Now, write and run the following lines in your **console** (pane 3) and take some time to observe the result in detail for each of them:
 
 * `10 == 10`
 * `10 != 10`
@@ -166,7 +166,9 @@ Perhaps logical operators do not make much sense at this point, but you will fin
 
 #### Assigning values to 'objects'
 
-In `R`, it is very common (and practical) to store values or data as 'objects'. These are temporally stored in your current session. Let's try it! In your `R` script (Pane 1), write the following and run it by clicking the green arrow or using `alt + ent`:
+In `R`, it is very common (and practical) to store values or data as 'objects'. These are temporally stored in your current session. Let's try it! 
+
+Now, we will work in the `R` script file (**Pane 1**, top-left pane), write the following and run it by clicking the green arrow or using `alt + ent`:
 
 ```{r eval = FALSE}
 a <- 10
@@ -177,7 +179,7 @@ What do you observe?...
 
 ...That's right! The operator `<-` assigned the numeric value `10` to the object `a` (on the left hand-side of the arrow). Later, you used the object (`a`) to compute a sum (i.e, `a + 5`). 
 
-Now, write and run the following in your `R` script:
+Now, write and run the following in your `R` script (Pane 1)
 
 ```{r eval = FALSE}
 c <- 3
@@ -244,6 +246,18 @@ knitr::include_graphics("./images/rstudio_cloud_environment.png")
 This is a very good start, great job! 
 
 Note that the changes made in your script are saved automatically in RStudio Cloud. To verify this, have a look at the name of your script in the top-left of pane 1. If changes are due to be saved, the name will be written in red. If it is in red, save changes manually by clicking on the disk icon. After you have made sure your changes are saved, end your session simply by closing the RStudio Cloud tab in your browser.
+
+## Activity
+
+Discuss the following questions with your neighbour or tutor:
+
+1. What are the main differences between working in an `R` script file (pane 1) and directly on the console (pane 3)?
+2. What happens if when run the following code? (tip: look at the environment tab in pane 2)
+```{r}
+object1 <- 10
+object1 <- 30
+```
+
 
 
 

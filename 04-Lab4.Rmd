@@ -9,7 +9,7 @@ We will continue working on the same project and dataset that you created in the
 1. Go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/).
 2. Open the project called 'NILT' located in your lab group'.
 3. Continue working at the bottom of the 'Exploratory analysis' script that you created in the last lab.
-4. Load `nilt` dataset that you create in the last session using the following code:
+4. Load `nilt` dataset that you created in the last session using the following code:
 ```{r}
 # Load the data from the .rds file we created in the last lab
 nilt <- readRDS("data/nilt_r_object.rds")
@@ -32,7 +32,7 @@ knitr::include_graphics("./images/lab_3_summary_stats.jpg")
 
 To start exploring our data it essential to distinguish the adequate tools and measures available for the type of data in question. As you know now, there are two broad types: (1) categorical and (2) numeric.
 
-There are several ways in which we can summarise our data. Today, we will use a useful package called `vtable`. Install it in your session running the following line in your console:
+There are several ways in which we can summarise our data. Today, we will use a useful package called `vtable`. Install it in your session running the following line from your console:
 ```{r eval = FALSE}
 install.packages('vtable')
 ```
@@ -46,7 +46,9 @@ library(vtable)
 
 ### Categorical data
 
-A usual way to explore the categorical data is using contingency and proportion tables. The contingency tables include the count for each category while the proportion tables contain the count divided by the total number of observations. 
+A usual way to explore the categorical data is using contingency and proportion tables. The contingency tables include the count for each category while the proportion tables contain the count divided by the total number of observations.
+
+Try to focus on the interpretation of the outputs in the following section. At this time, it is just optional to run the code shown.
 
 Let's say we are interested in the data's break down by respondents' sex (called `rsex` in the dataset). We will use function `sumtable()` of the `vtable` package to produce a contingency table for a single variable (known as One-Way contingency table).
 ```{r}
@@ -75,7 +77,7 @@ There are some interesting results from this table. You can see that there are p
 
 ### Activity 1
 
-From your R Studio Cloud script, do the following activities using the data in the `nilt_subset` object:
+From your R Studio Cloud script, do the following activities using the data in the `nilt_subset` object (feel free to copy and adapt the code shown above):
 
 * Create a One-Way contingency table for `uninatid` in the `nilt_subset` dataset using the `sumtable()` function;
 * Using the variables `religcat` and `uninatid`, generate a Two-Way contingency table;
@@ -85,6 +87,8 @@ From your R Studio Cloud script, do the following activities using the data in t
 ### Continuous (numeric) data
 
 In the previous section we've learnt how to summarise categorical data. But very often we want to work with continuous numeric variables or a combination of both. To summarise and understand numeric data there are two main types: *measures of centrality* and *measures of spread*.
+
+As before, try to focus on the interpretation of the outputs in the following section. At this time, it is just optional to run the code shown.
 
 #### Measures of centrality
 

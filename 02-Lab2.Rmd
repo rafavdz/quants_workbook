@@ -33,12 +33,12 @@ knitr::include_graphics("./images/rstudio_cloud_startproject_lab2.png")
 <br>
 **Part 2**. Working on your script
 
-1. Once you have accessed the 'Lab 2' project, write or copy the following line in your script and run it:
+1. Once you have accessed the 'Lab 2' project, write or copy the following line in your **script** (pane 1) and run it:
 ```{r eval = FALSE}
 install.packages('tidyverse')
 ```
 2. Wait until you get the message 'The downloaded source packages are in...'. The installing process can take up to a couple of minutes to finish.
-3. Once the package is installed, you need to load it using the `library()` function as follows:
+3. Once the package is installed, you need to load it using the `library()` function. Please, copy and paste the following line, and run it:
 ```{r eval = TRUE}
 library(tidyverse)
 ```
@@ -67,7 +67,7 @@ In R, there are couple of functions that will help us to identify the type of da
 
 We are now going to use some datasets that are pre-loaded in the `R` session by default. Please go to your 'Lab_2' project in RStudio Cloud and do the following:
 
-1. We will start with a classic dataset example in R called `iris`. This contains measurements of various flowers species (for more info type `?iris` in your console). Please go to your console and type the line below.
+1. We will start with a classic dataset example in R called `iris`. This contains measurements of various flowers species (for more info type `?iris` in your console). Please go to your **console** and type the line below.
 ```{r eval=FALSE}
 glimpse(iris)
 ```
@@ -95,7 +95,9 @@ Note the syntax above. Inside the function, we used the name of the dataset foll
 <!-- table(diamonds$cut) -->
 <!-- ``` -->
 
-Now, let's get serious and explore Star Wars. Yes, the famous film series! The `starwars` data set from the `dplyr` package contains information about the characters, including height, hair colour, and sex (to get more information type `?starwars` in your console). At this time we will use a reduced version of the full data set.
+Now, let's get serious and explore Star Wars. Yes, the famous film series! 
+
+The `starwars` data set from the `dplyr` package contains information about the characters, including height, hair colour, and sex (to get more information type `?starwars` in your console). At this time we will use a reduced version of the full data set. Please complete the following activities from your `R` script (pane 1).
 
 1. First, we will run the next couple of lines to reduce the data set, and then we will glimpse the Star Wars characters:
 ```{r eval=FALSE}
@@ -123,7 +125,7 @@ levels(starwars2$species)
 
 The glimpse result now is telling us that `species` is a `<fct>`, as expected. Furthermore, the `levels()` function reveals that there are 37 types of species, including Human, Ewok, Droid, and more.
 
-Hopefully, these examples will help you to identify the the main vector types and more importantly to coerce them in an appropriate type. Be aware that many data sets represent categories with numeric values, for example, using '0' for males and '1' for females. Usually, large data sets are accompanied by extra information in a _code book_ or _documentation_ file, which specifies the values of the numeric code and their respective meaning. It's important to consult the code book/documentation of every dataset as each dataset's conventions and meangings can vary. That's also why good documentaiton is important when working with data. 
+Hopefully, these examples will help you to identify the the main vector types and more importantly to coerce them in an appropriate type. Be aware that many data sets represent categories with numeric values, for example, using '0' for males and '1' for females. Usually, large data sets are accompanied by extra information in a _code book_ or _documentation_ file, which specifies the values of the numeric code and their respective meaning. It's important to read the code book/documentation of every dataset as the conventions and meanings can vary.
 
 ## More operators and some essential symbols
 
@@ -131,7 +133,7 @@ Hopefully, these examples will help you to identify the the main vector types an
 
 <!-- The dollar sign `$` is frequently used and it is part of base R. Actually, we used it a couple of times in the previous section. This is used to access or extract information from an object (e.g. a data set). For instance, earlier we selected only one variable from the `starwars` data set by writing `starwars2$species`. A practical tip to quickly access or find variables in a data set is to write the name of your object followed by the dollar sign only, like this: `starwars2$` (without specifying the variable to be accessed yet). After, type `tab` in your keyboard. Then, R will display a list with the variables available. Try it yourself! -->
 
-A useful operator is the pipe `%>%`. This is part of the `tidyverse` package. So, it is ready for you to use. This operator passes the result of one operation to the next. Check the results of the following operations in your console:
+A useful operator is the pipe `%>%`. This is part of the `tidyverse` package. So, it is ready for you to use. This operator passes the result of one operation to the next. Check the results of the following operations in your **console**:
 
 ```{r eval = FALSE}
 1 %>% + 1
@@ -148,7 +150,9 @@ In this section we will work with data originally collected by The Guardian in 2
 
 ### Downloading and reading the data
 
-First, we will create a new folder in our project directory to store the data. To do it from R, run this line in your script (Don't worry if you get a warning. This appears because you already have a folder with this name):
+For the following excercices, please make sure that your are working in your `R` script.
+
+First, we will create a new folder in our project directory to store the data. To do it from `R`, run this line in your script (Don't worry if you get a warning. This appears because you already have a folder with this name):
 ```{r}
 dir.create("data")
 ```
@@ -190,10 +194,12 @@ glimpse(police_2)
 
 Having a closer look at the reduced version, we can see that in fact all the variables are of type `<chr>`, including `age`.
 
-Let's coerce the variables in to their correct type. We will start with age, from character to numeric:^[Age is not known for some cases. Thus, it is recorded as 'Unknown' in the dataset. Since this is not recognized as a numeric value in the coercion process, `R` automatically sets it as a missing value, `NA`.]
+Let's coerce the variables in to their correct type. We will start with age, from character to numeric:
 ```{r eval = FALSE}
 police_2 <- police_2 %>% mutate(age = as.numeric(age))
 ```
+
+Age is not known for some cases. Thus, it is recorded as 'Unknown' in the dataset. Since this is not recognized as a numeric value in the coercion process, `R` automatically sets it as a missing value, `NA`. This is why it will give you a warning message.
 
 We can continue coercing `raceethnicity` and `gender` from character to a factor:
 ```{r eval = FALSE}
@@ -213,7 +219,7 @@ Let's suppose that we only want observations in which race/ethnicity is not unkn
 police_2 <- police_2 %>% filter(raceethnicity != 'Unknown')
 ```
 
-So, what just happened in the code above? First, the pipe operator, `%>%`: What we are doing verbally is _take the object `police_2`, THEN filter raceethnicity based on a condition_. Later, what is happening inside `filter`? Lets have a look at what R does in the background for us (Artwork by \@alison_horst):
+So, what just happened in the code above? First, the pipe operator, `%>%`: What we are doing verbally is _take the object `police_2`, THEN filter raceethnicity based on a condition_. Later, what is happening inside `filter`? Lets have a look at what `R` does in the background for us (Artwork by \@alison_horst):
 
 ```{r fig.cap="Filter. Source: Artwork by @Horst.", echo=FALSE}
 knitr::include_graphics("./images/lab_2_filter.jpg")
@@ -232,6 +238,15 @@ In the example above, we are keeping the observations in `raceethnicity` that ar
 <!-- ``` -->
 
 <!-- If we look at the summary again, the classifications of `raceethnicity` are reduced in the new variable `raceethnicity_recoded`. The categories 'Native American' and 'Asian/Pacific Islander' were summed in only one category called `Other`. -->
+
+## Activity
+
+Discuss the following questions with your neighbour or tutor:
+
+1. What is the main purpose of the functions `select()` and `filter`?
+2. What does *coerce* mean in the context of `R`? and Why do we need to coerce some variables?
+3. What is the `mutate()` function useful for?
+
 
 This is the end of Lab 2. Again, the changes in your script should be saved automatically in R Studio Cloud. However, make sure this is the case as you were taught in Lab 1. After this, you can close the tab in your web browser. Hope you had fun!
 
