@@ -38,10 +38,10 @@ Next, create a new Rmd document following the next steps.
 
 1. Create a new Rmd file titled 'Lab 6. Data visualization', and write your name in the 'Author' space.
 2. Save the Rmd file clicking on `File>Save as...`, using `Lab_6` in the 'File name' box, and click on the 'Save' button.
-3. Delete all the contents in the default example with the exception of the first bit which contains the YALM and the first chunk, which contains the default chunk options. 
+3. Delete all the contents in the default example with the exception of the first bit which contains the YALM and the first code chunk (that is keeping from line 1 to 10 and deleting everything from line 11). 
 4. In the setup chunk (line 8), change `echo` from `TRUE` to `FALSE` (this will hide the code for all chunks in the output).
 
-Once your Rmd document is ready, insert an R chunk to read the 2012 NILT data. To do this, click on the 'Insert' button on pane 1, and then click on 'R'. This will insert an R code chunk as the ones we explored in 'Test1'.
+Once your Rmd document is ready, insert a new `R` code chunk. To do this, click on the 'Insert' button on pane 1, and then click on 'R'. This will insert an R code chunk as the ones we explored in 'Test1'.
 
 ```{r fig.cap="Insert a code chunk.", echo=FALSE}
 knitr::include_graphics("./images/Lab4_chunk.png")
@@ -52,7 +52,7 @@ In the body of the first chunk, load the packages that you will need. For now, i
 library(tidyverse)
 ```
 
-Insert a second chunk. In the body of the code copy and paste the lines below. This is to load the data we downloaded and formatted in the last lab in R format using the `readRDS()` function (note that we are reading the `.rds` file and not the original `.sav` file). Also, we will create a subset called `nilt_subset` selecting only the variables that we are interested in for now, as we did in the previous lab.
+After the previous, insert a second chunk. In the body of the code copy and paste the lines below. This is to load the data we downloaded and formatted in the last lab in R format using the `readRDS()` function (note that we are reading the `.rds` file and not the original `.sav` file). Also, we will create a subset called `nilt_subset` selecting only the variables that we are interested in for now, as we did in the previous lab.
 
 ```{r}
 # Load the data from the .rds file we created in the last lab
@@ -61,11 +61,13 @@ nilt <- readRDS("data/nilt_r_object.rds")
 nilt_subset <- select(nilt, rsex, rage, highqual, religcat, uninatid,  ruhappy, rhourswk, persinc2)
 ```
 
-Run both chunks individually by clicking on the green arrow located on the top-right of the chunk, as described earlier.
+Run both of the previous chunks individually by clicking on the green arrow located on the top-right of the chunk, as described earlier.
 
 <!-- Please notice that that we are able to load the NILT survey and we do not have to coerce it again into the correct type because we downloaded and saved the formatted data set in an `.rds` file before. Therefore, the data is stored in your R Studio Cloud project. Also, we did not need to install `tidyverse`, since we also did this in the past lab and we are working in the same project. Remember that if you create a new RStudio Cloud project, you will have to install the packages again. -->
 
-Now that we read the data in, we are ready to start creating our own own plots using the 2012 NILT survey. You do not need to reproduce each of the examples in the following sections, but carefully read the description and try to understand the code syntax.
+Now that we read the data in, we are ready to start creating our own own plots using the 2012 NILT survey. 
+
+You do not need to reproduce each of the examples in the following section, but we suggest you to carefully read the description and try to understand the code syntax.
 
 ## Cateogrical variables
 

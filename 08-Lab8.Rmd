@@ -2,7 +2,7 @@
 
 ## Welcome
 
-In the previous lab we learned about correlation. We visualised the relationship of different types of variables. Also, we computed one correlation measure for two numeric variables, _Pearson correlation_. This measure is useful to compute the strength and the direction of the association. However, it presents some limitations, e.g. it can only be used for numeric variables, it allows only one variable at a time, and it is appropriate to describe a linear relationship.
+In the previous lab we learned about correlation. We visualised the relationship of different types of variables. Also, we computed one correlation measure for two numeric variables, _Pearson_ correlation. This measure is useful to compute the strength and the direction of the association. However, it presents some limitations, e.g. it can only be used for numeric variables, it allows only one variable at a time, and it is appropriate to describe a linear relationship.
 
 Linear regression can overcome some of these limitations and it can be extended to achieve further purposes (e.g. use multiple variables or estimate scenarios). This technique is in fact very common and one of the most popular in quantitative research in social sciences. Therefore, getting familiar with it will be important for you not only to perform your own analyses, but also to interpret and critically read literature.
 
@@ -19,10 +19,10 @@ For this lab, we will continue using the 2012 NILT survey to introduce linear mo
 
 1. Go to your 'Quants lab group' in [RStudio Cloud](https://rstudio.cloud/);
 2. Create a copy of the project called 'NILT2' which is located in your 'Quants lab group' by clicking on the 'Start' button;
-3. Once in the project, create a new `R` script file (a simple r script NOT an .Rmd file);
+3. Once in the project, create a new 'R Script' file (a simple `R` script NOT an .Rmd file);
 4. Save the `R` file as 'linear_model_intro'.
 
-Reproduce the code below, by copying, pasting and running it from your new script.
+Reproduce the code below, by copying, pasting and running it from your new script and focus on the intuitive part of this section.
 
 First, load the `tidyverse` library and read the `nilt_r_object.rds` file which is stored in the folder called 'data' and contains the NILT survey (`tidyverse` was installed in your session already).
 
@@ -108,9 +108,9 @@ sum((nilt_sample$residuals) ^ 2)
 
 The sum of squared residuals for line 1 is 1,325.
 
-We can try different lines to find the combination of intercept and slope that produces the smallest error (SSR). To our luck, we can find the best values using a well established technique called _Ordinary Least Square_ (OLS). This finds the optimal solution by the principle of maxima and minima. We do not need to know the details on how to do this for now. The important thing is that this procedure guarantees to find a line that produces the smallest possible error (SSR).
+We can try different lines to find the combination of intercept and slope that produces the smallest error (SSR). To our luck, we can find the best values using a well established technique called _Ordinary Least Squares_ (OLS). This technique finds the optimal solution by the principle of maxima and minima. We do not need to know the details for now. The important thing is that this procedure guarantees to find a line that produces the smallest possible error (SSR).
 
-In R, it is very simple to fit a linear model and we do not need to go through each of the steps above _manually_ nor to memorise all the steps. To do this, simply use the function `lm()`, save the result in an object called `m1` and print it.
+In `R`, it is very simple to fit a linear model and we do not need to go through each of the steps above _manually_ nor to memorise all the steps. To do this, simply use the function `lm()`, save the result in an object called `m1` and print it.
 ```{r}
 m1 <- lm(spage ~ rage, nilt_sample)
 m1
@@ -151,7 +151,7 @@ You do not need to memorize this equation, but being familiar to this type of no
 
 ### R syntax
 
-We already fitted our first linear model using the `lm()` above, which of course stands for _linear model_, but we did not discuss the specifications needed in this function. The first argument takes the dependent variable, then, we use tilde `~` to express that this is _followed by_ the independent variable. Then, we specify the data set separated by a comma, as shown below (this is just a conceptual example, it does not actually run):
+We already fitted our first linear model using the `lm()` above, which of course stands for _linear model_, but we did not discuss the specifications needed in this function. The first argument takes the dependent variable, then, we use tilde `~` to express that this is _followed by_ the independent variable. Then, we specify the data set separated by a comma, as shown below (this is just a conceptual example, it does not actually run!):
 
 ```{r eval=FALSE}
 lm(dependent_variable ~ independent_variable, data)
@@ -182,13 +182,13 @@ m3 <- lm(persinc2 ~ rhourswk, data = nilt)
 m3
 ```
 
-This time, the coefficients look quite different. The results are telling us that for every additional hour worked a week a respondent is expected to earn £463.2 more a year than other respondent. Note that the input units are not the same in the interpretation. The dependent variable is in pounds earned a year and the independent is in hours worked a week. Does this mean that someone who works 0 hours a week is expected to earn £5170.4 a year (given the fitted model $\hat{persinc2} =  5170.4 + 0*463.2$) or that someone who works 110 hours a week is expected to earn £56K a year? No, remember that we should only make reasonable interpretations of the coefficients within the range analysed.
+This time, the coefficients look quite different. The results are telling us that for every additional hour worked a week a respondent is expected to earn £463.2 more a year than other respondent. Note that the input units are not the same in the interpretation. The dependent variable is in pounds earned a year and the independent is in hours worked a week. Does this mean that someone who works 0 hours a week is expected to earn £5170.4 a year (given the fitted model $\hat{persinc2} =  5170.4 + 0*463.2$) or that someone who works 110 hours a week (impossible!) is expected to earn £56K a year? We should only make reasonable interpretations of the coefficients within the range analysed.
 
 Finally, an important thing to know when interpreting linear models using cross sectional data (data collected in a single time point only) is: **_correlation does not imply causation_**. Variables are often correlated with other non-observed variables which may cause the effects observed on the independent variable in reality. This is why we cannot always be sure that X is causing the observed changes on Y.
 
 ## Model evaluation
 
-You do not need to reproduce the code of this section in your own script.
+In the next section, we suggest you to focus on the interpretation of the results of the linear model. You do not need to reproduce the code.
 
 ### Model summary
 

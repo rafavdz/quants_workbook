@@ -4,7 +4,7 @@
 
 In the last lab we mentioned that one of the advantages of linear regression is that we can include more than one independent (explanatory) variable to evaluate their relationship with the dependent variable. This technique is known as multivariate linear regression. In practice, few studies in quantitative social research rely only on simple linear models. This is because often in reality there is more than one variable associated to a social phenomenon. This is why it is important to familiarise yourself with the multivariate linear model.
 
-## Multivariete model
+## Multivariate model
 
 The multivariate linear model is based on the same principles as the simple linear model. It is worth remembering that this model is appropriate only when we have a numeric (interval/ratio) dependent variable. As a rule-of-thumb, a variable can be treated as numeric when you have at least 7 ordered categories (Fogarty, 2019). As mentioned before, we can use any type of independent variables, such as ordinal, categorical and numeric. More than one and a combination of these can be analysed simultaneously.
 
@@ -89,7 +89,7 @@ sum(residuals(m1) ^ 2)
 
 Yes, it improved! Before, it was about 1,175, as we saw in the last lab workbook.
 
-### Multivariete model specification
+### Multivariate model specification
 
 After the introduction of the simple linear model, the formal definition of the multivariate linear model should not look that scary, right? In essence, this equation tells us how $\hat{y}$ is described/explained by other variables.
 
@@ -127,10 +127,13 @@ In the previous section, we used a small random sample of 40 people only. Now, l
 
 First, we need to coerce the `placeliv` variable as factor. And we will have a quick look at a table of this variable to have an idea of how respondents are distributed and see how the factor levels are ordered.
 ```{r}
-# coerce to factor
-nilt$placeliv <- as_factor(nilt$placeliv)
+# Coerce to factor
+nilt <- nilt %>% 
+  mutate(placeliv = as_factor(placeliv))
+# Create table
 table(nilt$placeliv)
 ```
+
 
 We see that most of the respondents live in 'a small city or town'. Also, note that the category 'Dont know' contains 0 observations. Let's use the function `droplevels()` to remove the unused category in our variables. This also means that the first level in this variable will be 'a big city'. Then, we will fit the model and store it in an object called `m2`.
 ```{r}
@@ -191,13 +194,13 @@ There are many assumption for the linear regression model, but we will introduce
 
 A first step to identify potential violations of the points above is to assess the distribution of the residuals by looking to the quartiles, mean and histogram. There are many other specific tests and techniques that can help us to know whether we met the assumptions and more importantly that can help to correct them.
 
-For the moment we will leave it here. The important thing is to be aware of the existence of these potential problems and to be transparent with the results you produce. For now, I would suggest you to acknowledge the limitations of your assumptions checks.
+For the moment, we will leave it here. The important thing is to be aware of the existence of these potential problems and to be transparent with the results you produce. For now, I would suggest you to acknowledge the limitations of your assumptions checks.
 
 ## Lab activities
 
 Set an R Markdown document in your 'NILT2' project as following:
 
-1. Create a new Rmd file, type 'Multivariate linear model' in 'Tile' section and your name in the 'Author' box. Leave the 'Default Output Format' as `HTML`.
+1. Create a new `Rmd` file, type 'Multivariate linear model' in 'Tile' section and your name in the 'Author' box. Leave the 'Default Output Format' as `HTML`.
 2. Save the Rmd document as 'Multivariate_lab'.
 3. Erase all the contents in the Rmd default example with the exception of the first bit (that contains the YALM) and the first R chunk (which contains the default chunk options), that is all from line 12 and on.
 

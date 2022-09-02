@@ -196,7 +196,7 @@ From the result above, we have a correlation matrix that computes the _Person_ c
 * Using the `nilt` data object, compute a correlation matrix using the following variables: `rage`, `persinc2`, `mil10yrs`, `miecono` and `micultur`, setting the `use` argument to `'pairwise.complete.obs'` and rounding the result to 3 decimals;
 * Run the chunk individually and comment whether personal income or age is correlated with the perception of migrants in relation to the specific aspects asked in the variables measured (consult the documentation in p. 14 to get a description of these variables);
 * Knit the `Lab7_correlation` Rmd document to `.html` or `.pdf`. The output document will automatically be saved in your project.
-* Discuss your overall results with your neighbour or tutor.
+* Discuss your previous results with your neighbour or tutor.
 
 
 <!-- ## Critical Appraisal: Practice -->
