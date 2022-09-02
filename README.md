@@ -2,7 +2,7 @@
 
 A step-by-step guide for conducting quantitative research in R by [Rafael Verudzco Torres](https://github.com/rafavdz) and Dr. Mark Wong.
 
-The on-line book can be accessed in the following link: <https://bookdown.org/jovet255/lab-workbook/>.
+The online book is available: <https://bookdown.org/jovet255/lab-workbook/>.
 
 It is targeted to University of Glasgow students enrolled in the Undergraduate Quantitative Research Methods course of the School of Social & Political Sciences. The activities are designed for [RStudio Cloud](https://rstudio.cloud/).
 
