@@ -252,7 +252,7 @@ Note that the changes made in your script are saved automatically in RStudio Clo
 Discuss the following questions with your neighbour or tutor:
 
 1. What are the main differences between working on a `R` script file (pane 1) and directly on the console (pane 3)?
-2. What happens if when run the following code? (tip: look at the environment tab in pane 2)
+2. Can you describe what happens when your run the following code? (tip: look at the environment tab in pane 2)
 ```{r}
 object1 <- 10
 object1 <- 30
