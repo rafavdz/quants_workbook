@@ -59,7 +59,7 @@ To get started, follow the next steps:
 <!-- 4. If required by the platform, access your UoG email and verify your address by following the instructions you received in an email. -->
 
 <!-- The following instructions are according to the SSO -->
-1. Click on this link [RStudio Cloud](https://rstudio.cloud/), which should automatically open a new tab in your web browser or go directly to the browser and copy this URL: https://rstudio.cloud/;
+1. Click on this link [RStudio Cloud - SSO](https://sso.rstudio.cloud/glasgow), which should automatically open a new tab in your web browser or go directly to the browser and copy this URL: <https://sso.rstudio.cloud/glasgow>;
 2. Enter your University of Glasgow email address in the login page as normal;
 3. Then it gets linked to the SSO sign-in page, which you input your GUID and password (same page as if you're logging into the library portal/e-reading list);
 ```{r fig.cap="SSO Login", echo=FALSE}
