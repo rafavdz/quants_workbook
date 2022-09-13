@@ -19,13 +19,13 @@ At this point you may be wondering why you need to bother learning these tools. 
 
 R can be applied in a wide variety of fields and subjects, including not only those in the social sciences (e.g. sociology, politics or policy research), but also in humanities (e.g. history, digital humanities), natural and physical sciences (e.g. biology, chemistry or geography), health (e.g. medical studies, public health, epidemiology), business and management (e.g. finance, economics, marketing), among many others. 
 
-The broad application of R is due to its flexibility which allows to perform a range of tasks related to data. These cover tasks at initial stages, such as downloading, mining, or importing data. But it is also useful to manipulate, edit, transform, and organize information. Furthermore and most important for us, there are a set of tools that allows us to analyse data using a range of statistical techniques. These are useful to understand, summarize and draw conclusions about samples, e.g. people. Lastly, `R` is powerful to communicate and share information and documents. There are several extensions (called _**packages**_ in R) that can help to produce static and interactive plots/charts, maps, written reports, interactive applications or even entire books! In fact this workbook was written from RStudio.
+The broad application of R is due to its flexibility which allows to perform a range of tasks related to data. These cover tasks at initial stages, such as downloading, mining, or importing data. But it is also useful to manipulate, edit, transform, and organize information. Furthermore and most important for us, there are a set of tools that allow us to analyse data using a range of statistical techniques. These are useful to understand, summarize and draw conclusions about samples, e.g. people. Lastly, `R` is powerful to communicate and share information and documents. There are several extensions (called _**packages**_ in R) that can help to produce static and interactive plots/charts, maps, written reports, interactive applications or even entire books! In fact this workbook was written from RStudio.
 
 ### Advantages of using R
 
 Some of the advantages of using R are the following:
 
-* It is free and open source. You do not need to pay for a license. Thus you can use it at any-where any-time even if you do not have an affiliation to an institution or organization (e.g. University or workplace);
+* It is free and open source. You do not need to pay for a license. Thus you can use it anywhere at anytime even if you do not have an affiliation to an institution or organization (e.g. University or workplace);
 * It is a collaborative project. This means that it is the users who maintain, extend and update its applications;
 * It is reproducible. Research can be more transparent since you will get the same results every time you run your analysis through a specific pathway (i.e. through scripts);
 * High compatibility. You can read and produce most types of file extensions;
@@ -43,8 +43,8 @@ Some of the advantages of using R are the following:
 
 <!-- Of course the examples above are meant for you to have a sense of the flexibility and potential to process and communicate quantitative analyses in `R`. This course covers the basics to process data and conduct quantitative analyses in social sciences. -->
 
-## Get started
-### Setting RStudio
+## Getting started
+### Setting up RStudio
 
 At this point you need to know that there are at least two alternatives to start using RStudio. One, and by far the most common, is to download both `R` and RStudio and install the applications in your local drive. The other option is RStudio Cloud. This is an on-line version of RStudio that does not require installing any additional software. You can run it directly from your browser (e.g. GoogleChrome, Safari, Firefox, etc). For now, we will use the cloud version. 
 
@@ -65,7 +65,7 @@ To get started, follow the next steps:
 ```{r fig.cap="SSO Login", echo=FALSE}
 knitr::include_graphics("./images/sso_login.png")
 ```
-4. Done! You will be taken you into your own Rstudio Cloud work space as usual. 
+4. Done! You will be taken you into your own Rstudio Cloud work space. 
 
 
 <br>
@@ -112,26 +112,26 @@ knitr::include_graphics("./images/rstudio_cloud_new_script.png")
 
 Once you have created your first R Script, save it by clicking on File > Save as.. > `[write the name of your file]`. 
 
-After this, your RStudio screen will be split in four **imporant** windows or panes as shown below:
+After this, your RStudio screen will be split in four **important** windows or panes as shown below:
 
 <br>
 ```{r fig.cap="R Studio panes.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_panels.png")
 ```
 
-* In **Pane 1**, you have your newly created `R` script. This is the area where you will be working most of the time. From here, you will write functions. To run a an `R` script line, you can click on the `Run` green arrow situated on the top of pane 1 or more commonly you can run a code line by typing `alt + enter`. The things you write in this section will be saved in your R script file.
+* In **Pane 1**, you have your newly created `R` script. This is the area where you will be working most of the time. From here, you will write functions. To run an `R` script line, you can click on the `Run` green arrow situated on the top of pane 1 or more commonly you can run a code line by typing `alt + enter`. The things you write in this section will be saved in your R script file.
 ![Run button](./images/rstudio_cloud_run_button.png)
 * In **Pane 2**, you have the "Global Environment", this is one of the most useful tabs in this pane. It shows you the active 'objects' that you have available/loaded in your current session (this will probably make more sense in the coming sections).
 * In **Pane 3**, you have the R Console, this is where you will see most of the results of the functions you run from your script (pane 1). You can also write and run functions from here, by typing the function and hitting enter. NOTE that what you do here will NOT be saved, this is usually used to quickly call functions that you do not want to save in your script.
 ```{r fig.cap="Console.", echo=FALSE}
 knitr::include_graphics("./images/rstudio_cloud_console.png")
 ```
-* Finally, in **Pane 4** you have multiple useful tabs. In the `File` tab you can see the files and directories that you have in your R project. In the `Plot` tab you will see a preview of the static plots/charts your will be producing form your script. In `Packages`, you have a list of the extensions or plug-ins (called 'packages' in R) that are installed in your working environment. The `Help` contains some resources that clarify or expand what each of the functions does. Again, probably this will make more sense once you get started. We will come back to this later. Finally, the `Viewer` displays interactive outputs.
+* Finally, in **Pane 4** you have multiple useful tabs. In the `File` tab you can see the files and directories that you have in your R project. In the `Plot` tab you will see a preview of the static plots/charts you will be producing from your script. In `Packages`, you have a list of the extensions or plug-ins (called 'packages' in R) that are installed in your working environment. The `Help` contains some resources that clarify or expand what each of the functions does. Again, probably this will make more sense once you get started. We will come back to this later. Finally, the `Viewer` displays interactive outputs.
 
 ## Hands on R
 
 Now you are ready! It is your turn to start exploring and getting familiar with R by completing the following activities.
-
+5 
 #### R as calculator
 
 Go to your **console** (pane 3, bottom-left pane), write some simple calculations and run them by typing 'enter' after each of them, as shown below.
@@ -168,7 +168,7 @@ Perhaps logical operators do not make much sense at this point, but you will fin
 
 In `R`, it is very common (and practical) to store values or data as 'objects'. These are temporally stored in your current session. Let's try it! 
 
-Now, we will work in the `R` script file (**Pane 1**, top-left pane), write the following and run it by clicking the green arrow or using `alt + ent`:
+Now, we will work in the `R` script file (**Pane 1**, top-left pane), write the following and run it by clicking the green arrow or using `alt + enter`:
 
 ```{r eval = FALSE}
 a <- 10
@@ -188,9 +188,9 @@ a  *  c
 
 As you can see, you stored the numeric value `3` in the variable `c`. Then, you called the previously created object `a` in a multiplication. 
 
-In the same way as you assigned this simple variables, you will store other type of objects later, e.g. vectors, data frames or lists. This is useful because those objects will be ready in your session to do some computations.
+In the same way as you assigned these simple variables, you will store other types of objects later, e.g. vectors, data frames or lists. This is useful because those objects will be ready in your session to do some computations.
 
-There are few things to note when assigning objects to variables. If you use a different value to the same variable, e.g. by typing `a <- 5`, you will replace the old value with the new. So, instead of having `a` representing the value 10, you will have `5`. You can see the objects available in your session on the Global Environment ('Environment' tab in Pane 2) as shown below.
+There are a few things to note when assigning objects to variables. If you use a different value to the same variable, e.g. by typing `a <- 5`, you will replace the old value with the new. So, instead of having `a` representing the value 10, you will have `5`. You can see the objects available in your session on the Global Environment ('Environment' tab in Pane 2) as shown below.
 
 <br>
 ```{r fig.cap="'Environment' tab.", echo=FALSE}
