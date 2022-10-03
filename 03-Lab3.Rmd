@@ -82,7 +82,7 @@ nilt <- nilt %>%
   )
 ```
 
-Before doing some analyses, we will drop unused levels (or categories) in our dataset using the function `droplevels()`. Also, we will create a smaller subset that contains only the variables that we are interested in at the moment. To do this, use the `select()` function specifying the name of the original data first, and then the name of the variables we want to keep separated by a comma. Assign the result into a new object called `nilt_subset`.
+Before doing some analyses, we will drop unused levels (or categories) in our dataset using the function `droplevels()`, as following:
 
 ```{r}
 # drop unused levels
