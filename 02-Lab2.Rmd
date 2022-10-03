@@ -173,7 +173,7 @@ police <- read_csv("data/police-killings/police_killings.csv")
 
 ### Examining the data
 
-If you look at your 'Environment' tab in pane 2, you will see there is a new object called `police`, which has 87 observations and 34 variables (or columns). To start exploring the contents, we will glimpse the `police` data as following:
+If you look at your 'Environment' tab in pane 2, you will see there is a new object called `police`, which has 467 observations and 34 variables (or columns). To start exploring the contents, we will glimpse the `police` data as following:
 ```{r eval = FALSE}
 glimpse(police)
 ```
