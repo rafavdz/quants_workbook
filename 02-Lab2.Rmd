@@ -247,6 +247,17 @@ Discuss the following questions with your neighbour or tutor:
 2. What does *coerce* mean in the context of `R`? and Why do we need to coerce some variables?
 3. What is the `mutate()` function useful for?
 
+Using the police_2 dataset:
+
+1. Filter how many observations are ‘White’ in `raceethnicity`? How may rows/observations are left?
+2. How many ‘Latino/Hispanic’ are there in the dataset?
+3. Using the example of Figure 2.3, could you filter how many were killed that were (a) 'Black' and (b) killed by firearm ('firearm')?
+4. What about 'White' and 'firearm'?
+
+<!-- Extra activities: -->
+<!-- 1. Why did you have to use quotes in the following: `filter(police, raceethnicity==”White” & raceethnicity==”firearm”)`? -->
+<!-- 2. What do you have to repeat the variable `raceethnicity` twice? -->
+
 
 This is the end of Lab 2. Again, the changes in your script should be saved automatically in R Studio Cloud. However, make sure this is the case as you were taught in Lab 1. After this, you can close the tab in your web browser. Hope you had fun!
 

@@ -89,6 +89,8 @@ Before doing some analyses, we will drop unused levels (or categories) in our da
 nilt <- droplevels(nilt)
 ```
 
+The previous function is useful to remove some categories that are not being used in the dataset (e.g. categories including 0 observations).
+
 Finally, save the NILT survey in an `.rds` file (this is the R format). We will not use this file now, but this will save us time formatting the dataset in next labs (So, we do not have to repeat the steps above every time).
 ```{r}
 saveRDS(nilt, "data/nilt_r_object.rds")
